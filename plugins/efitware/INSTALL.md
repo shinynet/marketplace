@@ -9,7 +9,7 @@ This is a preview, separate from an accepted public-directory listing. Tool avai
 Add the marketplace on **claude.ai** (the website). The Desktop app's own Add marketplace dialog currently does not register a marketplace, and only claude.ai has the menu that updates or removes one. Once added on claude.ai, the marketplace and plugin appear in the Desktop app as well.
 
 1. On claude.ai, open Customize → Plugins → Add → Add marketplace → Add from a repository.
-2. Pick `shinynet/efitware-marketplace` from the GitHub list (search for it if it is not shown) and click Sync. The dialog closes and the Discover tab switches to a view filtered to this marketplace, showing one eFitware card.
+2. Pick `shinynet/marketplace` from the GitHub list (search for it if it is not shown) and click Sync. The dialog closes and the Discover tab switches to a view filtered to this marketplace, showing one eFitware card.
 3. Click **Add** on that card. eFitware now appears under Plugins → Yours.
 4. Open the eFitware plugin, then its **Connectors** tab. Click **Connect**, keep the pre-filled endpoint `https://app.efitware.com/mcp/v1` and the detected sign-in settings, click Add, then click Connect again and sign in to your eFitware account.
 5. Start a new conversation and ask for your training context or your progress.
@@ -22,7 +22,7 @@ Until step 4 is done, a chat loads the eFitware skill but has no eFitware tools.
 
 Add `https://www.efitware.com/marketplace.git` using the desktop Add marketplace control, or run `codex plugin marketplace add https://www.efitware.com/marketplace.git`. Select eFitware from that marketplace, install it and complete normal OAuth. Start a fresh task to load the skill. The CLI can also install with `codex plugin add efitware@efitware`.
 
-The direct repository URL `https://github.com/shinynet/efitware-marketplace.git` is also supported. Choose one source for the `efitware` marketplace. Both sources use the same plugin identity; the website advances only after a compatible production deployment.
+The direct repository URL `https://github.com/shinynet/marketplace.git` is also supported. Choose one source for the `efitware` marketplace. Both sources use the same plugin identity; the website advances only after a compatible production deployment.
 
 ## Updates and removal
 
