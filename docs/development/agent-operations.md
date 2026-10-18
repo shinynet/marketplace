@@ -8,9 +8,42 @@ Use another agent's suitable tools/authorized access to resolve capability block
 
 ## GitHub identities
 
-Claude writes as `claude-efitware-bot[bot]`, the GitHub App now owned by the `shinynet` organization; Codex writes as `devinholloway` (formerly `shinynet`). Repositories live in the `shinynet` GitHub organization. On this Mac, bare `gh` is `devinholloway`. Verify the effective actor before writes and use an account different from the PR author for reviews. Selecting a model does not switch shell credentials. Use the existing connected tool/client for that identity; do not globally switch accounts.
+Use separate GitHub App identities for agent PRs, reviews, comments, pushes and other GitHub writes. Both Apps are owned by the `shinynet` organization:
 
-On this Mac, Claude's existing wrapper is `~/.config/claude-efitware-bot/bot-gh`; its Git helper is `~/.config/claude-efitware-bot/git-credential-bot`. Keep commit/push identity task- or command-scoped, including internal-guidance pushes. Verify equivalent access on other hosts. Never print tokens, use Vercel `--token` arguments or load sibling environment files.
+- **Claude:** `shinynet-claude[bot]`, using `~/.config/shinynet-claude/bot-gh` for API/CLI writes and `~/.config/shinynet-claude/git-credential-bot` for Git pushes.
+- **Codex:** `shinynet-codex[bot]`, using `~/.config/shinynet-codex/bot-gh` for API/CLI writes and `~/.config/shinynet-codex/git-credential-bot` for Git pushes.
+- **Devin:** `devinholloway`. Bare `gh` on this Mac is Devin's human login, not an agent identity. Do not switch its active account or change global Git configuration.
+
+Before each write session, verify the effective actor and compare it with the PR author. Reviews must come from a different identity than the PR author. Selecting a model or setting Git author metadata does not switch API/push credentials. Verify the wrappers without exposing their short-lived installation tokens:
+
+```sh
+~/.config/shinynet-claude/bot-gh api graphql -f query='{viewer{login}}' --jq .data.viewer.login
+~/.config/shinynet-codex/bot-gh api graphql -f query='{viewer{login}}' --jq .data.viewer.login
+```
+
+The expected logins are `shinynet-claude[bot]` and `shinynet-codex[bot]`. Use the appropriate wrapper for all hosted writes, including `pr create` and `pr review`. On other hosts, verify the equivalent service-account client; do not copy Mac credentials or assume a connected GitHub tool has the correct actor.
+
+### Commit and push identity
+
+Configure only the dedicated task/review worktree. Enable worktree configuration in the repository if needed, then select the matching bot's author and credential helper. For Codex:
+
+```sh
+git config extensions.worktreeConfig true
+git config --worktree user.name 'shinynet-codex[bot]'
+git config --worktree user.email '344530680+shinynet-codex[bot]@users.noreply.github.com'
+git config --worktree --replace-all credential.https://github.com.helper ''
+git config --worktree --add credential.https://github.com.helper "$HOME/.config/shinynet-codex/git-credential-bot"
+```
+
+Claude uses `shinynet-claude[bot]`, email `287879316+shinynet-claude[bot]@users.noreply.github.com`, and `$HOME/.config/shinynet-claude/git-credential-bot` in the corresponding commands. The empty helper entry clears inherited GitHub helpers so a push cannot fall back to Devin's human credentials. Preserve other worktrees' identities.
+
+Claude's old `~/.config/claude-efitware-bot` directory is a compatibility symlink to `~/.config/shinynet-claude`. Existing helper paths continue to work; remove the compatibility path only after remaining worktrees/threads migrate. Use the new paths for new work.
+
+### Human connector boundary
+
+The ChatGPT Codex Connector acts as the signed-in human. Local Codex must not use it for GitHub writes. Devin decided on 2026-10-18 to keep it installed only for optional ChatGPT cloud tasks; that installation does not authorize local agents to write as Devin. Human-authenticated PAT/MCP clients are likewise unsuitable for agent writes.
+
+Keep App keys outside repositories in owner-only config directories (mode `700`), with PEM files mode `600` and executable token/helper wrappers mode `700`. Never print or commit keys/tokens, put credentials in command-line arguments, use Vercel `--token` arguments or load sibling environment files.
 
 ## Shared environment
 
