@@ -8,7 +8,7 @@ Use another agent's suitable tools/authorized access to resolve capability block
 
 ## GitHub identities
 
-Claude writes as `claude-efitware-bot[bot]`; Codex writes as `shinynet`. Verify the effective actor before writes and use an account different from the PR author for reviews. Selecting a model does not switch shell credentials. Use the existing connected tool/client for that identity; do not globally switch accounts.
+Claude writes as `claude-efitware-bot[bot]`, the GitHub App now owned by the `shinynet` organization; Codex writes as `devinholloway` (formerly `shinynet`). Repositories live in the `shinynet` GitHub organization. On this Mac, bare `gh` is `devinholloway`. Verify the effective actor before writes and use an account different from the PR author for reviews. Selecting a model does not switch shell credentials. Use the existing connected tool/client for that identity; do not globally switch accounts.
 
 On this Mac, Claude's existing wrapper is `~/.config/claude-efitware-bot/bot-gh`; its Git helper is `~/.config/claude-efitware-bot/git-credential-bot`. Keep commit/push identity task- or command-scoped, including internal-guidance pushes. Verify equivalent access on other hosts. Never print tokens, use Vercel `--token` arguments or load sibling environment files.
 

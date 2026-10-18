@@ -23,7 +23,7 @@ export const promoteRelease = async (receipt: z.infer<typeof promotionReceiptSch
   promotionReceiptSchema.parse(receipt)
   if (!token) throw new Error('Release metadata credential unavailable')
   const tag = `v${receipt.version}`
-  const api = 'https://api.github.com/repos/shinynet/efitware-marketplace'
+  const api = 'https://api.github.com/repos/shinynet/marketplace'
   const call = async (path: string, body?: object) => {
     const response = await request(`${api}${path}`, {
       method: body ? 'PATCH' : 'GET', redirect: 'error', signal: AbortSignal.timeout(20_000),
@@ -37,7 +37,7 @@ export const promoteRelease = async (receipt: z.infer<typeof promotionReceiptSch
   if (before.tag_name !== tag) throw new Error('Release tag mismatch')
   const download = async (name: string) => {
     const asset = before.assets.find(asset => asset.name === name)
-    const url = `https://github.com/shinynet/efitware-marketplace/releases/download/${tag}/${name}`
+    const url = `https://github.com/shinynet/marketplace/releases/download/${tag}/${name}`
     if (!asset || asset.browser_download_url !== url) throw new Error(`Missing or unexpected release asset: ${name}`)
     const response = await request(url, { signal: AbortSignal.timeout(20_000) })
     if (!response.ok) throw new Error(`Release asset download failed (${response.status})`)

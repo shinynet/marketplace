@@ -11,7 +11,7 @@ const fixture = (opts: { corrupt?: boolean, published?: boolean, changedAfter?: 
   }))
   const assets = ([['manifest.json', manifest], ['skill.zip', content]] satisfies Array<[string, Uint8Array]>).map(([name, bytes], at) => {
     return { id: at + 1, name, size: bytes.length, digest: `sha256:${hash(bytes)}`, updated_at: '2026-10-06T00:00:00Z',
-      browser_download_url: `https://github.com/shinynet/efitware-marketplace/releases/download/v0.1.31/${name}` }
+      browser_download_url: `https://github.com/shinynet/marketplace/releases/download/v0.1.31/${name}` }
   })
   const release = { id: 100, tag_name: 'v0.1.31', immutable: true, prerelease: !opts.published, assets }
   const receipt = { version: '0.1.31', commit: 'a'.repeat(40), manifestSha256: hash(manifest), minimumAppCommit: 'b'.repeat(40),

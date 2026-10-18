@@ -1,6 +1,6 @@
 # eFitware marketplace agent instructions
 
-`shinynet/efitware-marketplace` owns public client plugins/skills, Vue MCP App views, consumer schemas and immutable release artifacts. Default branch: `main`. Jira: `EF` on `shinynet.atlassian.net`.
+`shinynet/marketplace` owns public client plugins/skills, Vue MCP App views, consumer schemas and immutable release artifacts. Default branch: `main`. Jira: `EF` on `shinynet.atlassian.net`.
 
 ## Working rules
 
