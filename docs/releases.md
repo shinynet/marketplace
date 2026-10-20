@@ -6,7 +6,7 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
-## Canonical training-space equipment (EF-2090, source prepared)
+## Canonical training-space equipment (0.1.40, EF-2090, source prepared)
 
 The context card consumes `trainingSpaces[].equipment.items` only. Official and
 account-owned custom equipment share that identity list; custom labels still
@@ -25,6 +25,14 @@ render both official and custom labels in English and German. Malformed or
 missing `items` remains invalid. Published 0.1.39 bytes remain immutable; these
 source changes require a new owner artifact and matching application pin before
 the updated consumer is delivered. No release is published by this source PR.
+
+Both plugin manifests prepare 0.1.40. `contract/server-contract.json` records
+`8c7f26843ba4389e103930c3d24e8960c17aae0a` (app PR #1663) as the minimum
+capability source for strict items-only training-space writes; this is not
+served-deployment evidence. Tool inventory is unchanged. The reviewed behavior
+source from PR #46 is preserved through merge
+`1b562488e7f84e2d595523518a02b13313ccb515`. The staged-release notes describe
+the later artifact/pin boundary without advancing catalog or promotion metadata.
 
 ## Logging starts a session, the long day and the max heart rate (0.1.39, EF-1897)
 
