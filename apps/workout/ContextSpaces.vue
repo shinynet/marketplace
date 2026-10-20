@@ -27,7 +27,7 @@ const equipment = (id: string) => context.record.customEquipment.find(item => it
       >
         {{ t('contextUi.unconfigured') }}
       </p><p
-        v-else-if="!space.equipment.items.length && !space.equipment.custom.length"
+        v-else-if="!space.equipment.items.length"
         class="mt-3 text-muted"
       >
         {{ t('contextUi.emptyInventory') }}
@@ -40,11 +40,6 @@ const equipment = (id: string) => context.record.customEquipment.find(item => it
           :key="item"
         >
           {{ equipment(item) }}
-        </li><li
-          v-for="item in space.equipment.custom"
-          :key="item"
-        >
-          {{ item }}
         </li>
       </ul><p
         v-if="space.notes"

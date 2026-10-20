@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { readFileSync } from 'node:fs'
 import { Ajv } from 'ajv'
 import { expect, it } from 'vitest'
@@ -22,6 +23,7 @@ it('keeps the published context vocabulary and exact memory revision projection 
 
 it('accepts labelled equipment inventory and renders offered added-weight gear in both locales', async () => {
   const schema = JSON.parse(readFileSync(new URL('./context-view.schema.json', import.meta.url), 'utf8'))
+  expect(schema).toEqual(z.toJSONSchema(contextViewSchema, { io: 'input', target: 'draft-07' }))
   const validate = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(schema)
   const plateSetId = 'pls-7b6e1189-869b-4e2b-86e5-b91441386ae6'
   const loads = {
@@ -44,10 +46,11 @@ it('accepts labelled equipment inventory and renders offered added-weight gear i
       view: 'context',
       record: {
         profile: { preferredName: null, heightCm: null, weight: null, trainingGoals: [], trainingInterests: [], sportEventContext: '', focusAreas: [], motivation: '', experience: null, daysPerWeek: null, availableDays: [], minutesPerSession: null, goalWeight: null, bodyFat: null, restingHeartRate: null, measurements: {} },
-        health: { limitations: [], healthNotes: '' }, customEquipment: [],
+        health: { limitations: [], healthNotes: '' }, customEquipment: [{ id: 'private-stone', name: 'Garden stone', trainingInterests: [] }],
         trainingSpaces: [
-          { id: 'ts-home', name: 'Home', access: 'selected', equipment: { items: loads.equipment.map(entry => entry.equipmentId), custom: [] }, notes: '', isDefault: true, loads },
-          { id: 'ts-gym', name: 'Gym', access: 'unconfigured', equipment: { items: [], custom: [] }, notes: '', isDefault: false, loads: { plateSets: [], equipment: [] } }
+          { id: 'ts-home', name: 'Home', access: 'selected', equipment: { items: loads.equipment.map(entry => entry.equipmentId) }, notes: '', isDefault: true, loads },
+          { id: 'ts-gym', name: 'Gym', access: 'unconfigured', equipment: { items: [] }, notes: '', isDefault: false, loads: { plateSets: [], equipment: [] } },
+          { id: 'ts-empty', name: 'Empty room', access: 'selected', equipment: { items: [] }, notes: '', isDefault: false }
         ],
         preferences: { ...presentation, weekStart: 'monday' },
         context: { today: '2026-10-06', timezone: 'Europe/Berlin', unitSystem, weekStart: 'monday', locale: 'en' }
@@ -58,13 +61,24 @@ it('accepts labelled equipment inventory and renders offered added-weight gear i
     const before = structuredClone(input)
     expect(validate(input), JSON.stringify(validate.errors)).toBe(true)
     expect(input).toEqual(before)
+    // The canonical items array stays required and typed; retiring custom
+    // must not turn a malformed inventory into an empty valid one.
+    for (const equipment of [{}, { items: [42] }]) {
+      const invalid = { ...input, record: { ...input.record, trainingSpaces: [{ ...input.record.trainingSpaces[0], equipment }] } }
+      expect(validate(invalid)).toBe(false)
+      expect(contextViewSchema.safeParse(invalid).success).toBe(false)
+    }
     for (const locale of ['en', 'de'] as const) {
       const context = contextViewSchema.parse(input)
-      context.record.trainingSpaces[0]!.equipment.items = ['dip_belt', 'ruck_pack', 'ankle_weights']
+      context.record.trainingSpaces[0]!.equipment.items = ['dip_belt', 'ruck_pack', 'ankle_weights', 'private-stone']
       const app = createSSRApp(ContextSpaces, { context, canWrite: false, makeDefault: () => undefined, sendFollowUp: async () => 'unsupported' as const })
       app.use(createI18n({ legacy: false, locale, fallbackLocale: 'en', messages }))
       const html = await renderToString(app)
       const expected = locale === 'en' ? ['Dip belt', 'Weighted pack', 'Ankle weights'] : ['Dip-Gürtel', 'Gewichtsrucksack', 'Knöchelgewichte']
+      expect(context.record.trainingSpaces[0]!.equipment).toEqual({ items: ['dip_belt', 'ruck_pack', 'ankle_weights', 'private-stone'] })
+      expect(html).toContain('Garden stone')
+      expect(html).toContain(messages[locale].contextUi.emptyInventory)
+      expect(html).toContain(messages[locale].contextUi.unconfigured)
       for (const label of expected) expect(html).toContain(label)
       for (const id of context.record.trainingSpaces[0]!.equipment.items) expect(html).not.toContain(`>${id}<`)
     }
