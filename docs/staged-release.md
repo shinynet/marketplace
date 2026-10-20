@@ -1,7 +1,22 @@
-Version 0.1.39 delivers EF-1897 skill guidance. Only logging starts a planned session (EF-1895): the first logged set, completed set, logged activity or group score, or an explicit `start_workout`. Planning edits never do. The `update_user_profile` rules describe the long day `longSession` (EF-1870) and the stated maximum heart rate `maxHeartRate` (EF-1874), and the `create_custom_exercise` row says a cardio exercise tracks every cardio metric unless a flag is set false (EF-1885).
+Version 0.1.40 prepares the EF-2090 canonical training-space equipment contract.
+The card, generated context schema and skill consume/send only
+`trainingSpaces[].equipment.items`, containing official slugs and account-owned
+`ceq-` ids. Custom labels resolve through `record.customEquipment`. Empty and
+unconfigured inventory states and required/typed `items` validation are retained.
 
-Producer requirement: none. The application already serves every behaviour the skill describes. The card, schemas, fixtures, tool inventory and `contract/server-contract.json`, including its minimum application commit, are unchanged.
+Approved behavior source is marketplace PR #46, merged without squashing at
+`1b562488e7f84e2d595523518a02b13313ccb515`; its reviewed head
+`c261b041adea69930a1698eeb3f6b38e654d4df1` remains in ancestry. This successor
+changes only version and source/compatibility metadata. `minimumAppCommit` is
+`8c7f26843ba4389e103930c3d24e8960c17aae0a` (app PR #1663), the capability source
+that contracts training-space writes to strict items-only inventories. It is
+not a claim about a serving deployment. Tool inventory is unchanged.
 
-Independently approved source `8775f76546390aaf16aa613a1d24932f89cc2da7` is preserved by annotated tag `v0.1.39`; immutable release `415867419` has 27 assets and manifest SHA-256 `0fbf6d354d893a6050ac167c7fdadc32a05d2163c64e631b8d530b92f6e67aa5`. App PR #1504 was approved at `71290f5776745561e29164e9208d9f4518da9d93`; merge `dd7cb5abb2d2f2e1c0dc16f1d810b1852346c6be` is serving exact production READY in `dpl_FtuPX2qTTnUezvibq3x29mbqYJTS`. All four application downloads match the immutable bytes. The recorded minimum application commit 142c6cc6c951cc8a558477ed5145151144ae218b identifies capability source, not the squash merge or serving deployment.
-
-The promotion receipt and published catalog advance only after independent review of this final metadata change. Merge must preserve the annotated source. The metadata-only promotion workflow verifies all immutable asset identities before marking the release published/latest. The website mirror follows its own approved serving deployment. External Desktop activation is a separate acceptance surface.
+This is source preparation. No v0.1.40 tag, immutable assets, application pin,
+catalog promotion, application release or deployment is claimed here. Existing
+0.1.39 assets remain immutable. After separate publication authorization, the
+existing tag-triggered stage-release workflow must build the exact approved
+source, preserve that tagged source in main ancestry and publish new staged
+assets with the generated manifest's actual commit and hashes. The app then
+pins that actual manifest and verifies its affected context contract. Promotion
+and the final application release remain separate owner decisions.
