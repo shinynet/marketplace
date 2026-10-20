@@ -6,6 +6,26 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
+## Canonical training-space equipment (EF-2090, source prepared)
+
+The context card consumes `trainingSpaces[].equipment.items` only. Official and
+account-owned custom equipment share that identity list; custom labels still
+resolve through `record.customEquipment`. The retired per-space `custom` string
+list is neither required by the context schema nor read by the card. Selected
+spaces with an empty list keep their empty-inventory state, and unconfigured
+spaces keep their existing state.
+
+The skill now instructs inventory writes to send only `equipment.items`, using
+canonical slugs and account-owned `ceq-` ids from the read inventory. Custom
+labels remain owned by `customEquipment`; no retired per-space array is sent.
+
+The owner Zod schema generates `contract/context-view.schema.json`. Independent
+context fixtures validate the items-only payload without coercion/defaults and
+render both official and custom labels in English and German. Malformed or
+missing `items` remains invalid. Published 0.1.39 bytes remain immutable; these
+source changes require a new owner artifact and matching application pin before
+the updated consumer is delivered. No release is published by this source PR.
+
 ## Logging starts a session, the long day and the max heart rate (0.1.39, EF-1897)
 
 Skill-only change. No card, schema, fixture or tool-inventory change, so `contract/server-contract.json` and its `minimumAppCommit` are unchanged.

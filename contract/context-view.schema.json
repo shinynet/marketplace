@@ -337,17 +337,10 @@
                     "items": {
                       "type": "string"
                     }
-                  },
-                  "custom": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
                   }
                 },
                 "required": [
-                  "items",
-                  "custom"
+                  "items"
                 ]
               },
               "notes": {
