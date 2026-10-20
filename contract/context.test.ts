@@ -46,7 +46,7 @@ it('accepts labelled equipment inventory and renders offered added-weight gear i
       view: 'context',
       record: {
         profile: { preferredName: null, heightCm: null, weight: null, trainingGoals: [], trainingInterests: [], sportEventContext: '', focusAreas: [], motivation: '', experience: null, daysPerWeek: null, availableDays: [], minutesPerSession: null, goalWeight: null, bodyFat: null, restingHeartRate: null, measurements: {} },
-        health: { limitations: [], healthNotes: '' }, customEquipment: [{ id: 'private-stone', name: 'Garden stone', trainingInterests: [] }],
+        health: { limitations: [], healthNotes: '' }, customEquipment: [{ id: 'ceq-4d2db128-87ba-4c7e-a316-1be93a036498', name: 'Garden stone', trainingInterests: [] }],
         trainingSpaces: [
           { id: 'ts-home', name: 'Home', access: 'selected', equipment: { items: loads.equipment.map(entry => entry.equipmentId) }, notes: '', isDefault: true, loads },
           { id: 'ts-gym', name: 'Gym', access: 'unconfigured', equipment: { items: [] }, notes: '', isDefault: false, loads: { plateSets: [], equipment: [] } },
@@ -70,12 +70,12 @@ it('accepts labelled equipment inventory and renders offered added-weight gear i
     }
     for (const locale of ['en', 'de'] as const) {
       const context = contextViewSchema.parse(input)
-      context.record.trainingSpaces[0]!.equipment.items = ['dip_belt', 'ruck_pack', 'ankle_weights', 'private-stone']
+      context.record.trainingSpaces[0]!.equipment.items = ['dip_belt', 'ruck_pack', 'ankle_weights', 'ceq-4d2db128-87ba-4c7e-a316-1be93a036498']
       const app = createSSRApp(ContextSpaces, { context, canWrite: false, makeDefault: () => undefined, sendFollowUp: async () => 'unsupported' as const })
       app.use(createI18n({ legacy: false, locale, fallbackLocale: 'en', messages }))
       const html = await renderToString(app)
       const expected = locale === 'en' ? ['Dip belt', 'Weighted pack', 'Ankle weights'] : ['Dip-Gürtel', 'Gewichtsrucksack', 'Knöchelgewichte']
-      expect(context.record.trainingSpaces[0]!.equipment).toEqual({ items: ['dip_belt', 'ruck_pack', 'ankle_weights', 'private-stone'] })
+      expect(context.record.trainingSpaces[0]!.equipment).toEqual({ items: ['dip_belt', 'ruck_pack', 'ankle_weights', 'ceq-4d2db128-87ba-4c7e-a316-1be93a036498'] })
       expect(html).toContain('Garden stone')
       expect(html).toContain(messages[locale].contextUi.emptyInventory)
       expect(html).toContain(messages[locale].contextUi.unconfigured)

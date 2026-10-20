@@ -15,6 +15,10 @@ list is neither required by the context schema nor read by the card. Selected
 spaces with an empty list keep their empty-inventory state, and unconfigured
 spaces keep their existing state.
 
+The skill now instructs inventory writes to send only `equipment.items`, using
+canonical slugs and account-owned `ceq-` ids from the read inventory. Custom
+labels remain owned by `customEquipment`; no retired per-space array is sent.
+
 The owner Zod schema generates `contract/context-view.schema.json`. Independent
 context fixtures validate the items-only payload without coercion/defaults and
 render both official and custom labels in English and German. Malformed or
