@@ -1,22 +1,35 @@
-Version 0.1.40 prepares the EF-2090 canonical training-space equipment contract.
-The card, generated context schema and skill consume/send only
-`trainingSpaces[].equipment.items`, containing official slugs and account-owned
-`ceq-` ids. Custom labels resolve through `record.customEquipment`. Empty and
-unconfigured inventory states and required/typed `items` validation are retained.
+Version 0.1.41 prepares the combined exercise-unit, manual activity-progress and
+minimal withheld-calendar contracts for EF-2100 (EF-2118 / EF-2106 / EF-2103).
 
-Approved behavior source is marketplace PR #46, merged without squashing at
-`1b562488e7f84e2d595523518a02b13313ccb515`; its reviewed head
-`c261b041adea69930a1698eeb3f6b38e654d4df1` remains in ancestry. This successor
-changes only version and source/compatibility metadata. `minimumAppCommit` is
-`8c7f26843ba4389e103930c3d24e8960c17aae0a` (app PR #1663), the capability source
-that contracts training-space writes to strict items-only inventories. It is
-not a claim about a serving deployment. Tool inventory is unchanged.
+Cards and shipped instructions use explicit measurement objects for exercise
+load, distance, pace, speed and elevation. They display resolved categories,
+keep exact converted load values, and distinguish a one-off entry from an
+explicit request to remember a unit. The progress card consumes only
+`cardio.activities`: manual-only coverage, account week boundaries, range-wide
+metric optionality, zero-filled observed metrics and dated longest single
+intervals. Aggregate distance readouts use km/mi with two decimal places;
+canonical storage is exact. Minimal withheld calendar rows reveal no imported
+title or workout action. Tool inventory and plugin identity are unchanged.
 
-This is source preparation. No v0.1.40 tag, immutable assets, application pin,
-catalog promotion, application release or deployment is claimed here. Existing
-0.1.39 assets remain immutable. After separate publication authorization, the
-existing tag-triggered stage-release workflow must build the exact approved
-source, preserve that tagged source in main ancestry and publish new staged
-assets with the generated manifest's actual commit and hashes. The app then
-pins that actual manifest and verifies its affected context contract. Promotion
-and the final application release remain separate owner decisions.
+Approved behavior source `c4383acfa3e0e081d13185e135374dd5cc04f482` remains in
+this branch's ancestry. `minimumAppCommit` is `7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d`
+(app PR #1683), the combined runtime capability commit containing approved
+EF-2118 source, master `22cfcaa68aa6a6545372b5412a1438bef94fbc38` and EF-2106
+`26670b9dbfb57de320b71f8c9960ea9d5d2d3827` through merges. It precedes the
+application pin to avoid a circular dependency. It identifies capabilities,
+not a serving deployment or a published artifact.
+
+This is staged source preparation. No tag, published assets, downloaded digest,
+application pin, catalog/channel promotion or deployment is claimed. Existing
+0.1.40 assets remain immutable. After exact-head approval, the parent delivery
+owner publishes one staged immutable release through the existing tag-triggered
+`stage-release.yml` workflow. The parent independently downloads and verifies
+the manifest and assets, pins their actual identities on the combined app branch,
+and obtains pin review before master activation. Never pin a local candidate
+hash. Preserve the tagged source in main ancestry when later merging.
+
+The current application pin remains 0.1.40 and its load-grid fixture rejection
+is a known integration gate. After pinning, rerun measurement/schema/skill parity
+and the parent's integrated qualification. Authenticated external MCP saved
+readback and device qualification remain separate evidence; local protocol tests
+and synthetic card rendering do not establish them.

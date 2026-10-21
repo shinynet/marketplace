@@ -6,6 +6,31 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
+## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, source prepared)
+
+Both plugin manifests prepare 0.1.41. The card and shipped skill use explicit
+exercise measurements and resolved per-category units, retaining exact converted
+loads and requiring explicit intent for lasting preferences. The generated
+workout, template and exercise-progress schemas agree with those projections.
+Calendar rows can represent minimally withheld sessions without revealing an
+imported title or action.
+
+The progress schema and card consume activity-specific weekly observations,
+literal manual-only coverage, account week boundaries and dated longest single
+intervals. Unobserved metrics are absent range-wide; observed metrics zero-fill
+empty weeks. Assistant distances are km/mi readouts rounded to two decimals after
+canonical aggregation and conversion. There is no pooled best-effort adapter.
+The training-context schema remains about context, not cardio progress.
+
+`minimumAppCommit` is `7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d` in app PR #1683,
+the combined runtime capability commit before the later pin. It preserves the
+approved EF-2106 commit and the reviewed master dependencies by merge ancestry.
+Marketplace behavior source `c4383acfa3e0e081d13185e135374dd5cc04f482` remains
+in this candidate's ancestry. These identities are source compatibility evidence,
+not deployment or publication evidence. Tool inventory, catalogs and channels
+are unchanged. See [staged-release notes](staged-release.md) for the parent-owned
+immutable publication, download verification, pin review and activation gates.
+
 ## Canonical training-space equipment (0.1.40, EF-2090, source prepared)
 
 The context card consumes `trainingSpaces[].equipment.items` only. Official and
