@@ -25,10 +25,10 @@ export const scheduleViewSchema = z.object({ view: z.literal('schedule'), record
  * lifecycle `status`, and the canonical workout schema in model.ts is unchanged. A past `planned` session or an
  * unsatisfied past occurrence displays `missed`; `skipped` and `abandoned` sessions fall in the day's `ended` bucket.
  */
-export const calendarSessionDisplayStatus = z.enum([...status.options, 'missed'])
+export const calendarSessionDisplayStatus = z.enum([...status.options, 'missed', 'withheld'])
 export const scheduledOccurrenceDisplayStatus = z.enum(['planned', 'missed'])
 /** The day aggregate, in precedence order: the highest bucket present, never "every session". */
-export const calendarDayStatus = z.enum(['in_progress', 'missed', 'planned', 'completed', 'ended'])
+export const calendarDayStatus = z.enum(['in_progress', 'missed', 'planned', 'completed', 'ended', 'withheld'])
 const count = z.number().int().nonnegative()
 /**
  * One program's share of a day's sessions (application EF-1575): every contributing program once, in the day's
@@ -45,9 +45,9 @@ export const calendarViewSchema = z.object({
   view: z.literal('calendar'),
   record: z.object({ from: day, to: day, date: day,
     days: z.array(z.object({ date: day, status: calendarDayStatus.nullable(),
-      sessionCount: count, completedSessionCount: count, inProgressSessionCount: count, plannedSessionCount: count, missedSessionCount: count, endedSessionCount: count,
+      sessionCount: count, completedSessionCount: count, inProgressSessionCount: count, plannedSessionCount: count, missedSessionCount: count, endedSessionCount: count, withheldSessionCount: count.optional(),
       summary: z.object({ title: z.string(), status, programName: z.string().optional(), programs: z.array(calendarDayProgram).min(1).optional() }).optional() })),
-    agenda: z.object({ date: day, items: z.array(z.object({ id: z.string(), name: z.string(), status, displayStatus: calendarSessionDisplayStatus, time: z.string(), scheduleId: id.optional() })) }).nullable(),
+    agenda: z.object({ date: day, items: z.array(z.union([z.object({ id: z.string(), date: day, status: z.literal('withheld'), displayStatus: z.literal('withheld'), name: z.never().optional(), time: z.never().optional(), scheduleId: z.never().optional() }), z.object({ id: z.string(), name: z.string(), status, displayStatus: calendarSessionDisplayStatus.exclude(['withheld']), time: z.string(), scheduleId: id.optional() })])) }).nullable(),
     goalDays: z.array(calendarGoalDay).optional()
   }), related: z.object({}), presentation
 })
@@ -71,11 +71,11 @@ export const rangeDays = (from: string, to: string) => {
 }
 
 /** One mark per session, drawn from the day's buckets in this order. */
-export const calendarMarkKinds = ['completed', 'in_progress', 'planned', 'missed', 'ended'] as const
+export const calendarMarkKinds = ['completed', 'in_progress', 'planned', 'missed', 'ended', 'withheld'] as const
 export type CalendarMarkKind = typeof calendarMarkKinds[number]
 type CalendarDay = CalendarView['record']['days'][number]
-const bucket = { completed: 'completedSessionCount', in_progress: 'inProgressSessionCount', planned: 'plannedSessionCount', missed: 'missedSessionCount', ended: 'endedSessionCount' } as const satisfies Record<CalendarMarkKind, keyof CalendarDay>
-export const dayMarks = (day: CalendarDay | undefined): CalendarMarkKind[] => day ? calendarMarkKinds.flatMap(kind => Array.from({ length: day[bucket[kind]] }, () => kind)) : []
+const bucket = { completed: 'completedSessionCount', in_progress: 'inProgressSessionCount', planned: 'plannedSessionCount', missed: 'missedSessionCount', ended: 'endedSessionCount', withheld: 'withheldSessionCount' } as const satisfies Record<CalendarMarkKind, keyof CalendarDay>
+export const dayMarks = (day: CalendarDay | undefined): CalendarMarkKind[] => day ? calendarMarkKinds.flatMap(kind => Array.from({ length: day[bucket[kind]] ?? 0 }, () => kind)) : []
 /** The mark a single agenda row wears: skipped and abandoned sessions are the day's ended bucket. */
 export const sessionMark = (displayStatus: CalendarSessionDisplayStatus): CalendarMarkKind => displayStatus === 'skipped' || displayStatus === 'abandoned' ? 'ended' : displayStatus
 /**

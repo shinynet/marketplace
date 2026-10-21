@@ -31,7 +31,7 @@ const programLine = (date: string) => {
 type AgendaItem = NonNullable<CalendarView['record']['agenda']>['items'][number]
 /** Visible label: missed and terminal rows name their presentation state; an untapped occurrence says it has no saved workout. */
 const itemLabel = (item: AgendaItem) => item.displayStatus === 'missed' ? t(item.scheduleId ? 'missedOccurrence' : 'missed') : t(item.scheduleId ? 'scheduledOccurrence' : item.displayStatus)
-const timed = (item: AgendaItem) => !item.scheduleId && item.displayStatus !== 'planned' && item.displayStatus !== 'missed'
+const timed = (item: AgendaItem) => item.displayStatus !== 'withheld' && !item.scheduleId && item.displayStatus !== 'planned' && item.displayStatus !== 'missed'
 const time = (instant: string) => new Intl.DateTimeFormat(locale.value, { hour: 'numeric', minute: '2-digit', timeZone: calendar.presentation.timeZone }).format(new Date(instant))
 </script>
 <template>
@@ -165,7 +165,7 @@ const time = (instant: string) => new Intl.DateTimeFormat(locale.value, { hour: 
           class="rounded border border-surface-dark bg-surface p-4"
         >
           <h3 class="text-lg font-semibold">
-            {{ item.name }}
+            {{ item.displayStatus === 'withheld' ? t('withheld') : item.name }}
           </h3>
           <p
             class="mt-2 flex items-center gap-2 text-sm text-muted"
@@ -173,7 +173,7 @@ const time = (instant: string) => new Intl.DateTimeFormat(locale.value, { hour: 
           >
             <calendar-mark :kind="sessionMark(item.displayStatus)" />
             <span>{{ itemLabel(item) }} <time
-              v-if="timed(item)"
+              v-if="item.time && timed(item)"
               :datetime="item.time"
             >· {{ time(item.time) }}</time></span>
           </p>
@@ -208,7 +208,7 @@ const time = (instant: string) => new Intl.DateTimeFormat(locale.value, { hour: 
             {{ t('logPastWorkout') }}
           </button>
           <button
-            v-else
+            v-else-if="item.displayStatus !== 'withheld'"
             type="button"
             class="secondary mt-3"
             :disabled="disabled"

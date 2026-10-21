@@ -23,6 +23,7 @@ export const messages = {
     ...goalMessages.en,
     progressUi: progressMessages.en,
     viewTrainingWeek: 'View my training week', supportsGoal: 'Supports your goal: {name}',
+    paceTarget: 'Target pace: {value}', zoneTarget: 'Target heart-rate zone: {value}', actualPace: 'Recorded pace: {value}', actualSpeed: 'Recorded speed: {value}', elevationGain: 'Elevation gain: {value}', elevationLoss: 'Elevation loss: {value}', actualRpe: 'Recorded effort: RPE {value}',
     amrapTarget: 'As many repetitions as possible', rpeTarget: 'Target effort: RPE {value}', tempoTarget: 'Tempo: {value}', sideTarget: { left: 'Left side', right: 'Right side', both: 'Both sides' },
     setCategory: { warmup: 'Warm-up set', working: 'Working set', dropset: 'Drop set', backoff: 'Back-off set', topset: 'Top set', amrap: 'AMRAP set', interval: 'Interval', recovery: 'Recovery', cooldown: 'Cool-down set' },
 
@@ -35,10 +36,10 @@ export const messages = {
     createOccurrence: 'Create planned workout and open', createOccurrenceNote: 'This saves the scheduled workout if it does not already exist. It does not start the session or log results.',
     trainingCalendar: 'Training calendar', yourTraining: 'Your training', calendarRange: 'Calendar range', previousRange: 'Earlier dates', nextRange: 'Later dates', calendarCounts: '{completed} complete · {total} sessions | {completed} complete · {total} session | {completed} complete · {total} sessions', emptyAgenda: 'Nothing scheduled for this day.', calendarPrograms: 'Program: {names} | Programs: {names}',
     calendarGoalFlag: 'Goal target date on {day}: {names}', calendarOpenGoal: 'Open goal', calendarOpenGoalLabel: 'Open goal in eFitware: {name}', scheduledOccurrence: 'Scheduled — no saved workout yet',
-    missed: 'Missed', missedOccurrence: 'Missed — no saved workout', logPastWorkout: 'Log past workout',
+    withheld: 'Training details withheld', missed: 'Missed', missedOccurrence: 'Missed — no saved workout', logPastWorkout: 'Log past workout',
     logPastOccurrenceNote: 'This saves the workout on its original date so you can record what you did. It is not moved to today.',
     logPastWorkoutNote: 'Opens the workout on its original date so you can record what you did. It is not moved to today.',
-    calendarMark: { completed: 'Done', in_progress: 'In progress', planned: 'Planned', missed: 'Missed', ended: 'Ended (skipped or abandoned)' },
+    calendarMark: { withheld: 'Details withheld', completed: 'Done', in_progress: 'In progress', planned: 'Planned', missed: 'Missed', ended: 'Ended (skipped or abandoned)' },
     backToProgram: 'Back to program', backToSchedule: 'Back to schedule', backToCalendar: 'Back to calendar', backToWorkout: 'Back to workout', leaveViewUnsaved: 'You have unsaved results. Keep editing, or discard them to go back.', recordRefresh: 'Reload saved record', recordStale: 'This record changed. Reload it before making another change.', recordFailed: 'The action could not be completed. Reload the record and check your connection permissions.',
 
     templateRefresh: 'Reload saved template', templateReadFailed: 'Could not reload the saved record. Check its current state before continuing.',
@@ -86,6 +87,7 @@ export const messages = {
     ...goalMessages.de,
     progressUi: progressMessages.de,
     viewTrainingWeek: 'Meine Trainingswoche ansehen', supportsGoal: 'Unterstützt dein Ziel: {name}',
+    paceTarget: 'Zieltempo: {value}', zoneTarget: 'Ziel-Herzfrequenzzone: {value}', actualPace: 'Erfasstes Tempo: {value}', actualSpeed: 'Erfasste Geschwindigkeit: {value}', elevationGain: 'Höhengewinn: {value}', elevationLoss: 'Höhenverlust: {value}', actualRpe: 'Erfasste Anstrengung: RPE {value}',
     amrapTarget: 'So viele Wiederholungen wie möglich', rpeTarget: 'Zielanstrengung: RPE {value}', tempoTarget: 'Tempo: {value}', sideTarget: { left: 'Linke Seite', right: 'Rechte Seite', both: 'Beide Seiten' },
     setCategory: { warmup: 'Aufwärmsatz', working: 'Arbeitssatz', dropset: 'Reduktionssatz', backoff: 'Back-off-Satz', topset: 'Topsatz', amrap: 'AMRAP-Satz', interval: 'Intervall', recovery: 'Erholung', cooldown: 'Abwärmsatz' },
 
@@ -98,10 +100,10 @@ export const messages = {
     createOccurrence: 'Geplantes Training erstellen und öffnen', createOccurrenceNote: 'Das geplante Training wird gespeichert, falls es noch nicht existiert. Die Einheit wird nicht gestartet; Ergebnisse werden nicht erfasst.',
     trainingCalendar: 'Trainingskalender', yourTraining: 'Dein Training', calendarRange: 'Kalenderzeitraum', previousRange: 'Frühere Tage', nextRange: 'Spätere Tage', calendarCounts: '{completed} abgeschlossen · {total} Einheiten | {completed} abgeschlossen · {total} Einheit | {completed} abgeschlossen · {total} Einheiten', emptyAgenda: 'Für diesen Tag ist nichts geplant.', calendarPrograms: 'Programm: {names} | Programme: {names}',
     calendarGoalFlag: 'Zieldatum am {day}: {names}', calendarOpenGoal: 'Ziel öffnen', calendarOpenGoalLabel: 'Ziel öffnen in eFitware: {name}', scheduledOccurrence: 'Geplant — noch kein Training gespeichert',
-    missed: 'Verpasst', missedOccurrence: 'Verpasst — kein Training gespeichert', logPastWorkout: 'Vergangenes Training erfassen',
+    withheld: 'Trainingsdetails ausgeblendet', missed: 'Verpasst', missedOccurrence: 'Verpasst — kein Training gespeichert', logPastWorkout: 'Vergangenes Training erfassen',
     logPastOccurrenceNote: 'Speichert das Training an seinem ursprünglichen Datum, damit du erfassen kannst, was du gemacht hast. Es wird nicht auf heute verschoben.',
     logPastWorkoutNote: 'Öffnet das Training an seinem ursprünglichen Datum, damit du erfassen kannst, was du gemacht hast. Es wird nicht auf heute verschoben.',
-    calendarMark: { completed: 'Erledigt', in_progress: 'In Bearbeitung', planned: 'Geplant', missed: 'Verpasst', ended: 'Beendet (übersprungen oder abgebrochen)' },
+    calendarMark: { withheld: 'Details ausgeblendet', completed: 'Erledigt', in_progress: 'In Bearbeitung', planned: 'Geplant', missed: 'Verpasst', ended: 'Beendet (übersprungen oder abgebrochen)' },
     backToProgram: 'Zurück zum Programm', backToSchedule: 'Zurück zum Zeitplan', backToCalendar: 'Zurück zum Kalender', backToWorkout: 'Zurück zum Training', leaveViewUnsaved: 'Du hast ungespeicherte Ergebnisse. Bearbeite sie weiter oder verwirf sie, um zurückzugehen.', recordRefresh: 'Gespeicherten Eintrag neu laden', recordStale: 'Dieser Eintrag wurde geändert. Lade ihn vor weiteren Änderungen neu.', recordFailed: 'Die Aktion konnte nicht abgeschlossen werden. Lade den Eintrag neu und prüfe die Berechtigungen der Verbindung.',
 
     templateRefresh: 'Gespeicherte Vorlage neu laden', templateReadFailed: 'Der gespeicherte Eintrag konnte nicht neu geladen werden. Prüfe seinen aktuellen Stand vor dem Fortfahren.',

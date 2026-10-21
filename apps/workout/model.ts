@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { loadSchema } from './measurement.ts'
+import { loadSchema, distanceSchema, paceSchema, speedSchema, elevationSchema, exerciseUnitsSchema } from './measurement.ts'
 import { executionGroupsSchema } from './executionGroups.ts'
 
 // Validate the fields this embedded view consumes; preserve all canonical set actuals.
@@ -14,10 +14,11 @@ export type LoadShape = z.infer<typeof loadShapeSchema>
 export const prSchema = z.object({ type: z.enum(['weight', 'oneRm', 'volume', 'reps']), weight: loadSchema, reps: z.number().optional(), first: z.boolean().optional() })
 export const setSchema = z.object({
   id: z.string(), category: z.enum(['warmup', 'working', 'dropset', 'backoff', 'topset', 'amrap', 'interval', 'recovery', 'cooldown']), completed: z.boolean(), comments: z.string().optional(),
-  weight: load, reps: measure, duration: measure, distance: measure,
-  plannedWeight: load, plannedDuration: measure, plannedDistance: measure,
+  weight: load, reps: measure, duration: measure, distance: distanceSchema.optional(),
+  avgPace: paceSchema.optional(), plannedPace: paceSchema.optional(), speed: speedSchema.optional(), elevationGain: elevationSchema.optional(), elevationLoss: elevationSchema.optional(),
+  plannedWeight: load, plannedDuration: measure, plannedDistance: distanceSchema.optional(),
   plannedReps: z.object({ min: z.number(), max: z.number() }).optional(),
-  restTarget: measure, rirTarget: measure, plannedAmrap: z.boolean().optional(), plannedRpe: measure, tempo: z.string().optional(), side: z.enum(['left', 'right', 'both']).optional(),
+  restTarget: measure, rirTarget: measure, plannedAmrap: z.boolean().optional(), plannedRpe: measure, rpe: measure, plannedHrZone: z.number().int().min(1).max(5).optional(), tempo: z.string().optional(), side: z.enum(['left', 'right', 'both']).optional(),
   prs: z.array(prSchema).optional()
 })
 export const activitySchema = z.object({
@@ -29,6 +30,7 @@ export const exerciseSchema = z.object({
   id: z.string(), exerciseId: z.string(), exerciseName: z.string(),
   modality: z.enum(['resistance', 'cardio', 'mobility']), order: z.number(),
   section: z.enum(['warmup', 'main', 'cooldown']).optional(), comments: z.string().optional(),
+  unitOverrides: exerciseUnitsSchema.partial().optional(), resolvedUnits: exerciseUnitsSchema.optional(),
   sets: z.array(setSchema), activities: z.array(activitySchema).optional()
 })
 export const workoutSchema = z.object({

@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-10-21T23:15:46.614Z",
+  "release": {
+    "tag": "v0.1.41",
+    "id": 419366530,
+    "immutable": true,
+    "prerelease": true,
+    "assetCount": 27
+  },
+  "source": "8eef2f72666f4821b95af9854ed5988f486d2105",
+  "minimumAppCommit": "7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d",
+  "manifestSha256": "eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77",
+  "app": {
+    "origin": "https://app.efitware.com",
+    "appVersion": "10d20af",
+    "release": {
+      "data": {
+        "version": "0.5.0",
+        "native": {
+          "android": {
+            "storeVersion": null
+          },
+          "ios": {
+            "storeVersion": null
+          }
+        }
+      }
+    }
+  },
+  "files": [
+    {
+      "name": "manifest.json",
+      "url": "https://app.efitware.com/downloads/efitware/0.1.41/manifest.json?verification=1792624546614",
+      "status": 200,
+      "bytes": 8951,
+      "sha256": "eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77",
+      "githubAssetId": 661978669,
+      "githubDigest": "sha256:eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77"
+    },
+    {
+      "name": "efitware-codex.zip",
+      "url": "https://app.efitware.com/downloads/efitware/0.1.41/efitware-codex.zip?verification=1792624546897",
+      "status": 200,
+      "bytes": 68747,
+      "sha256": "4877146e9d3219822102c74e8b1e077fa5cf9d5a99e7ed13f952a24c9f165ee9",
+      "githubAssetId": 661978511,
+      "githubDigest": "sha256:4877146e9d3219822102c74e8b1e077fa5cf9d5a99e7ed13f952a24c9f165ee9"
+    },
+    {
+      "name": "efitware-claude.zip",
+      "url": "https://app.efitware.com/downloads/efitware/0.1.41/efitware-claude.zip?verification=1792624547146",
+      "status": 200,
+      "bytes": 45190,
+      "sha256": "1e305bdd60198ad2895a815d7b5714d32e1ae0a81be63c7707ac4171ef3d8980",
+      "githubAssetId": 661978515,
+      "githubDigest": "sha256:1e305bdd60198ad2895a815d7b5714d32e1ae0a81be63c7707ac4171ef3d8980"
+    },
+    {
+      "name": "efitware-coach.zip",
+      "url": "https://app.efitware.com/downloads/efitware/0.1.41/efitware-coach.zip?verification=1792624547337",
+      "status": 200,
+      "bytes": 42250,
+      "sha256": "b7405c89eecafb1815d5917b10f9a9b598e74e561230f808d78c6d67e0395b0e",
+      "githubAssetId": 661978513,
+      "githubDigest": "sha256:b7405c89eecafb1815d5917b10f9a9b598e74e561230f808d78c6d67e0395b0e"
+    }
+  ]
+}

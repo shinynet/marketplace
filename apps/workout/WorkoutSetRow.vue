@@ -3,20 +3,21 @@ import { computed, onUnmounted, reactive, ref, useId, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Tracking, ViewExercise, ViewSet } from './model'
 import { displayMeasure, formatMeasure, inputLoadUnit, parseInput, sentValue, storageValue, type ActualField } from './presentation'
-import { intlUnitOf, type Load } from './measurement'
+import { formatExerciseMeasurement, intlUnitOf, type Measurement, type ExerciseUnits } from './measurement'
 import type { UnitSystem } from './lib/units'
 import { presentedPrAwards } from './progressModel'
 import { prescriptionLoad } from './addedLoadPresentation'
 import PrAward from './PrAward.vue'
 
-const { set, number, modality, tracking = undefined, system, disabled, save } = defineProps<{
+const { set, number, modality, tracking = undefined, resolvedUnits = undefined, system, disabled, save } = defineProps<{
   set: ViewSet
   number: number
   modality: ViewExercise['modality']
   tracking?: Tracking
+  resolvedUnits?: ExerciseUnits
   system: UnitSystem
   disabled: boolean
-  save: (patch: Record<string, number | boolean | null | Load>) => Promise<boolean | undefined> | undefined
+  save: (patch: Record<string, number | boolean | null | Measurement>) => Promise<boolean | undefined> | undefined
 }>()
 const emit = defineEmits<{ dirty: [value: boolean] }>()
 const { t, locale } = useI18n()
@@ -35,9 +36,12 @@ const fields = computed(() => (['weight', 'reps', 'duration', 'distance'] as con
   return (field === 'weight' && added.value) || tracking?.[flag[field]] || set[field] !== undefined
 }))
 const numberText = (value: number) => new Intl.NumberFormat(locale.value, { useGrouping: false, maximumFractionDigits: 2 }).format(value)
-const display = (field: ActualField) => field === 'weight' ? { value: set.weight?.value ?? 0, unit: intlUnitOf(inputLoadUnit(set, system)) } : displayMeasure(field, set[field] ?? 0, system)
+const distanceUnit = () => set.distance?.unit ?? set.plannedDistance?.unit ?? resolvedUnits?.distance ?? (system === 'imperial' ? 'mi' : 'km')
+const distanceIntl = { m: 'meter', km: 'kilometer', mi: 'mile', ft: 'foot', yd: 'yard' } as const
+const display = (field: ActualField) => field === 'weight' ? { value: set.weight?.value ?? 0, unit: intlUnitOf(set.weight?.unit ?? set.plannedWeight?.unit ?? resolvedUnits?.load ?? inputLoadUnit(set, system)) } : field === 'distance' ? { value: set.distance?.value ?? 0, unit: distanceIntl[distanceUnit()] } : displayMeasure(field, set[field] ?? 0, system)
 const matches = (field: ActualField, value: number, unit: string | undefined) => {
   if (field === 'weight') return set.weight !== undefined && set.weight.value === value && intlUnitOf(set.weight.unit) === unit
+  if (field === 'distance') return set.distance !== undefined && set.distance.value === value && distanceIntl[set.distance.unit] === unit
   const actual = set[field]
   return actual !== undefined && Math.abs(storageValue(field, value, unit) - actual) < 0.0000001
 }
@@ -62,12 +66,20 @@ const target = computed(() => {
     const key = { weight: 'plannedWeight', duration: 'plannedDuration', distance: 'plannedDistance' } as const
     const value = set[key[field]]
     if (value === undefined) continue
-    const label = typeof value === 'number' ? formatMeasure(field, value, system, locale.value) : prescriptionLoad(value, modality, loadShape.value, locale.value, t)
+    const label = field === 'weight' && typeof value !== 'number' ? prescriptionLoad(value, modality, loadShape.value, locale.value, t) : formatMeasure(field, value, system, locale.value)
     if (label) parts.push(label)
   }
+  if (set.plannedPace) parts.push(t('paceTarget', { value: formatExerciseMeasurement(set.plannedPace, locale.value) }))
+  if (set.plannedHrZone !== undefined) parts.push(t('zoneTarget', { value: numberText(set.plannedHrZone) }))
+  if (set.plannedRpe !== undefined) parts.push(t('rpeTarget', { value: numberText(set.plannedRpe) }))
   if (added.value && modality !== 'cardio' && set.plannedWeight === undefined && (set.plannedReps || set.plannedDuration !== undefined || set.plannedDistance !== undefined)) parts.push(t('progressUi.bodyWeight'))
   return new Intl.ListFormat(locale.value, { style: 'short', type: 'unit' }).format(parts) || t('noTarget')
 })
+const recordedMeasurements = computed(() => (['avgPace', 'speed', 'elevationGain', 'elevationLoss'] as const).flatMap(field => {
+  const value = set[field]
+  const key = { avgPace: 'actualPace', speed: 'actualSpeed', elevationGain: 'elevationGain', elevationLoss: 'elevationLoss' }[field]
+  return value ? [t(key, { value: formatExerciseMeasurement(value, locale.value) })] : []
+}))
 // A readback also acknowledges a save retried outside this row. Other drafts survive.
 watch(() => set, () => {
   for (const field of fields.value) {
@@ -84,7 +96,7 @@ watch(() => set, () => {
 
 const submit = async (completed: boolean) => {
   invalid.value = false
-  const patch: Record<string, number | boolean | null | Load> = { completed }
+  const patch: Record<string, number | boolean | null | Measurement> = { completed }
   try {
     for (const field of fields.value) {
       const text = draft[field]
@@ -176,6 +188,23 @@ const submit = async (completed: boolean) => {
       class="mt-2 text-sm"
     >
       {{ t('invalid') }}
+    </p>
+    <ul
+      v-if="recordedMeasurements.length"
+      class="mt-2 text-sm text-muted"
+    >
+      <li
+        v-for="measurement in recordedMeasurements"
+        :key="measurement"
+      >
+        {{ measurement }}
+      </li>
+    </ul>
+    <p
+      v-if="set.rpe !== undefined"
+      class="mt-2 text-sm text-muted"
+    >
+      {{ t('actualRpe', { value: numberText(set.rpe) }) }}
     </p>
     <p
       v-if="set.comments"

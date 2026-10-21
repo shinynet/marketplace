@@ -5,6 +5,7 @@ import HostFollowUp from './HostFollowUp.vue'
 import { useI18n } from 'vue-i18n'
 import type { TemplateView } from './templateModel'
 import { resolveDisplayUnitSystem, formatMeasure } from './presentation'
+import { formatExerciseMeasurement } from './measurement'
 import { prescriptionLoad } from './addedLoadPresentation'
 import { interleavedExerciseSequence } from './lib/sequenceUtils'
 import { workoutSections } from './lib/sections'
@@ -241,6 +242,18 @@ const sections = computed(() => workoutSections(template.record.exercises.map(ex
                   class="mt-1 text-sm"
                 >
                   {{ formatMeasure('distance', entry.set.plannedDistance, system, locale) }}
+                </p>
+                <p
+                  v-if="entry.set.plannedPace"
+                  class="mt-1 text-sm"
+                >
+                  {{ t('paceTarget', { value: formatExerciseMeasurement(entry.set.plannedPace, locale) }) }}
+                </p>
+                <p
+                  v-if="entry.set.plannedHrZone !== undefined"
+                  class="mt-1 text-sm"
+                >
+                  {{ t('zoneTarget', { value: number(entry.set.plannedHrZone) }) }}
                 </p>
                 <p
                   v-if="entry.set.restTarget !== undefined"

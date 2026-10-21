@@ -65,6 +65,105 @@
               "comments": {
                 "type": "string"
               },
+              "unitOverrides": {
+                "type": "object",
+                "properties": {
+                  "load": {
+                    "type": "string",
+                    "enum": [
+                      "lb",
+                      "kg"
+                    ]
+                  },
+                  "distance": {
+                    "type": "string",
+                    "enum": [
+                      "m",
+                      "km",
+                      "mi",
+                      "ft",
+                      "yd"
+                    ]
+                  },
+                  "pace": {
+                    "type": "string",
+                    "enum": [
+                      "s/km",
+                      "s/mi",
+                      "s/500m",
+                      "s/100m",
+                      "s/100yd"
+                    ]
+                  },
+                  "speed": {
+                    "type": "string",
+                    "enum": [
+                      "km/h",
+                      "mph"
+                    ]
+                  },
+                  "elevation": {
+                    "type": "string",
+                    "enum": [
+                      "m",
+                      "ft"
+                    ]
+                  }
+                }
+              },
+              "resolvedUnits": {
+                "type": "object",
+                "properties": {
+                  "load": {
+                    "type": "string",
+                    "enum": [
+                      "lb",
+                      "kg"
+                    ]
+                  },
+                  "distance": {
+                    "type": "string",
+                    "enum": [
+                      "m",
+                      "km",
+                      "mi",
+                      "ft",
+                      "yd"
+                    ]
+                  },
+                  "pace": {
+                    "type": "string",
+                    "enum": [
+                      "s/km",
+                      "s/mi",
+                      "s/500m",
+                      "s/100m",
+                      "s/100yd"
+                    ]
+                  },
+                  "speed": {
+                    "type": "string",
+                    "enum": [
+                      "km/h",
+                      "mph"
+                    ]
+                  },
+                  "elevation": {
+                    "type": "string",
+                    "enum": [
+                      "m",
+                      "ft"
+                    ]
+                  }
+                },
+                "required": [
+                  "load",
+                  "distance",
+                  "pace",
+                  "speed",
+                  "elevation"
+                ]
+              },
               "sets": {
                 "type": "array",
                 "items": {
@@ -90,44 +189,47 @@
                     "comments": {
                       "type": "string"
                     },
-                    "plannedWeight": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "number",
-                              "minimum": 0,
-                              "multipleOf": 0.5
-                            },
-                            "unit": {
-                              "type": "string",
-                              "const": "lb"
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "unit"
-                          ]
+                    "plannedPace": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 0
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "number",
-                              "minimum": 0,
-                              "multipleOf": 0.25
-                            },
-                            "unit": {
-                              "type": "string",
-                              "const": "kg"
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "unit"
+                        "unit": {
+                          "type": "string",
+                          "enum": [
+                            "s/km",
+                            "s/mi",
+                            "s/500m",
+                            "s/100m",
+                            "s/100yd"
                           ]
                         }
+                      },
+                      "required": [
+                        "value",
+                        "unit"
+                      ]
+                    },
+                    "plannedWeight": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "unit": {
+                          "type": "string",
+                          "enum": [
+                            "lb",
+                            "kg"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "unit"
                       ]
                     },
                     "plannedDuration": {
@@ -135,8 +237,27 @@
                       "minimum": 0
                     },
                     "plannedDistance": {
-                      "type": "number",
-                      "minimum": 0
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "unit": {
+                          "type": "string",
+                          "enum": [
+                            "m",
+                            "km",
+                            "mi",
+                            "ft",
+                            "yd"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "unit"
+                      ]
                     },
                     "plannedReps": {
                       "type": "object",
@@ -168,6 +289,11 @@
                       "type": "number",
                       "minimum": 0
                     },
+                    "plannedHrZone": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 5
+                    },
                     "tempo": {
                       "type": "string"
                     },
@@ -194,43 +320,23 @@
                             ]
                           },
                           "weight": {
-                            "oneOf": [
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "multipleOf": 0.5
-                                  },
-                                  "unit": {
-                                    "type": "string",
-                                    "const": "lb"
-                                  }
-                                },
-                                "required": [
-                                  "value",
-                                  "unit"
-                                ]
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number",
+                                "minimum": 0
                               },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "multipleOf": 0.25
-                                  },
-                                  "unit": {
-                                    "type": "string",
-                                    "const": "kg"
-                                  }
-                                },
-                                "required": [
-                                  "value",
-                                  "unit"
+                              "unit": {
+                                "type": "string",
+                                "enum": [
+                                  "lb",
+                                  "kg"
                                 ]
                               }
+                            },
+                            "required": [
+                              "value",
+                              "unit"
                             ]
                           },
                           "reps": {

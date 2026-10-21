@@ -551,6 +551,124 @@
         "cardio": {
           "type": "object",
           "properties": {
+            "rangeStart": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "weekStart": {
+              "type": "string",
+              "enum": [
+                "sunday",
+                "monday"
+              ]
+            },
+            "coverage": {
+              "type": "string",
+              "const": "manual-only"
+            },
+            "activities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "activity": {
+                    "type": "string",
+                    "enum": [
+                      "run",
+                      "walk",
+                      "hike",
+                      "ride",
+                      "row",
+                      "ski_erg",
+                      "swim",
+                      "elliptical",
+                      "stairs",
+                      "jump_rope",
+                      "other"
+                    ]
+                  },
+                  "weekly": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "weekStart": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        },
+                        "durationSeconds": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "distance": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "number",
+                              "minimum": 0
+                            },
+                            "unit": {
+                              "type": "string",
+                              "enum": [
+                                "km",
+                                "mi"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value",
+                            "unit"
+                          ]
+                        },
+                        "inProgress": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "weekStart"
+                      ]
+                    }
+                  },
+                  "longestDistance": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                      },
+                      "distance": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "unit": {
+                            "type": "string",
+                            "enum": [
+                              "km",
+                              "mi"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "value",
+                          "unit"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "distance"
+                    ]
+                  }
+                },
+                "required": [
+                  "activity",
+                  "weekly"
+                ]
+              }
+            },
             "restingHr": {
               "anyOf": [
                 {
@@ -611,55 +729,23 @@
               }
             },
             "zone2Minutes": {
-              "type": "number"
+              "type": "number",
+              "minimum": 0
             },
             "zone2DeltaMinutes": {
               "type": "number"
-            },
-            "bestEfforts": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "kind": {
-                    "type": "string",
-                    "enum": [
-                      "time",
-                      "distance",
-                      "power"
-                    ]
-                  },
-                  "date": {
-                    "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-                  },
-                  "seconds": {
-                    "type": "number"
-                  },
-                  "distanceMeters": {
-                    "type": "number"
-                  },
-                  "watts": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "key",
-                  "kind",
-                  "date"
-                ]
-              }
             }
           },
           "required": [
+            "rangeStart",
+            "weekStart",
+            "coverage",
+            "activities",
             "restingHr",
             "restingHrSeries",
-            "zone2Minutes",
-            "bestEfforts"
-          ]
+            "zone2Minutes"
+          ],
+          "additionalProperties": false
         },
         "modalitySplit": {
           "type": "array",
@@ -742,43 +828,23 @@
                 "type": "number"
               },
               "weight": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 0,
-                        "multipleOf": 0.5
-                      },
-                      "unit": {
-                        "type": "string",
-                        "const": "lb"
-                      }
-                    },
-                    "required": [
-                      "value",
-                      "unit"
-                    ]
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 0,
-                        "multipleOf": 0.25
-                      },
-                      "unit": {
-                        "type": "string",
-                        "const": "kg"
-                      }
-                    },
-                    "required": [
-                      "value",
-                      "unit"
+                  "unit": {
+                    "type": "string",
+                    "enum": [
+                      "lb",
+                      "kg"
                     ]
                   }
+                },
+                "required": [
+                  "value",
+                  "unit"
                 ]
               },
               "estimatedOneRm": {
@@ -927,43 +993,23 @@
                           "maximum": 9007199254740991
                         },
                         "weight": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "number",
-                                  "minimum": 0,
-                                  "multipleOf": 0.5
-                                },
-                                "unit": {
-                                  "type": "string",
-                                  "const": "lb"
-                                }
-                              },
-                              "required": [
-                                "value",
-                                "unit"
-                              ]
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "number",
+                              "minimum": 0
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "number",
-                                  "minimum": 0,
-                                  "multipleOf": 0.25
-                                },
-                                "unit": {
-                                  "type": "string",
-                                  "const": "kg"
-                                }
-                              },
-                              "required": [
-                                "value",
-                                "unit"
+                            "unit": {
+                              "type": "string",
+                              "enum": [
+                                "lb",
+                                "kg"
                               ]
                             }
+                          },
+                          "required": [
+                            "value",
+                            "unit"
                           ]
                         }
                       },
@@ -978,43 +1024,23 @@
                     "type": "number"
                   },
                   "bestSetWeight": {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 0,
-                            "multipleOf": 0.5
-                          },
-                          "unit": {
-                            "type": "string",
-                            "const": "lb"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "unit"
-                        ]
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 0
                       },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 0,
-                            "multipleOf": 0.25
-                          },
-                          "unit": {
-                            "type": "string",
-                            "const": "kg"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "unit"
+                      "unit": {
+                        "type": "string",
+                        "enum": [
+                          "lb",
+                          "kg"
                         ]
                       }
+                    },
+                    "required": [
+                      "value",
+                      "unit"
                     ]
                   },
                   "sessionDates": {
