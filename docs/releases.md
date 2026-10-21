@@ -6,9 +6,9 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
-## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, source prepared)
+## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, promotion prepared)
 
-Both plugin manifests prepare 0.1.41. The card and shipped skill use explicit
+Both plugin manifests identify 0.1.41. The card and shipped skill use explicit
 exercise measurements and resolved per-category units, retaining exact converted
 loads and requiring explicit intent for lasting preferences. The generated
 workout, template and exercise-progress schemas agree with those projections.
@@ -25,11 +25,23 @@ The training-context schema remains about context, not cardio progress.
 `minimumAppCommit` is `7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d` in app PR #1683,
 the combined runtime capability commit before the later pin. It preserves the
 approved EF-2106 commit and the reviewed master dependencies by merge ancestry.
-Marketplace behavior source `c4383acfa3e0e081d13185e135374dd5cc04f482` remains
-in this candidate's ancestry. These identities are source compatibility evidence,
-not deployment or publication evidence. Tool inventory, catalogs and channels
-are unchanged. See [staged-release notes](staged-release.md) for the parent-owned
-immutable publication, download verification, pin review and activation gates.
+Immutable release [v0.1.41](https://github.com/shinynet/marketplace/releases/tag/v0.1.41)
+was staged from approved source `8eef2f72666f4821b95af9854ed5988f486d2105`,
+which retains the approved behavior source in ancestry. Its 27 assets have
+manifest SHA-256 `eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77`.
+Compatible application release 0.5.0 serves source
+`10d20af2aaecdb8d38217e3b8756ee95b43e4d1f`; the parent verified its exact READY
+production deployment `dpl_8QPJjghPJUM5tkgo22zYsZo9cWTS` and serving alias.
+Fresh public checks on 2026-10-21 confirm that application's version and all four
+hosted downloads against the immutable manifest and GitHub asset digests.
+
+This branch prepares the channel and promotion receipt for independent review;
+it does not claim that the release is promoted or GitHub latest. Both catalogs
+remain byte-identical because they are versionless local-path entries. Both
+plugin manifests already identify 0.1.41 and also remain byte-identical. Tool
+inventory, immutable source and minimum-capability fields are unchanged. See
+[the promotion handoff](staged-release.md) for evidence, limits and the remaining
+parent-owned merge/publication steps.
 
 ## Canonical training-space equipment (0.1.40, EF-2090, source prepared)
 

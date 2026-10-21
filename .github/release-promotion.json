@@ -1,11 +1,11 @@
 {
-  "version": "0.1.39",
-  "commit": "8775f76546390aaf16aa613a1d24932f89cc2da7",
-  "manifestSha256": "0fbf6d354d893a6050ac167c7fdadc32a05d2163c64e631b8d530b92f6e67aa5",
-  "minimumAppCommit": "142c6cc6c951cc8a558477ed5145151144ae218b",
+  "version": "0.1.41",
+  "commit": "8eef2f72666f4821b95af9854ed5988f486d2105",
+  "manifestSha256": "eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77",
+  "minimumAppCommit": "7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d",
   "appDeployment": {
-    "source": "dd7cb5abb2d2f2e1c0dc16f1d810b1852346c6be",
-    "id": "dpl_FtuPX2qTTnUezvibq3x29mbqYJTS",
+    "source": "10d20af2aaecdb8d38217e3b8756ee95b43e4d1f",
+    "id": "dpl_8QPJjghPJUM5tkgo22zYsZo9cWTS",
     "state": "READY"
   }
 }
