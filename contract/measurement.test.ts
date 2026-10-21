@@ -279,3 +279,71 @@ describe('independent exercise units (EF-2118)', () => {
     expect(output).toContain('Distance (yd)')
   })
 })
+
+describe('activity-specific cardio progress (EF-2106 frozen assistant contract)', () => {
+  const viewOf = (cardio: unknown) => ({ ...clone(contract.openProgress), record: { ...clone(contract.openProgress.record), asOf: '2026-10-18', cardio }, related: { ...clone(contract.openProgress.related), section: 'cardio' } })
+
+  it('accepts all eleven activities and retains range-wide absence and zero-filled known metrics', () => {
+    const input = viewOf(fixtures.cardioActivityCases.observed)
+    expect(validators.progress(input), JSON.stringify(validators.progress.errors)).toBe(true)
+    const parsed = progressViewSchema.parse(input)
+    expect(parsed.record.cardio).toEqual(fixtures.cardioActivityCases.observed)
+    expect(parsed.record.cardio.activities).toHaveLength(11)
+    const [distanceOnly, timeOnly] = parsed.record.cardio.activities
+    expect(distanceOnly!.weekly.every(week => !Object.hasOwn(week, 'durationSeconds'))).toBe(true)
+    expect(distanceOnly!.weekly[1]!.distance).toEqual({ value: 0, unit: 'km' })
+    expect(timeOnly!.weekly.every(week => !Object.hasOwn(week, 'distance'))).toBe(true)
+    expect(timeOnly!.weekly[1]!.durationSeconds).toBe(0)
+    expect(timeOnly).not.toHaveProperty('longestDistance')
+  })
+
+  it.each(['en', 'de'] as const)('renders optional metrics literally, range and coverage in %s', async (locale) => {
+    const cardio = fixtures.cardioActivityCases.observed
+    for (const activity of cardio.activities) {
+      const view = progressViewSchema.parse(viewOf({ ...cardio, activities: [activity] }))
+      const output = await render(ProgressMeasurements, { progress: view }, locale)
+      expect(output).toContain(messages[locale].progressUi.cardioActivities[activity.activity as keyof typeof messages.en.progressUi.cardioActivities])
+      expect(output).toContain(messages[locale].progressUi.cardioCoverage)
+      expect(output).toContain(messages[locale].progressUi.currentWeek)
+      if (activity.activity === 'run') {
+        expect(output).not.toContain(messages[locale].progressUi.cardioDuration)
+        expect(output).toContain('5 km')
+        expect(output).toContain('0 km')
+      } else {
+        expect(output).toContain(messages[locale].progressUi.cardioDuration)
+      }
+      if (activity.activity === 'walk') {
+        expect(output).not.toContain(messages[locale].progressUi.cardioDistance)
+        expect(output).not.toContain(messages[locale].progressUi.cardioLongestNote)
+      } else {
+        expect(output).toContain(messages[locale].progressUi.cardioLongestNote)
+        expect(output).toContain(activity.longestDistance!.distance.unit)
+      }
+    }
+  })
+
+  it('renders no activity figures for an empty range while retaining required redacted zone-2 zero', async () => {
+    const view = progressViewSchema.parse(viewOf(fixtures.cardioActivityCases.empty))
+    expect(view.record.cardio.zone2Minutes).toBe(0)
+    expect(view.record.cardio).not.toHaveProperty('zone2DeltaMinutes')
+    const output = await render(ProgressMeasurements, { progress: view })
+    expect(output).toContain(messages.en.progressUi.cardioEmpty)
+    expect(output).not.toContain(messages.en.progressUi.cardioDistance)
+    expect(output).not.toContain(messages.en.progressUi.cardioDuration)
+  })
+
+  it('refuses the retired pooled shape, non-manual coverage, canonical distances and missing zone-2', () => {
+    const cardio = fixtures.cardioActivityCases.observed
+    const missingZone2 = Object.fromEntries(Object.entries(cardio).filter(([key]) => key !== 'zone2Minutes'))
+    for (const invalid of [
+      { ...cardio, bestEfforts: [] },
+      { ...cardio, coverage: 'all' },
+      { ...cardio, activities: [{ activity: 'run', weekly: [{ weekStart: '2026-10-05', distance: 5000 }] }] },
+      { ...cardio, activities: [{ activity: 'run', weekly: [{ weekStart: '2026-10-05', distance: { value: 5000, unit: 'm' } }] }] },
+      missingZone2
+    ]) {
+      expect(progressViewSchema.safeParse(viewOf(invalid)).success).toBe(false)
+      expect(validators.progress(viewOf(invalid))).toBe(false)
+    }
+  })
+})

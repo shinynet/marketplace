@@ -551,6 +551,124 @@
         "cardio": {
           "type": "object",
           "properties": {
+            "rangeStart": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "weekStart": {
+              "type": "string",
+              "enum": [
+                "sunday",
+                "monday"
+              ]
+            },
+            "coverage": {
+              "type": "string",
+              "const": "manual-only"
+            },
+            "activities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "activity": {
+                    "type": "string",
+                    "enum": [
+                      "run",
+                      "walk",
+                      "hike",
+                      "ride",
+                      "row",
+                      "ski_erg",
+                      "swim",
+                      "elliptical",
+                      "stairs",
+                      "jump_rope",
+                      "other"
+                    ]
+                  },
+                  "weekly": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "weekStart": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        },
+                        "durationSeconds": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "distance": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "number",
+                              "minimum": 0
+                            },
+                            "unit": {
+                              "type": "string",
+                              "enum": [
+                                "km",
+                                "mi"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value",
+                            "unit"
+                          ]
+                        },
+                        "inProgress": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "weekStart"
+                      ]
+                    }
+                  },
+                  "longestDistance": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                      },
+                      "distance": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "unit": {
+                            "type": "string",
+                            "enum": [
+                              "km",
+                              "mi"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "value",
+                          "unit"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "distance"
+                    ]
+                  }
+                },
+                "required": [
+                  "activity",
+                  "weekly"
+                ]
+              }
+            },
             "restingHr": {
               "anyOf": [
                 {
@@ -611,98 +729,23 @@
               }
             },
             "zone2Minutes": {
-              "type": "number"
+              "type": "number",
+              "minimum": 0
             },
             "zone2DeltaMinutes": {
               "type": "number"
-            },
-            "bestEfforts": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "kind": {
-                    "type": "string",
-                    "enum": [
-                      "time",
-                      "distance",
-                      "power"
-                    ]
-                  },
-                  "date": {
-                    "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-                  },
-                  "seconds": {
-                    "type": "number"
-                  },
-                  "distance": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 0
-                      },
-                      "unit": {
-                        "type": "string",
-                        "enum": [
-                          "m",
-                          "km",
-                          "mi",
-                          "ft",
-                          "yd"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "value",
-                      "unit"
-                    ]
-                  },
-                  "improvement": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 0
-                      },
-                      "unit": {
-                        "type": "string",
-                        "enum": [
-                          "m",
-                          "km",
-                          "mi",
-                          "ft",
-                          "yd"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "value",
-                      "unit"
-                    ]
-                  },
-                  "watts": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "key",
-                  "kind",
-                  "date"
-                ]
-              }
             }
           },
           "required": [
+            "rangeStart",
+            "weekStart",
+            "coverage",
+            "activities",
             "restingHr",
             "restingHrSeries",
-            "zone2Minutes",
-            "bestEfforts"
-          ]
+            "zone2Minutes"
+          ],
+          "additionalProperties": false
         },
         "modalitySplit": {
           "type": "array",

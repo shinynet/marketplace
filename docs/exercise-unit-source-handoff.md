@@ -29,3 +29,25 @@ workout action. These are component fixtures, not authenticated MCP host or
 physical-device evidence. No authenticated new-contract endpoint is available
 before parent integration/publication; promoted-client authentication and saved
 readback remain explicit follow-through.
+
+The same successor consumes the frozen EF-2106 activity progress contract at
+`5ca571d815b6a432866ae2cd5746a66729facf2a`. The general `progress-view.schema.json` consumer schema includes `cardio.activities`, the selected range/week boundary and literal
+`manual-only` coverage. `context-view.schema.json` describes training context,
+not cardio progress, and has no pooled-effort field to replace. Weekly distance
+and longest-interval distance are km/mi
+measurement objects, never the application's canonical `distanceMeters`.
+The card omits time for distance-only activity and distance for time-only
+activity; observed metrics retain zero-filled empty weeks. All eleven activities
+have localized labels. Longest distance is dated and explicitly not a PR or race
+split; zone-2 copy identifies whole tagged interval durations. There is no pooled
+best-effort compatibility adapter. `compat-fixtures.json` includes the frozen
+shared progress payload plus independent observed/empty cases for this cutover.
+The parent must merge the matching approved EF-2106 app projection before pinning
+this single combined successor; the EF-2118 app PR does not duplicate that owner.
+
+Additional focused qualification for the combined candidate: 87 tests pass across
+measurement, calendar and progress-unlock contracts. The activity view renders
+all eleven activity labels, distance-only running and time-only walking at
+320 px English/light, 390 px German/dark and 1280 px without horizontal overflow;
+the empty activity range retains the manual-only coverage label and required
+zone-2 zero. These remain synthetic component observations.

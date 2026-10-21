@@ -25,8 +25,13 @@ export const progressMessages = {
     estimated: 'Estimated one-rep maximum', estimateNote: 'An estimate from recorded working sets, not a tested maximum.', locked: '{count} of {required} training days recorded. More sessions are needed for this chart.', lockedEligible: '{count} of {required} days with a set of 12 reps or fewer recorded. More such days are needed for this chart.', topSet: 'Best recorded set: {reps} × {weight}',
     weight: 'Body weight', targetWeight: 'Current weight target', fat: 'Body fat', current: 'Current recorded value: {value}', neutral: 'Measurements are observations. Direction alone does not establish progress or health.',
     measurement: { neck: 'Neck', shoulders: 'Shoulders', chest: 'Chest', waist: 'Waist', hips: 'Hips', biceps: 'Biceps', forearms: 'Forearms', thighs: 'Thighs', calves: 'Calves' },
-    restingHr: 'Resting heart rate', bpm: '{value} bpm', zone2: 'Time recorded in heart-rate zone 2', watts: '{value} W',
-    efforts: { fastest5k: 'Fastest recorded effort of at least 5 km', longestDistance: 'Longest distance', bestPower: 'Highest recorded power' },
+    restingHr: 'Resting heart rate', bpm: '{value} bpm', zone2: 'Logged Zone 2 duration', watts: '{value} W',
+    cardioCoverage: 'Eligible manual training only. Imported training is withheld; these totals do not cover the complete account history.',
+    cardioRange: 'Activity weeks from {from} through {to}, starting {weekday}.', weekDays: { sunday: 'Sunday', monday: 'Monday' },
+    cardioActivities: { run: 'Running', walk: 'Walking', hike: 'Hiking', ride: 'Cycling', row: 'Rowing', ski_erg: 'Ski erg', swim: 'Swimming', elliptical: 'Elliptical', stairs: 'Stairs', jump_rope: 'Jump rope', other: 'Other cardio' },
+    cardioWeekStatus: 'Week status', cardioWeek: 'Week starting', cardioDuration: 'Logged time', cardioDistance: 'Logged distance', cardioLongest: 'Longest logged interval: {value}', cardioLongestNote: 'One interval in this range, not a race split or personal record.', cardioEmpty: 'No eligible recorded cardio activity in this range.',
+    zone2Note: 'Each interval explicitly logged in Zone 2 contributes its whole duration. This is not sensor-measured time in zone.',
+
     goalEvidence: 'Targets and your recorded check-ins', checkIns: '{value} check-ins', noGoalEvidence: 'No check-in recorded yet.',
     explain: 'Interpret my eFitware progress from {from} through {to} ({range}). Read the supporting records needed, distinguish observations from estimates, and explain meaningful changes and uncertainty. Do not change my training without my request.',
     askExplain: 'Ask my AI to explain', back: 'Back to progress'
@@ -57,8 +62,13 @@ export const progressMessages = {
     estimated: 'Geschätztes Einwiederholungsmaximum', estimateNote: 'Eine Schätzung aus erfassten Arbeitssätzen, kein getestetes Maximum.', locked: '{count} von {required} Trainingstagen erfasst. Für dieses Diagramm sind weitere Einheiten nötig.', lockedEligible: '{count} von {required} Tagen mit einem Satz von höchstens 12 Wiederholungen erfasst. Für dieses Diagramm sind weitere solche Tage nötig.', topSet: 'Bester erfasster Satz: {reps} × {weight}',
     weight: 'Körpergewicht', targetWeight: 'Aktuelles Gewichtsziel', fat: 'Körperfett', current: 'Aktuell erfasster Wert: {value}', neutral: 'Maße sind Beobachtungen. Die Richtung allein belegt weder Fortschritt noch Gesundheit.',
     measurement: { neck: 'Hals', shoulders: 'Schultern', chest: 'Brust', waist: 'Taille', hips: 'Hüfte', biceps: 'Bizeps', forearms: 'Unterarme', thighs: 'Oberschenkel', calves: 'Waden' },
-    restingHr: 'Ruhepuls', bpm: '{value} Schläge/min', zone2: 'Erfasste Zeit in Herzfrequenzzone 2', watts: '{value} W',
-    efforts: { fastest5k: 'Schnellste erfasste Belastung über mindestens 5 km', longestDistance: 'Längste Strecke', bestPower: 'Höchste erfasste Leistung' },
+    restingHr: 'Ruhepuls', bpm: '{value} Schläge/min', zone2: 'Erfasste Dauer mit Zone-2-Kennzeichnung', watts: '{value} W',
+    cardioCoverage: 'Nur freigegebene manuell erfasste Trainingsdaten. Importiertes Training bleibt verborgen; diese Summen umfassen nicht den gesamten Kontoverlauf.',
+    cardioRange: 'Aktivitätswochen von {from} bis {to}, beginnend am {weekday}.', weekDays: { sunday: 'Sonntag', monday: 'Montag' },
+    cardioActivities: { run: 'Laufen', walk: 'Gehen', hike: 'Wandern', ride: 'Radfahren', row: 'Rudern', ski_erg: 'Ski-Ergometer', swim: 'Schwimmen', elliptical: 'Crosstrainer', stairs: 'Treppen', jump_rope: 'Seilspringen', other: 'Sonstiges Ausdauertraining' },
+    cardioWeekStatus: 'Wochenstatus', cardioWeek: 'Wochenbeginn', cardioDuration: 'Erfasste Zeit', cardioDistance: 'Erfasste Strecke', cardioLongest: 'Längstes erfasstes Intervall: {value}', cardioLongestNote: 'Ein Intervall in diesem Zeitraum, keine Wettkampf-Zwischenzeit oder persönliche Bestleistung.', cardioEmpty: 'Keine freigegebenen Ausdaueraktivitäten in diesem Zeitraum erfasst.',
+    zone2Note: 'Jedes ausdrücklich in Zone 2 erfasste Intervall zählt mit seiner gesamten Dauer. Dies ist keine sensorgemessene Zeit in der Zone.',
+
     goalEvidence: 'Ziele und deine erfassten Check-ins', checkIns: '{value} Check-ins', noGoalEvidence: 'Noch kein Check-in erfasst.',
     explain: 'Interpretiere meinen eFitware-Fortschritt von {from} bis {to} ({range}). Lies die nötigen zugrunde liegenden Einträge, unterscheide Beobachtungen von Schätzungen und erkläre aussagekräftige Veränderungen und Unsicherheit. Ändere mein Training nicht ohne meine Bitte.',
     askExplain: 'Meine KI um eine Erklärung bitten', back: 'Zurück zum Fortschritt'

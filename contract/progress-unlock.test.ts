@@ -22,7 +22,7 @@ const progress = (entry: Record<string, unknown>) => ({
     asOf: '2026-09-07', rangeStart: '2026-08-11', range: '4w', unlockSessions: 6, progressionCount: 1, metrics: [], weeklyVolume: [],
     consistency: { heatmap: [], sessionsDone: 7, sessionsPlanned: 7, streakWeeks: 1 }, balance: { muscles: [], movements: [] },
     body: { weight: null, goalWeight: null, bodyFat: null, weightSeries: [], bodyFatSeries: [], measurements: [] },
-    cardio: { restingHr: null, restingHrSeries: [], zone2Minutes: 0, bestEfforts: [] }, modalitySplit: [], recentPrs: [],
+    cardio: { restingHr: null, restingHrSeries: [], zone2Minutes: 0, rangeStart: '2026-08-11', weekStart: 'monday', coverage: 'manual-only', activities: [] }, modalitySplit: [], recentPrs: [],
     metadata: { today: '2026-09-07', timezone: 'UTC', readAt: '2026-09-07T12:00:00.000Z', readConsistency: 'snapshot' }
   },
   related: { section: 'strength', progression: { data: [entry], meta }, goals: { data: [], meta: { total: 0, page: 1, limit: 10 } } },

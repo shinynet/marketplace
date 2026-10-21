@@ -909,7 +909,7 @@
               ],
               "resolvedUnits": {
                 "load": "lb",
-                "distance": "mi",
+                "distance": "ft",
                 "pace": "s/mi",
                 "speed": "mph",
                 "elevation": "ft"
@@ -992,7 +992,7 @@
               ],
               "resolvedUnits": {
                 "load": "kg",
-                "distance": "km",
+                "distance": "m",
                 "pace": "s/km",
                 "speed": "km/h",
                 "elevation": "m"
@@ -1432,7 +1432,10 @@
             }
           ],
           "zone2Minutes": 95,
-          "bestEfforts": []
+          "rangeStart": "2026-08-17",
+          "weekStart": "monday",
+          "coverage": "manual-only",
+          "activities": []
         },
         "modalitySplit": [
           {
@@ -10284,6 +10287,329 @@
         "skin": null,
         "timeZone": "UTC"
       }
+    }
+  },
+  "cardioActivityCases": {
+    "observed": {
+      "rangeStart": "2026-10-05",
+      "weekStart": "monday",
+      "coverage": "manual-only",
+      "restingHr": null,
+      "restingHrSeries": [],
+      "zone2Minutes": 0,
+      "activities": [
+        {
+          "activity": "run",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        },
+        {
+          "activity": "walk",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0
+            }
+          ]
+        },
+        {
+          "activity": "hike",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        },
+        {
+          "activity": "ride",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "mi"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "mi"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "mi"
+            }
+          }
+        },
+        {
+          "activity": "row",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        },
+        {
+          "activity": "ski_erg",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "mi"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "mi"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "mi"
+            }
+          }
+        },
+        {
+          "activity": "swim",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        },
+        {
+          "activity": "elliptical",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "mi"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "mi"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "mi"
+            }
+          }
+        },
+        {
+          "activity": "stairs",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        },
+        {
+          "activity": "jump_rope",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "mi"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "mi"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "mi"
+            }
+          }
+        },
+        {
+          "activity": "other",
+          "weekly": [
+            {
+              "weekStart": "2026-10-05",
+              "durationSeconds": 1800,
+              "distance": {
+                "value": 5,
+                "unit": "km"
+              }
+            },
+            {
+              "weekStart": "2026-10-12",
+              "inProgress": true,
+              "durationSeconds": 0,
+              "distance": {
+                "value": 0,
+                "unit": "km"
+              }
+            }
+          ],
+          "longestDistance": {
+            "date": "2026-10-06",
+            "distance": {
+              "value": 3,
+              "unit": "km"
+            }
+          }
+        }
+      ]
+    },
+    "empty": {
+      "rangeStart": "2026-10-05",
+      "weekStart": "monday",
+      "coverage": "manual-only",
+      "restingHr": null,
+      "restingHrSeries": [],
+      "zone2Minutes": 0,
+      "activities": []
     }
   }
 }

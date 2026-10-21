@@ -213,6 +213,8 @@ Everything else is absent. Do not plan around it, do not offer it, and never rep
 | `set_workout_commentary` | Completed workoutId, content up to 2000 characters, expectedRevision (null only when absent), idempotencyKey. |
 | `delete_workout_commentary` | workoutId, current external expectedRevision, idempotencyKey; remove only external prose. |
 
+Cardio progress in `get_progress` and `open_progress` is always `coverage: "manual-only"`, including when health sharing is enabled. Read `activities[]` separately by activity, with weekly `durationSeconds` and labelled `distance` in km/mi. A metric absent throughout the activity's selected range stays absent in every week; a metric observed in that range is zero-filled in empty weeks. Never invent time for distance-only activity or distance for time-only activity. `longestDistance` is one logged interval within the range, not a race split or personal record. The range start and account week boundary accompany these observations. No pooled best-effort list exists. Imported training is excluded before grouping. `zone2Minutes` counts entire explicitly tagged intervals, not sensor-measured time in zone; current physiology is independently health-redacted.
+
 ### Sharing and integration metadata
 
 | Tool | Use |
