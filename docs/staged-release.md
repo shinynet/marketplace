@@ -1,4 +1,4 @@
-# 0.1.41 promotion preparation
+# 0.1.41 completed promotion
 
 Version 0.1.41 contains the exercise-unit, manual activity-progress and minimal
 withheld-calendar contracts for EF-2100 (EF-2118 / EF-2106 / EF-2103). Cards and
@@ -11,15 +11,15 @@ km/mi distance readouts use two decimals; canonical storage stays exact.
 ## Immutable identity
 
 - Approved/tagged source: `8eef2f72666f4821b95af9854ed5988f486d2105`.
-- Annotated tag and staged release: [v0.1.41](https://github.com/shinynet/marketplace/releases/tag/v0.1.41).
+- Annotated tag and promoted release: [v0.1.41](https://github.com/shinynet/marketplace/releases/tag/v0.1.41).
 - Manifest SHA-256: `eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77`.
 - Capability floor: `7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d`.
 - Official [stage workflow 39576397853](https://github.com/shinynet/marketplace/actions/runs/39576397853) passed, including 26 files / 245 tests.
 
 The parent independently downloaded all 27 release assets and verified their
 bytes, manifest hashes and GitHub asset digests before pinning the application.
-The approved pin is now shipped. This preparation changes no tagged source,
-release asset, manifest or minimum-capability field and creates no second version.
+The approved pin is shipped. Promotion changed no tagged source, release asset,
+manifest or minimum-capability field and created no second version.
 
 ## Compatible producer and fresh public checks
 
@@ -32,7 +32,7 @@ succeeded from reviewed parent `df291a08652687bf4ba747cc0490d8bef6186477`;
 its release commit contains the version/manifest delta. The parent reports
 828 files / 8,078 tests and 196 E2E checks green at that reviewed parent.
 These deployment, migration and broad-suite results are parent-provided evidence,
-not repeated by this metadata preparation.
+not repeated by this promotion record.
 
 Fresh uncached public reads at 2026-10-21T23:15:46Z returned appVersion `10d20af`
 and release `0.5.0`. All four production-hosted files under
@@ -44,44 +44,59 @@ Git ancestry also confirms the minimum capability commit precedes the serving
 release. The public release-commit endpoint lists first-parent releases only;
 a 404 for the capability commit is not evidence of missing capability.
 
-## Prepared metadata and remaining action
+## Completed metadata promotion
 
-`channels.json` prepares `published: 0.1.41` and `staged: null`.
-`.github/release-promotion.json` records the exact immutable identity and
+`channels.json` now records `published: 0.1.41` and `staged: null` on main.
+`.github/release-promotion.json` retains the reviewed immutable identity and
 compatible READY deployment. Both catalogs remain byte-identical: they have
 versionless local-path entries pointing at the plugin. Both plugin manifests
-already say 0.1.41 and remain byte-identical. No catalog schema or version field
-is invented; tool inventory, schemas, cards, skill and packaging stay unchanged.
+already said 0.1.41 and remain byte-identical. No catalog schema or version field
+was invented; tool inventory, schemas, cards, skill and packaging are unchanged.
 
-This branch is preparation only. The release is still an immutable prerelease;
-no latest/release metadata or catalog publication has been performed here.
-The parent must obtain independent exact-head review, then merge PR #48 using
-a merge commit or fast-forward preserving the annotated tag's source ancestry.
-That main-branch channel/receipt update triggers the existing
-`Promote verified immutable release` workflow. The workflow verifies all 27
-assets, promotes only release metadata, then checks unchanged asset identities
-and GitHub latest. Do not run `scripts/promote-release.ts` as a validation command:
-it performs that publication write. If Actions cannot run, leave the release
-staged until the parent explicitly authorizes the same reviewed manual procedure.
-No manual fallback is executed by this preparation.
+[PR #48](https://github.com/shinynet/marketplace/pull/48) was independently
+approved at `4542a257990e8e927b99d745373ca13095b9ac87` and merged using
+`ebf1589ff850fc961580b742ff6d20069903757c`, preserving the annotated tag's source
+ancestry. The existing [promotion workflow 39692972017](https://github.com/shinynet/marketplace/actions/runs/39692972017)
+succeeded; [job 119543411774](https://github.com/shinynet/marketplace/actions/runs/39692972017/job/119543411774)
+completed at 2026-10-21T23:22:41Z. It verified all release bytes before promotion,
+changed only release metadata and verified asset identities and GitHub latest
+afterward. No manual promotion fallback was used.
 
-The parent then independently re-downloads the manifest, verifies its unchanged
-hash and the workflow's asset identities, and handles any separately reviewed
-website mirror update. No website delivery claim is made here.
+The parent freshly read GitHub latest as release `419366530`, tag `v0.1.41`,
+immutable true, prerelease false, with all 27 assets. Its fresh manifest download
+retained SHA-256 `eb3499a082d04534b51b0be7f959e838fb459690820e86097833b53ec3964e77`
+and source `8eef2f72666f4821b95af9854ed5988f486d2105`. All 26 manifest-entry
+metadata records match the release API. The four previously verified production
+downloads retain their asset IDs, sizes and digests. This documentation pass
+independently re-read the successful workflow at the merge SHA and GitHub latest;
+it did not rerun publication or the earlier download checks.
+
+Public-safe evidence fingerprints retained by the parent:
+
+- Promotion receipt SHA-256: `e9def19c97ef4f18d93f29b4dad6861afa84919cef91a48b8a0f4ac838ab8e0a`.
+- Full workflow log SHA-256: `3b5bd04637b3ead42e59d3f841f990df7e6e4d394669d6337e6300c6601100c5`.
+
+The workflow and release links above are the public evidence entry points;
+private evidence locations are not published here. Any website mirror update
+and actual client/native activation remain separately qualified. Do not rerun
+`scripts/promote-release.ts` for documentation validation: it is a publication
+writer, and promotion is already complete.
 
 ## Evidence reuse and limits
 
 The full 26-file / 245-test source suite, strict 26-file asset packaging and
-published stage workflow at source `8eef2f7` remain valid: this delta touches
-only channels, receipt and documentation. Fresh checks use the existing receipt
-schema, metadata agreement, immutable identity and Git ancestry; no build, full
-suite, development server or native process is needed. Installed dependency
-lock bytes match before the lightweight schema check.
+published stage workflow at source `8eef2f7` remain valid because promotion and
+this documentation reconciliation do not change source or packaging. Preparation checked the receipt schema, metadata
+agreement, immutable identity and Git ancestry with matched dependency-lock
+bytes. This completion pass checks only the documentation diff, local links and
+unchanged release metadata; no tests, build, development server or native process
+were run.
 
 Parent-reported authenticated MCP SDK 1.32 qualification (28 calls, revocation
 403 and cleanup) and release SDK compatibility for both generations remain
-separate evidence. This preparation does not repeat them or turn fixture tests
-into authenticated proof. Desktop/natural-language activation is not claimed.
-Native 1.5 OTA is uninitialized with nothing published; physical Samsung
-qualification remains held. Native work, final activation, website promotion,
+separate evidence. This documentation reconciliation does not repeat them or
+turn fixture tests into authenticated proof. Desktop/natural-language activation is not claimed.
+At the preparation handoff, native 1.5 OTA was uninitialized with nothing
+published and physical Samsung qualification was held. This promotion provides
+no new native evidence. Native work, final activation, website promotion,
 Jira closeout and cleanup remain with their parent/owners.

@@ -1,7 +1,7 @@
 # Exercise units source handoff (EF-2118)
 
 This source change consumes the EF-2116 exercise-unit foundation through the
-EF-2118 Coach/MCP projection. Version 0.1.41 metadata is prepared; it is not a published successor to 0.1.40.
+EF-2118 Coach/MCP projection. Version 0.1.41 is published and promoted; see [staged-release.md](staged-release.md).
 
 The successor artifact must include `plugins/efitware/skills/efitware/SKILL.md`,
 `workout.html`, `compat-fixtures.json`, and the generated workout, template,

@@ -6,7 +6,7 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
-## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, promotion prepared)
+## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, promoted)
 
 Both plugin manifests identify 0.1.41. The card and shipped skill use explicit
 exercise measurements and resolved per-category units, retaining exact converted
@@ -35,13 +35,20 @@ production deployment `dpl_8QPJjghPJUM5tkgo22zYsZo9cWTS` and serving alias.
 Fresh public checks on 2026-10-21 confirm that application's version and all four
 hosted downloads against the immutable manifest and GitHub asset digests.
 
-This branch prepares the channel and promotion receipt for independent review;
-it does not claim that the release is promoted or GitHub latest. Both catalogs
-remain byte-identical because they are versionless local-path entries. Both
-plugin manifests already identify 0.1.41 and also remain byte-identical. Tool
-inventory, immutable source and minimum-capability fields are unchanged. See
-[the promotion handoff](staged-release.md) for evidence, limits and the remaining
-parent-owned merge/publication steps.
+Promotion completed on 2026-10-21T23:22:41Z through
+[workflow 39692972017](https://github.com/shinynet/marketplace/actions/runs/39692972017),
+after [PR #48](https://github.com/shinynet/marketplace/pull/48) was independently
+approved at `4542a257990e8e927b99d745373ca13095b9ac87` and merged as
+`ebf1589ff850fc961580b742ff6d20069903757c`, preserving tagged-source ancestry.
+GitHub latest is immutable release `419366530`, v0.1.41, with prerelease false
+and all 27 assets retained. The workflow verified every asset's bytes and
+identity; the parent's fresh manifest download retained the exact hash above.
+Both catalogs remain byte-identical because they are versionless local-path
+entries. Both plugin manifests already identify 0.1.41 and remain byte-identical.
+Tool inventory, immutable source and minimum-capability fields are unchanged.
+See [the completed promotion record](staged-release.md) for evidence and limits.
+No website, Desktop/natural-language or native activation is established by this
+promotion.
 
 ## Canonical training-space equipment (0.1.40, EF-2090, source prepared)
 
