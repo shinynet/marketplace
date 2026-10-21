@@ -4,11 +4,10 @@ import { z } from 'zod'
  * The MCP measurement contract (EF-1447, app plan "Imperial accounts" §1 and §6).
  *
  * Every weight and body measurement the card reads is a measurement object, `{ value, unit }`, already in
- * the account's unit. The card renders `value` with `unit` exactly as given and never converts it:
+ * the resolved exercise unit (account units for body/aggregates). The card renders `value` with `unit` exactly as given and never converts it:
  * `presentation.unitSystem` is only a hint for the unit of a value the user types into an empty field.
  *
- * - Loads (a set's `weight`/`plannedWeight`, PR weights, top sets) sit on their unit's grid: half a pound
- *   or 0.25 kg. Rendered with at most one decimal for lb and two for kg ("187.5 lb", "85.25 kg").
+ * - Loads retain exact converted precision, displayed with at most two decimals in either unit.
  * - Totals and estimates (volume, estimated one-rep maximum) are whole units, rendered whole.
  * - Body metrics use unit-free identifiers and one unit dimension each, rendered unsnapped at one decimal;
  *   bpm is whole.
@@ -20,11 +19,15 @@ import { z } from 'zod'
 const weightUnit = z.enum(['lb', 'kg'])
 const nonNegative = z.number().nonnegative()
 
-/** A load on its unit's grid: half a pound, or 0.25 kg. */
-export const loadSchema = z.discriminatedUnion('unit', [
-  z.object({ value: nonNegative.multipleOf(0.5), unit: z.literal('lb') }),
-  z.object({ value: nonNegative.multipleOf(0.25), unit: z.literal('kg') })
-])
+/** An exact converted load; human presentation alone rounds to two decimals. */
+export const loadSchema = z.object({ value: nonNegative, unit: weightUnit })
+export const distanceSchema = z.object({ value: nonNegative, unit: z.enum(['m', 'km', 'mi', 'ft', 'yd']) })
+export const paceSchema = z.object({ value: nonNegative, unit: z.enum(['s/km', 's/mi', 's/500m', 's/100m', 's/100yd']) })
+export const speedSchema = z.object({ value: nonNegative, unit: z.enum(['km/h', 'mph']) })
+export const elevationSchema = z.object({ value: nonNegative, unit: z.enum(['m', 'ft']) })
+export const exerciseUnitsSchema = z.object({ load: weightUnit, distance: distanceSchema.shape.unit, pace: paceSchema.shape.unit, speed: speedSchema.shape.unit, elevation: elevationSchema.shape.unit })
+export type Distance = z.infer<typeof distanceSchema>
+export type ExerciseUnits = z.infer<typeof exerciseUnitsSchema>
 /** A total or an estimate (volume, estimated one-rep maximum): whole units. */
 export const totalSchema = z.object({ value: z.number().int().nonnegative(), unit: weightUnit })
 
@@ -60,11 +63,11 @@ export type Total = z.infer<typeof totalSchema>
 export type LoadUnit = z.infer<typeof weightUnit>
 export interface Measurement { value: number, unit: string }
 
-const intlUnit: Record<string, string> = { lb: 'pound', kg: 'kilogram', cm: 'centimeter', in: 'inch' }
+const intlUnit: Record<string, string> = { lb: 'pound', kg: 'kilogram', cm: 'centimeter', in: 'inch', m: 'meter', km: 'kilometer', mi: 'mile', ft: 'foot', yd: 'yard' }
 const withUnit = (value: number, unit: string, locale: string, digits: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: digits, style: 'unit', unit: intlUnit[unit] ?? unit, unitDisplay: 'short' }).format(value)
 
 /** A load as given: "187.5 lb", "85.25 kg". */
-export const formatLoad = (load: Measurement, locale: string) => withUnit(load.value, load.unit, locale, load.unit === 'lb' ? 1 : 2)
+export const formatLoad = (load: Measurement, locale: string) => withUnit(load.value, load.unit, locale, 2)
 /** A total or an estimate as given, in whole units: "12,346 lb". */
 export const formatTotal = (total: Measurement, locale: string) => withUnit(total.value, total.unit, locale, 0)
 /**
@@ -103,3 +106,13 @@ export const seriesUnit = (points: ReadonlyArray<{ value: Measurement }>, fallba
 export const chartPoints = (points: ReadonlyArray<{ date: string, value: Measurement }>) => points.map(point => ({ date: point.date, value: point.value.value }))
 /** The unit the account reads a body metric in; only an empty series is labelled with it. */
 export const accountBodyMetricUnit = (key: BodyMetricId, system: 'metric' | 'imperial') => key === 'weight' ? accountLoadUnit(system) : key === 'body_fat' ? 'percent' : key === 'resting_heart_rate' ? 'bpm' : system === 'imperial' ? 'in' : 'cm'
+
+/** Render an exercise measurement literally; the server already resolved its category. */
+export const formatExerciseMeasurement = (measurement: Measurement, locale: string): string => {
+  if (measurement.unit.startsWith('s/')) {
+    const seconds = Math.round(measurement.value)
+    return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}/${measurement.unit.slice(2)}`
+  }
+  if (measurement.unit === 'km/h' || measurement.unit === 'mph') return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(measurement.value)} ${measurement.unit}`
+  return withUnit(measurement.value, measurement.unit, locale, 2)
+}

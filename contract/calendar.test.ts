@@ -472,3 +472,18 @@ describe('calendar goal days (EF-1889)', () => {
     })
   })
 })
+
+
+it('renders a minimal withheld imported session without identity details or actions', async () => {
+  const response = structuredClone(fixture.response) as unknown as Record<string, unknown>
+  response.days = [{ date: fixture.date, status: 'withheld', sessionCount: 1, completedSessionCount: 0, inProgressSessionCount: 0, plannedSessionCount: 0, missedSessionCount: 0, endedSessionCount: 0, withheldSessionCount: 1 }]
+  const withheld = { id: 'a'.repeat(24), date: fixture.date, status: 'withheld', displayStatus: 'withheld' }
+  response.agenda = { date: fixture.date, items: [withheld] }
+  const view = wrap(response)
+  expect(validate(view), JSON.stringify(validate.errors)).toBe(true)
+  const html = await render(view)
+  expect(html).toContain(messages.en.withheld)
+  expect(html).not.toContain('data-tool="open_workout"')
+  expect(calendarViewSchema.safeParse(wrap({ ...response, agenda: { date: fixture.date, items: [{ ...withheld, name: 'Private imported title' }] } })).success).toBe(false)
+  expect(dayMarks(calendarViewSchema.parse(view).record.days[0])).toEqual(['withheld'])
+})

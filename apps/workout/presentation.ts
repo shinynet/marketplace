@@ -1,6 +1,6 @@
 import { convertDistance, convertWeight, metresFromDisplayDistance, poundsToKilograms } from './lib/unitUtils'
 import type { UnitSystem } from './lib/units'
-import { accountLoadUnit, type Load, type LoadUnit } from './measurement'
+import { accountLoadUnit, formatExerciseMeasurement, type Measurement, type Load, type LoadUnit, type Distance } from './measurement'
 
 export type ActualField = 'weight' | 'reps' | 'duration' | 'distance'
 /**
@@ -15,7 +15,8 @@ export const displayMeasure = (field: ActualField, value: number, system: UnitSy
   if (field === 'distance') return convertDistance(value, system)
   return { value, unit: field === 'duration' ? 'second' : undefined }
 }
-export const formatMeasure = (field: ActualField, value: number, system: UnitSystem, locale: string) => {
+export const formatMeasure = (field: ActualField, value: number | Measurement, system: UnitSystem, locale: string) => {
+  if (typeof value !== 'number') return formatExerciseMeasurement(value, locale)
   const display = field === 'duration' && value >= 60
     ? { value: value / (value >= 3600 ? 3600 : 60), unit: value >= 3600 ? 'hour' : 'minute' }
     : displayMeasure(field, value, system)
@@ -38,8 +39,20 @@ export const parseInput = (input: string, locale: string): number | null => {
 }
 /**
  * The unit a set's weight field is shown and sent in: the recorded load's own unit, else the planned load's,
- * else the account's. Loads are never converted; the application converts and snaps what it receives.
+ * else the account's. Loads are never converted; the application converts once without snapping.
  */
 export const inputLoadUnit = (set: { weight?: Load, plannedWeight?: Load }, system: UnitSystem): LoadUnit => set.weight?.unit ?? set.plannedWeight?.unit ?? accountLoadUnit(system)
-/** What an edited field is sent as: a load is a measurement object in the unit it was typed in; other fields are canonical storage. */
-export const sentValue = (field: ActualField, value: number, unit: string | undefined): number | Load => field === 'weight' ? { value, unit: unit === 'pound' ? 'lb' : 'kg' } : storageValue(field, value, unit)
+/** Edited load and distance fields retain their displayed denomination for server conversion. */
+export const sentValue = (field: ActualField, value: number, unit: string | undefined): number | Load | Distance => {
+  if (field === 'weight') {
+    if (unit !== 'pound' && unit !== 'kilogram') throw new Error('INVALID_LOAD_UNIT')
+    return { value, unit: unit === 'pound' ? 'lb' : 'kg' }
+  }
+  if (field === 'distance') {
+    const units: Record<string, Distance['unit']> = { meter: 'm', kilometer: 'km', mile: 'mi', foot: 'ft', yard: 'yd' }
+    const selected = unit && units[unit]
+    if (!selected) throw new Error('INVALID_DISTANCE_UNIT')
+    return { value, unit: selected }
+  }
+  return value
+}

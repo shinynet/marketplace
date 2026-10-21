@@ -80,7 +80,7 @@ describe('measurement contract fixtures', () => {
 })
 
 describe('the precision table', () => {
-  it('renders loads on their grid with at most one decimal for lb and two for kg', () => {
+  it('renders exact converted loads with at most two displayed decimals', () => {
     expect(formatLoad({ value: 187.5, unit: 'lb' }, 'en')).toBe('187.5 lb')
     expect(formatLoad({ value: 185, unit: 'lb' }, 'en')).toBe('185 lb')
     expect(formatLoad({ value: 85.25, unit: 'kg' }, 'en')).toBe('85.25 kg')
@@ -190,7 +190,8 @@ describe('the card never converts an already-converted measurement', () => {
     expect(inputLoadUnit({}, 'metric')).toBe('kg')
     expect(sentValue('weight', 190, 'pound')).toEqual({ value: 190, unit: 'lb' })
     expect(sentValue('weight', 85, 'kilogram')).toEqual({ value: 85, unit: 'kg' })
-    expect(sentValue('distance', 1.5, 'mile')).toBeCloseTo(2414.016, 6)
+    expect(sentValue('distance', 1.5, 'mile')).toEqual({ value: 1.5, unit: 'mi' })
+    expect(sentValue('distance', 100, 'yard')).toEqual({ value: 100, unit: 'yd' })
   })
 })
 
@@ -202,8 +203,9 @@ describe('schemas refuse bare numbers and off-contract measurements', () => {
     ['bare set weight', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = 187.5 }],
     ['bare planned weight', 'workout', workout, (view: typeof workout) => { firstSet(view).plannedWeight = 85 }],
     ['bare PR marker weight', 'workout', workout, (view: typeof workout) => { (firstSet(view).prs as Array<Record<string, unknown>>)[0]!.weight = 85 }],
-    ['off-grid pound load', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = { value: 187.4, unit: 'lb' } }],
-    ['off-grid kilogram load', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = { value: 85.3, unit: 'kg' } }],
+    ['negative load', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = { value: -1, unit: 'lb' } }],
+    ['wrong-dimension distance', 'workout', workout, (view: typeof workout) => { firstSet(view).distance = { value: 5, unit: 'kg' } }],
+    ['bare distance', 'workout', workout, (view: typeof workout) => { firstSet(view).distance = 5000 }],
     ['unknown load unit', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = { value: 85, unit: 'kgs' } }],
     ['legacy weightUnit-only load', 'workout', workout, (view: typeof workout) => { firstSet(view).weight = { value: 85 } }],
     ['bare top set', 'exerciseProgress', stats, (view: typeof stats) => { (view.related.stats.topSet as Record<string, unknown>).weight = 85 }],
@@ -252,5 +254,28 @@ describe('schemas refuse bare numbers and off-contract measurements', () => {
       expect(bodyMetricViewSchema.safeParse(variant).success).toBe(false)
     }
     expect(viewSchema.safeParse({ ...workout, workout: { ...workout.workout, exercises: [{ ...workout.workout.exercises[0], sets: [{ ...workout.workout.exercises[0]!.sets[0], weight: 187.5 }] }] } }).success).toBe(false)
+  })
+})
+
+
+describe('independent exercise units (EF-2118)', () => {
+  it('keeps exact load and literal distance, pace and elevation units on an imperial card', async () => {
+    const original = viewSchema.parse(contract.openWorkout.imperial)
+    const exercise = original.workout.exercises[0]!
+    Object.assign(exercise.sets[0]!, { weight: { value: 22.22, unit: 'kg' }, plannedDistance: { value: 5, unit: 'km' }, distance: { value: 100, unit: 'yd' }, plannedPace: { value: 120, unit: 's/500m' }, avgPace: { value: 510, unit: 's/mi' }, speed: { value: 6, unit: 'mph' }, elevationGain: { value: 100, unit: 'ft' } })
+    const parsed = viewSchema.parse(original)
+    expect(validators.workout(original)).toBe(true)
+    expect(parsed.workout.exercises[0]!.sets[0]!.weight!.value).toBe(22.22)
+    const output = await render(WorkoutSetRow, { set: parsed.workout.exercises[0]!.sets[0], number: 1, modality: 'cardio', system: 'imperial', save: () => undefined })
+    for (const phrase of ['Added (kg)', '5 km', 'Distance (yd)', '2:00/500m', '8:30/mi', '6 mph', '100 ft']) expect(output).toContain(phrase)
+    const html = await renderToString(createSSRApp(WorkoutSetRow, { set: parsed.workout.exercises[0]!.sets[0], number: 1, modality: 'cardio', system: 'imperial', disabled: false, save: () => undefined }).use(createI18n({ legacy: false, locale: 'en', messages })))
+    expect(html).toContain('value="22.22"')
+
+  })
+
+  it('uses remembered categories independently for empty fields', async () => {
+    const output = await render(WorkoutSetRow, { set: { id: 'empty', category: 'interval', completed: false }, number: 1, modality: 'cardio', tracking: { tracksWeight: true, tracksDistance: true }, resolvedUnits: { load: 'kg', distance: 'yd', pace: 's/100yd', speed: 'mph', elevation: 'ft' }, system: 'imperial', save: () => undefined })
+    expect(output).toContain('Weight (kg)')
+    expect(output).toContain('Distance (yd)')
   })
 })

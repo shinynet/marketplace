@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { loadShapeSchema, presentationSchema, type LoadShape } from './model.ts'
-import { bodyFatPointSchema, bodyFatSchema, bodyWeightPointSchema, bodyWeightSchema, circumferenceIdSchema, circumferencePointSchema, circumferenceSchema, estimatePointSchema, heartRatePointSchema, heartRateSchema, loadSchema, totalSchema } from './measurement.ts'
+import { distanceSchema, bodyFatPointSchema, bodyFatSchema, bodyWeightPointSchema, bodyWeightSchema, circumferenceIdSchema, circumferencePointSchema, circumferenceSchema, estimatePointSchema, heartRatePointSchema, heartRateSchema, loadSchema, totalSchema } from './measurement.ts'
 
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
 const id = z.string().regex(/^[a-f0-9]{24}$/i)
@@ -30,7 +30,7 @@ export const progressViewSchema = z.object({
     consistency: z.object({ heatmap: z.array(z.object({ weekStart: day, sets: count })), sessionsDone: count, sessionsPlanned: count, streakWeeks: count }),
     balance: z.object({ muscles: z.array(z.object({ muscle: z.string(), sets: count })), movements: z.array(z.object({ movement: z.string(), share: n })) }),
     body: z.object({ weight: bodyWeightSchema.nullable(), goalWeight: bodyWeightSchema.nullable(), bodyFat: bodyFatSchema.nullable(), weightSeries: z.array(bodyWeightPointSchema), bodyFatSeries: z.array(bodyFatPointSchema), measurements: z.array(z.object({ key: circumferenceIdSchema, value: circumferenceSchema, series: z.array(circumferencePointSchema) })) }),
-    cardio: z.object({ restingHr: heartRateSchema.nullable(), restingHrSeries: z.array(heartRatePointSchema), zone2Minutes: n, zone2DeltaMinutes: n.optional(), bestEfforts: z.array(z.object({ key: z.string(), kind: z.enum(['time', 'distance', 'power']), date: day, seconds: n.optional(), distanceMeters: n.optional(), watts: n.optional() })) }),
+    cardio: z.object({ restingHr: heartRateSchema.nullable(), restingHrSeries: z.array(heartRatePointSchema), zone2Minutes: n, zone2DeltaMinutes: n.optional(), bestEfforts: z.array(z.object({ key: z.string(), kind: z.enum(['time', 'distance', 'power']), date: day, seconds: n.optional(), distance: distanceSchema.optional(), improvement: distanceSchema.optional(), watts: n.optional() })) }),
     modalitySplit: z.array(z.object({ modality: z.string(), share: n })),
     recentPrs: z.array(z.object({ id: z.string(), workoutId: id, exerciseId: id, setId: z.string(), modality: z.string(), exerciseName: z.string(), i18n: localizedName, date: day, loadShape: loadShapeSchema.optional(), type: prAwardTypeSchema.optional(), reps: n.optional(), weight: loadSchema.optional(), estimatedOneRm: totalSchema.optional(), durationSeconds: n.optional() })),
     metadata: z.object({ today: day, timezone: z.string(), readAt: z.string(), readConsistency: z.string() })

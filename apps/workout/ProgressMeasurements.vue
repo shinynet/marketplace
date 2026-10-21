@@ -153,7 +153,7 @@ const bodyIn = (points: ReadonlyArray<{ value: Measurement }>, fallback: string)
       >
         <dt>{{ t(`progressUi.efforts.${effort.key}`) }}</dt>
         <dd class="mt-2 font-serif text-2xl">
-          {{ effort.seconds !== undefined ? formatMeasure('duration', effort.seconds, (resolveDisplayUnitSystem(progress.presentation.unitSystem, locale)), locale) : effort.distanceMeters !== undefined ? formatMeasure('distance', effort.distanceMeters, (resolveDisplayUnitSystem(progress.presentation.unitSystem, locale)), locale) : effort.watts !== undefined ? t('progressUi.watts', { value: number(effort.watts) }) : t('progressUi.unavailable') }}
+          {{ effort.seconds !== undefined ? formatMeasure('duration', effort.seconds, (resolveDisplayUnitSystem(progress.presentation.unitSystem, locale)), locale) : effort.distance !== undefined ? formatMeasure('distance', effort.distance, (resolveDisplayUnitSystem(progress.presentation.unitSystem, locale)), locale) : effort.watts !== undefined ? t('progressUi.watts', { value: number(effort.watts) }) : t('progressUi.unavailable') }}
         </dd>
         <dd class="mt-2 text-sm text-muted">
           <time :datetime="effort.date">{{ formatDay(effort.date, locale) }}</time>

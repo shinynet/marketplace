@@ -898,7 +898,7 @@
                   "category": "working",
                   "completed": false,
                   "plannedWeight": {
-                    "value": 185,
+                    "value": 185.00000000000003,
                     "unit": "lb"
                   },
                   "plannedReps": {
@@ -906,14 +906,21 @@
                     "max": 5
                   }
                 }
-              ]
+              ],
+              "resolvedUnits": {
+                "load": "lb",
+                "distance": "mi",
+                "pace": "s/mi",
+                "speed": "mph",
+                "elevation": "ft"
+              }
             }
           ]
         },
         "exercises": [
           {
             "id": "777777777777777777777777",
-            "nameDe": "Bankdrücken",
+            "nameDe": "Bankdr\u00fccken",
             "tracksWeight": true,
             "tracksReps": true
           }
@@ -982,14 +989,21 @@
                     "max": 5
                   }
                 }
-              ]
+              ],
+              "resolvedUnits": {
+                "load": "kg",
+                "distance": "km",
+                "pace": "s/km",
+                "speed": "km/h",
+                "elevation": "m"
+              }
             }
           ]
         },
         "exercises": [
           {
             "id": "777777777777777777777777",
-            "nameDe": "Bankdrücken",
+            "nameDe": "Bankdr\u00fccken",
             "tracksWeight": true,
             "tracksReps": true
           }
@@ -2467,7 +2481,7 @@
       "exercises": [
         {
           "id": "888888888888888888888888",
-          "nameDe": "Schulterdrücken",
+          "nameDe": "Schulterdr\u00fccken",
           "tracksWeight": true,
           "tracksReps": true
         },
@@ -2619,7 +2633,7 @@
         "exercises": [
           {
             "id": "888888888888888888888888",
-            "nameDe": "Schulterdrücken",
+            "nameDe": "Schulterdr\u00fccken",
             "tracksWeight": true,
             "tracksReps": true
           },
@@ -3739,8 +3753,8 @@
         "id": "beginner-strength-program",
         "version": 3,
         "format": "program",
-        "title": "Kraft für Einsteiger",
-        "summary": "Ein fester Wochenplan mit der Langhantel, aufgebaut auf Fünfersätzen.",
+        "title": "Kraft f\u00fcr Einsteiger",
+        "summary": "Ein fester Wochenplan mit der Langhantel, aufgebaut auf F\u00fcnfers\u00e4tzen.",
         "tags": {
           "focus": [
             "full-body"
@@ -3788,8 +3802,8 @@
           "defaultDates": []
         },
         "appPath": "/library/beginner-strength-program",
-        "description": "Kniebeuge, Bankdrücken, Kreuzheben und Schulterdrücken in Sätzen zu fünf Wiederholungen, mit Aufwärmsätzen, vollen Pausen sowie je einer Rücken- und Rumpfübung pro Tag. Die Woche wiederholt sich, und deine Gewichte werden aus dem geplant, was du tatsächlich protokollierst. Wähle zwei oder drei Tage pro Woche.",
-        "suitability": "Für Einsteiger in einem Studio mit Langhantel, Rack, Bank, Latzug, Kabelzug und einer Kurzhantel, idealerweise nach ein paar Übungseinheiten der Grundübungen.",
+        "description": "Kniebeuge, Bankdr\u00fccken, Kreuzheben und Schulterdr\u00fccken in S\u00e4tzen zu f\u00fcnf Wiederholungen, mit Aufw\u00e4rms\u00e4tzen, vollen Pausen sowie je einer R\u00fccken- und Rumpf\u00fcbung pro Tag. Die Woche wiederholt sich, und deine Gewichte werden aus dem geplant, was du tats\u00e4chlich protokollierst. W\u00e4hle zwei oder drei Tage pro Woche.",
+        "suitability": "F\u00fcr Einsteiger in einem Studio mit Langhantel, Rack, Bank, Latzug, Kabelzug und einer Kurzhantel, idealerweise nach ein paar \u00dcbungseinheiten der Grund\u00fcbungen.",
         "trainingSpace": {
           "id": "ts-4441fa17-d9e0-4ef5-a3bb-a2115fe53a13",
           "name": "Default",
@@ -3805,7 +3819,7 @@
               "sessions": [
                 {
                   "sessionId": "two-days-a",
-                  "name": "Tag A: Kniebeuge, Bankdrücken und Rudern",
+                  "name": "Tag A: Kniebeuge, Bankdr\u00fccken und Rudern",
                   "estimatedMinutes": 40,
                   "slots": [
                     {
@@ -3883,7 +3897,7 @@
                     {
                       "slotId": "bench-press",
                       "exerciseId": "6ac21d094c342c17f74c3cce",
-                      "name": "Bankdrücken",
+                      "name": "Bankdr\u00fccken",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -3994,7 +4008,7 @@
                     {
                       "slotId": "romanian-deadlift",
                       "exerciseId": "6ac21d094c342c17f74c3cc6",
-                      "name": "Rumänisches Kreuzheben",
+                      "name": "Rum\u00e4nisches Kreuzheben",
                       "prescription": {
                         "order": 4,
                         "sets": [
@@ -4055,7 +4069,7 @@
                 },
                 {
                   "sessionId": "two-days-b",
-                  "name": "Tag B: Kreuzheben, Drücken und Latziehen",
+                  "name": "Tag B: Kreuzheben, Dr\u00fccken und Latziehen",
                   "estimatedMinutes": 40,
                   "slots": [
                     {
@@ -4126,7 +4140,7 @@
                     {
                       "slotId": "overhead-press",
                       "exerciseId": "6ac21d094c342c17f74c3cd8",
-                      "name": "Schulterdrücken",
+                      "name": "Schulterdr\u00fccken",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -4312,7 +4326,7 @@
               "sessions": [
                 {
                   "sessionId": "three-days-a",
-                  "name": "Tag A: Kniebeuge und Bankdrücken",
+                  "name": "Tag A: Kniebeuge und Bankdr\u00fccken",
                   "estimatedMinutes": 35,
                   "slots": [
                     {
@@ -4390,7 +4404,7 @@
                     {
                       "slotId": "bench-press",
                       "exerciseId": "6ac21d094c342c17f74c3cce",
-                      "name": "Bankdrücken",
+                      "name": "Bankdr\u00fccken",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -4529,7 +4543,7 @@
                 },
                 {
                   "sessionId": "three-days-b",
-                  "name": "Tag B: Kreuzheben und Drücken",
+                  "name": "Tag B: Kreuzheben und Dr\u00fccken",
                   "estimatedMinutes": 30,
                   "slots": [
                     {
@@ -4587,7 +4601,7 @@
                     {
                       "slotId": "overhead-press",
                       "exerciseId": "6ac21d094c342c17f74c3cd8",
-                      "name": "Schulterdrücken",
+                      "name": "Schulterdr\u00fccken",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -4734,7 +4748,7 @@
                 },
                 {
                   "sessionId": "three-days-c",
-                  "name": "Tag C: Kniebeuge, Bankdrücken und Latziehen",
+                  "name": "Tag C: Kniebeuge, Bankdr\u00fccken und Latziehen",
                   "estimatedMinutes": 35,
                   "slots": [
                     {
@@ -4812,7 +4826,7 @@
                     {
                       "slotId": "bench-press",
                       "exerciseId": "6ac21d094c342c17f74c3cce",
-                      "name": "Bankdrücken",
+                      "name": "Bankdr\u00fccken",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -4973,7 +4987,7 @@
           },
           {
             "id": "6ac21d094c342c17f74c3cce",
-            "name": "Bankdrücken",
+            "name": "Bankdr\u00fccken",
             "modality": "resistance",
             "equipmentRequired": [
               "barbell_plates",
@@ -4990,7 +5004,7 @@
           },
           {
             "id": "6ac21d094c342c17f74c3cc6",
-            "name": "Rumänisches Kreuzheben",
+            "name": "Rum\u00e4nisches Kreuzheben",
             "modality": "resistance",
             "equipmentRequired": [
               "barbell_plates"
@@ -5012,7 +5026,7 @@
           },
           {
             "id": "6ac21d094c342c17f74c3cd8",
-            "name": "Schulterdrücken",
+            "name": "Schulterdr\u00fccken",
             "modality": "resistance",
             "equipmentRequired": [
               "barbell_plates",
@@ -5408,7 +5422,7 @@
               "sessions": [
                 {
                   "sessionId": "base-a",
-                  "name": "Base · Day A: Lunge and Push-Up",
+                  "name": "Base \u00b7 Day A: Lunge and Push-Up",
                   "estimatedMinutes": 20,
                   "slots": [
                     {
@@ -5524,7 +5538,7 @@
                 },
                 {
                   "sessionId": "base-b",
-                  "name": "Base · Day B: Side Lunge and Pike",
+                  "name": "Base \u00b7 Day B: Side Lunge and Pike",
                   "estimatedMinutes": 20,
                   "slots": [
                     {
@@ -5649,7 +5663,7 @@
                     [
                       {
                         "sessionId": "base-a",
-                        "name": "Base · Day A: Lunge and Push-Up",
+                        "name": "Base \u00b7 Day A: Lunge and Push-Up",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -5765,7 +5779,7 @@
                       },
                       {
                         "sessionId": "base-b",
-                        "name": "Base · Day B: Side Lunge and Pike",
+                        "name": "Base \u00b7 Day B: Side Lunge and Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -5883,7 +5897,7 @@
                     [
                       {
                         "sessionId": "base-c",
-                        "name": "Base · Day C: Bridge and Hollow Hold",
+                        "name": "Base \u00b7 Day C: Bridge and Hollow Hold",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -5975,7 +5989,7 @@
                       },
                       {
                         "sessionId": "base-d",
-                        "name": "Base · Day D: Lunge and Pike",
+                        "name": "Base \u00b7 Day D: Lunge and Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -6101,7 +6115,7 @@
                     [
                       {
                         "sessionId": "build-a",
-                        "name": "Build · Day A: Lunge and Push-Up",
+                        "name": "Build \u00b7 Day A: Lunge and Push-Up",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -6243,7 +6257,7 @@
                       },
                       {
                         "sessionId": "build-b",
-                        "name": "Build · Day B: Side Lunge and Pike",
+                        "name": "Build \u00b7 Day B: Side Lunge and Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -6387,7 +6401,7 @@
                     [
                       {
                         "sessionId": "build-c",
-                        "name": "Build · Day C: Bridge and Hollow Hold",
+                        "name": "Build \u00b7 Day C: Bridge and Hollow Hold",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -6496,7 +6510,7 @@
                       },
                       {
                         "sessionId": "build-d",
-                        "name": "Build · Day D: Lunge and Pike",
+                        "name": "Build \u00b7 Day D: Lunge and Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -6705,7 +6719,7 @@
         "version": 1,
         "format": "program",
         "title": "Testprogramm Woche A und B",
-        "summary": "Testinhalt: ein Block mit abwechselnden Wochen ohne Geräte.",
+        "summary": "Testinhalt: ein Block mit abwechselnden Wochen ohne Ger\u00e4te.",
         "tags": {
           "focus": [
             "full-body"
@@ -6751,7 +6765,7 @@
         },
         "appPath": "/library/test-alternating-program",
         "description": "Ein Testprogramm mit einem einzigen Block: Woche A und Woche B wechseln sich sechs Wochen lang ab.",
-        "suitability": "Nur für automatische Tests.",
+        "suitability": "Nur f\u00fcr automatische Tests.",
         "trainingSpace": {
           "id": "ts-4441fa17-d9e0-4ef5-a3bb-a2115fe53a13",
           "name": "Default",
@@ -6767,7 +6781,7 @@
               "sessions": [
                 {
                   "sessionId": "base-a",
-                  "name": "Basis · Tag A: Ausfallschritt und Liegestütz",
+                  "name": "Basis \u00b7 Tag A: Ausfallschritt und Liegest\u00fctz",
                   "estimatedMinutes": 20,
                   "slots": [
                     {
@@ -6788,7 +6802,7 @@
                     {
                       "slotId": "reverse-lunge",
                       "exerciseId": "6abfc6c701297015bcff482c",
-                      "name": "Ausfallschritt nach hinten mit Körpergewicht",
+                      "name": "Ausfallschritt nach hinten mit K\u00f6rpergewicht",
                       "prescription": {
                         "order": 2,
                         "sets": [
@@ -6834,7 +6848,7 @@
                     {
                       "slotId": "diamond-push-up",
                       "exerciseId": "6a720aae0ab13c4e53918c9f",
-                      "name": "Diamant-Liegestütz",
+                      "name": "Diamant-Liegest\u00fctz",
                       "prescription": {
                         "order": 3,
                         "sets": [
@@ -6883,7 +6897,7 @@
                 },
                 {
                   "sessionId": "base-b",
-                  "name": "Basis · Tag B: Seitlicher Ausfallschritt und Pike",
+                  "name": "Basis \u00b7 Tag B: Seitlicher Ausfallschritt und Pike",
                   "estimatedMinutes": 20,
                   "slots": [
                     {
@@ -6950,7 +6964,7 @@
                     {
                       "slotId": "pike-push-up",
                       "exerciseId": "6a720aae0ab13c4e53918c9e",
-                      "name": "Pike-Liegestütz",
+                      "name": "Pike-Liegest\u00fctz",
                       "prescription": {
                         "order": 3,
                         "sets": [
@@ -7007,7 +7021,7 @@
                     [
                       {
                         "sessionId": "base-a",
-                        "name": "Basis · Tag A: Ausfallschritt und Liegestütz",
+                        "name": "Basis \u00b7 Tag A: Ausfallschritt und Liegest\u00fctz",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -7028,7 +7042,7 @@
                           {
                             "slotId": "reverse-lunge",
                             "exerciseId": "6abfc6c701297015bcff482c",
-                            "name": "Ausfallschritt nach hinten mit Körpergewicht",
+                            "name": "Ausfallschritt nach hinten mit K\u00f6rpergewicht",
                             "prescription": {
                               "order": 2,
                               "sets": [
@@ -7074,7 +7088,7 @@
                           {
                             "slotId": "diamond-push-up",
                             "exerciseId": "6a720aae0ab13c4e53918c9f",
-                            "name": "Diamant-Liegestütz",
+                            "name": "Diamant-Liegest\u00fctz",
                             "prescription": {
                               "order": 3,
                               "sets": [
@@ -7123,7 +7137,7 @@
                       },
                       {
                         "sessionId": "base-b",
-                        "name": "Basis · Tag B: Seitlicher Ausfallschritt und Pike",
+                        "name": "Basis \u00b7 Tag B: Seitlicher Ausfallschritt und Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -7190,7 +7204,7 @@
                           {
                             "slotId": "pike-push-up",
                             "exerciseId": "6a720aae0ab13c4e53918c9e",
-                            "name": "Pike-Liegestütz",
+                            "name": "Pike-Liegest\u00fctz",
                             "prescription": {
                               "order": 3,
                               "sets": [
@@ -7241,7 +7255,7 @@
                     [
                       {
                         "sessionId": "base-c",
-                        "name": "Basis · Tag C: Brücke und Hollow Hold",
+                        "name": "Basis \u00b7 Tag C: Br\u00fccke und Hollow Hold",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -7262,7 +7276,7 @@
                           {
                             "slotId": "single-leg-bridge",
                             "exerciseId": "6a720aae0ab13c4e53918ca7",
-                            "name": "Einbeinige Beckenbrücke",
+                            "name": "Einbeinige Beckenbr\u00fccke",
                             "prescription": {
                               "order": 2,
                               "sets": [
@@ -7333,7 +7347,7 @@
                       },
                       {
                         "sessionId": "base-d",
-                        "name": "Basis · Tag D: Ausfallschritt und Pike",
+                        "name": "Basis \u00b7 Tag D: Ausfallschritt und Pike",
                         "estimatedMinutes": 20,
                         "slots": [
                           {
@@ -7354,7 +7368,7 @@
                           {
                             "slotId": "reverse-lunge",
                             "exerciseId": "6abfc6c701297015bcff482c",
-                            "name": "Ausfallschritt nach hinten mit Körpergewicht",
+                            "name": "Ausfallschritt nach hinten mit K\u00f6rpergewicht",
                             "prescription": {
                               "order": 2,
                               "sets": [
@@ -7400,7 +7414,7 @@
                           {
                             "slotId": "pike-push-up",
                             "exerciseId": "6a720aae0ab13c4e53918c9e",
-                            "name": "Pike-Liegestütz",
+                            "name": "Pike-Liegest\u00fctz",
                             "prescription": {
                               "order": 3,
                               "sets": [
@@ -7463,13 +7477,13 @@
           },
           {
             "id": "6abfc6c701297015bcff482c",
-            "name": "Ausfallschritt nach hinten mit Körpergewicht",
+            "name": "Ausfallschritt nach hinten mit K\u00f6rpergewicht",
             "modality": "resistance",
             "equipmentRequired": []
           },
           {
             "id": "6a720aae0ab13c4e53918c9f",
-            "name": "Diamant-Liegestütz",
+            "name": "Diamant-Liegest\u00fctz",
             "modality": "resistance",
             "equipmentRequired": []
           },
@@ -7481,13 +7495,13 @@
           },
           {
             "id": "6a720aae0ab13c4e53918c9e",
-            "name": "Pike-Liegestütz",
+            "name": "Pike-Liegest\u00fctz",
             "modality": "resistance",
             "equipmentRequired": []
           },
           {
             "id": "6a720aae0ab13c4e53918ca7",
-            "name": "Einbeinige Beckenbrücke",
+            "name": "Einbeinige Beckenbr\u00fccke",
             "modality": "resistance",
             "equipmentRequired": []
           },
@@ -7805,7 +7819,7 @@
         "fit",
         "unavailable"
       ],
-      "text": "Nicht verfügbar"
+      "text": "Nicht verf\u00fcgbar"
     },
     {
       "locale": "de",
@@ -9096,7 +9110,7 @@
         "version": 1,
         "format": "workout",
         "title": "Kurzhantel-AMRAP",
-        "summary": "Ein Kurzhantel-AMRAP aus Reißen, Kniebeugen, Liegestützen und Rudern.",
+        "summary": "Ein Kurzhantel-AMRAP aus Rei\u00dfen, Kniebeugen, Liegest\u00fctzen und Rudern.",
         "tags": {
           "focus": [
             "full-body"
@@ -9124,8 +9138,8 @@
           "variantIds": []
         },
         "appPath": "/library/dumbbell-amrap",
-        "description": "So viele Runden wie möglich in 15 Minuten aus Kurzhantel-Reißen, Goblet Squats, Liegestützen und Rudern.",
-        "suitability": "Für Fortgeschrittene, die eine Kurzhantel sauber reißen können. Du brauchst ein Paar Kurzhanteln.",
+        "description": "So viele Runden wie m\u00f6glich in 15 Minuten aus Kurzhantel-Rei\u00dfen, Goblet Squats, Liegest\u00fctzen und Rudern.",
+        "suitability": "F\u00fcr Fortgeschrittene, die eine Kurzhantel sauber rei\u00dfen k\u00f6nnen. Du brauchst ein Paar Kurzhanteln.",
         "trainingSpace": {
           "id": "ts-6619d50f-fb17-418b-9e7e-846ab1387795",
           "name": "Default",
@@ -9157,7 +9171,7 @@
               {
                 "slotId": "leg-swings",
                 "exerciseId": "6ac43b40b00bfdb2c7263fe1",
-                "name": "Beinschwünge",
+                "name": "Beinschw\u00fcnge",
                 "prescription": {
                   "order": 2,
                   "section": "warmup",
@@ -9178,7 +9192,7 @@
               {
                 "slotId": "snatch",
                 "exerciseId": "6ac43b40b00bfdb2c7264087",
-                "name": "Kurzhantel-Reißen",
+                "name": "Kurzhantel-Rei\u00dfen",
                 "prescription": {
                   "order": 3,
                   "sets": [
@@ -9214,7 +9228,7 @@
               {
                 "slotId": "push-up",
                 "exerciseId": "6ac43b40b00bfdb2c7263f1b",
-                "name": "Liegestütz",
+                "name": "Liegest\u00fctz",
                 "prescription": {
                   "order": 5,
                   "sets": [
@@ -9331,13 +9345,13 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263fe1",
-            "name": "Beinschwünge",
+            "name": "Beinschw\u00fcnge",
             "modality": "mobility",
             "equipmentRequired": []
           },
           {
             "id": "6ac43b40b00bfdb2c7264087",
-            "name": "Kurzhantel-Reißen",
+            "name": "Kurzhantel-Rei\u00dfen",
             "modality": "resistance",
             "equipmentRequired": [
               "dumbbells"
@@ -9353,7 +9367,7 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263f1b",
-            "name": "Liegestütz",
+            "name": "Liegest\u00fctz",
             "modality": "resistance",
             "equipmentRequired": []
           },
@@ -9395,8 +9409,8 @@
         "id": "bodyweight-emom",
         "version": 1,
         "format": "workout",
-        "title": "EMOM mit Körpergewicht",
-        "summary": "Ein kurzes EMOM für Einsteiger, ohne Geräte.",
+        "title": "EMOM mit K\u00f6rpergewicht",
+        "summary": "Ein kurzes EMOM f\u00fcr Einsteiger, ohne Ger\u00e4te.",
         "tags": {
           "focus": [
             "full-body"
@@ -9423,8 +9437,8 @@
           "variantIds": []
         },
         "appPath": "/library/bodyweight-emom",
-        "description": "Jede Minute 8 Minuten lang abwechselnd 10 Kniebeugen oder 8 Liegestütze auf den Knien, dann Pause für den Rest der Minute.",
-        "suitability": "Für Einsteiger. Nur Platz auf dem Boden nötig.",
+        "description": "Jede Minute 8 Minuten lang abwechselnd 10 Kniebeugen oder 8 Liegest\u00fctze auf den Knien, dann Pause f\u00fcr den Rest der Minute.",
+        "suitability": "F\u00fcr Einsteiger. Nur Platz auf dem Boden n\u00f6tig.",
         "trainingSpace": {
           "id": "ts-6619d50f-fb17-418b-9e7e-846ab1387795",
           "name": "Default",
@@ -9435,7 +9449,7 @@
           "format": "workout",
           "session": {
             "sessionId": "main",
-            "name": "EMOM mit Körpergewicht",
+            "name": "EMOM mit K\u00f6rpergewicht",
             "estimatedMinutes": 13,
             "slots": [
               {
@@ -9456,7 +9470,7 @@
               {
                 "slotId": "squat",
                 "exerciseId": "6ac43b40b00bfdb2c7263f09",
-                "name": "Kniebeuge mit Körpergewicht",
+                "name": "Kniebeuge mit K\u00f6rpergewicht",
                 "prescription": {
                   "order": 2,
                   "sets": [
@@ -9474,7 +9488,7 @@
               {
                 "slotId": "knee-push-up",
                 "exerciseId": "6ac43b40b00bfdb2c7264078",
-                "name": "Liegestütz auf den Knien",
+                "name": "Liegest\u00fctz auf den Knien",
                 "prescription": {
                   "order": 3,
                   "sets": [
@@ -9540,13 +9554,13 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263f09",
-            "name": "Kniebeuge mit Körpergewicht",
+            "name": "Kniebeuge mit K\u00f6rpergewicht",
             "modality": "resistance",
             "equipmentRequired": []
           },
           {
             "id": "6ac43b40b00bfdb2c7264078",
-            "name": "Liegestütz auf den Knien",
+            "name": "Liegest\u00fctz auf den Knien",
             "modality": "resistance",
             "equipmentRequired": []
           },
@@ -9574,8 +9588,8 @@
         "id": "bodyweight-tabata",
         "version": 1,
         "format": "workout",
-        "title": "Tabata mit Körpergewicht",
-        "summary": "Zwei harte Tabatas ohne Geräte.",
+        "title": "Tabata mit K\u00f6rpergewicht",
+        "summary": "Zwei harte Tabatas ohne Ger\u00e4te.",
         "tags": {
           "focus": [
             "full-body"
@@ -9602,8 +9616,8 @@
           "variantIds": []
         },
         "appPath": "/library/bodyweight-tabata",
-        "description": "Zwei Tabatas mit je acht Runden aus 20 Sekunden hart und 10 Sekunden Pause, abwechselnd zwei Übungen.",
-        "suitability": "Für Fortgeschrittene, die Sprünge schon kontrolliert landen. Nur Platz auf dem Boden nötig.",
+        "description": "Zwei Tabatas mit je acht Runden aus 20 Sekunden hart und 10 Sekunden Pause, abwechselnd zwei \u00dcbungen.",
+        "suitability": "F\u00fcr Fortgeschrittene, die Spr\u00fcnge schon kontrolliert landen. Nur Platz auf dem Boden n\u00f6tig.",
         "trainingSpace": {
           "id": "ts-6619d50f-fb17-418b-9e7e-846ab1387795",
           "name": "Default",
@@ -9614,13 +9628,13 @@
           "format": "workout",
           "session": {
             "sessionId": "main",
-            "name": "Tabata mit Körpergewicht",
+            "name": "Tabata mit K\u00f6rpergewicht",
             "estimatedMinutes": 14,
             "slots": [
               {
                 "slotId": "hip-circles",
                 "exerciseId": "6ac43b40b00bfdb2c7263fe3",
-                "name": "Hüftkreisen",
+                "name": "H\u00fcftkreisen",
                 "prescription": {
                   "order": 1,
                   "section": "warmup",
@@ -9650,7 +9664,7 @@
               {
                 "slotId": "push-up",
                 "exerciseId": "6ac43b40b00bfdb2c7263f1b",
-                "name": "Liegestütz",
+                "name": "Liegest\u00fctz",
                 "prescription": {
                   "order": 3,
                   "sets": [
@@ -9762,7 +9776,7 @@
         "exercises": [
           {
             "id": "6ac43b40b00bfdb2c7263fe3",
-            "name": "Hüftkreisen",
+            "name": "H\u00fcftkreisen",
             "modality": "mobility",
             "equipmentRequired": []
           },
@@ -9774,7 +9788,7 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263f1b",
-            "name": "Liegestütz",
+            "name": "Liegest\u00fctz",
             "modality": "resistance",
             "equipmentRequired": []
           },
@@ -9843,8 +9857,8 @@
           "variantIds": []
         },
         "appPath": "/library/dumbbell-strength-and-chipper",
-        "description": "Rumänisches Kreuzheben und Bodendrücken für die Kraft, dann eine Runde auf Zeit mit einem Limit von 18 Minuten.",
-        "suitability": "Für Fortgeschrittene, die eine Kurzhantel sauber umsetzen und reißen können. Du brauchst ein Paar Kurzhanteln und Platz für ein paar Schritte mit gehenden Ausfallschritten.",
+        "description": "Rum\u00e4nisches Kreuzheben und Bodendr\u00fccken f\u00fcr die Kraft, dann eine Runde auf Zeit mit einem Limit von 18 Minuten.",
+        "suitability": "F\u00fcr Fortgeschrittene, die eine Kurzhantel sauber umsetzen und rei\u00dfen k\u00f6nnen. Du brauchst ein Paar Kurzhanteln und Platz f\u00fcr ein paar Schritte mit gehenden Ausfallschritten.",
         "trainingSpace": {
           "id": "ts-6619d50f-fb17-418b-9e7e-846ab1387795",
           "name": "Default",
@@ -9876,7 +9890,7 @@
               {
                 "slotId": "hip-circles",
                 "exerciseId": "6ac43b40b00bfdb2c7263fe3",
-                "name": "Hüftkreisen",
+                "name": "H\u00fcftkreisen",
                 "prescription": {
                   "order": 2,
                   "section": "warmup",
@@ -9891,7 +9905,7 @@
               {
                 "slotId": "romanian-deadlift",
                 "exerciseId": "6ac43b40b00bfdb2c7264017",
-                "name": "Rumänisches Kreuzheben mit Kurzhanteln",
+                "name": "Rum\u00e4nisches Kreuzheben mit Kurzhanteln",
                 "prescription": {
                   "order": 3,
                   "sets": [
@@ -9962,7 +9976,7 @@
               {
                 "slotId": "floor-press",
                 "exerciseId": "6ac43b40b00bfdb2c7263f18",
-                "name": "Bodendrücken mit Kurzhanteln",
+                "name": "Bodendr\u00fccken mit Kurzhanteln",
                 "prescription": {
                   "order": 4,
                   "sets": [
@@ -10057,7 +10071,7 @@
               {
                 "slotId": "push-up",
                 "exerciseId": "6ac43b40b00bfdb2c7263f1b",
-                "name": "Liegestütz",
+                "name": "Liegest\u00fctz",
                 "prescription": {
                   "order": 7,
                   "sets": [
@@ -10075,7 +10089,7 @@
               {
                 "slotId": "snatch",
                 "exerciseId": "6ac43b40b00bfdb2c7264087",
-                "name": "Kurzhantel-Reißen",
+                "name": "Kurzhantel-Rei\u00dfen",
                 "prescription": {
                   "order": 8,
                   "sets": [
@@ -10192,13 +10206,13 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263fe3",
-            "name": "Hüftkreisen",
+            "name": "H\u00fcftkreisen",
             "modality": "mobility",
             "equipmentRequired": []
           },
           {
             "id": "6ac43b40b00bfdb2c7264017",
-            "name": "Rumänisches Kreuzheben mit Kurzhanteln",
+            "name": "Rum\u00e4nisches Kreuzheben mit Kurzhanteln",
             "modality": "resistance",
             "equipmentRequired": [
               "dumbbells"
@@ -10206,7 +10220,7 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263f18",
-            "name": "Bodendrücken mit Kurzhanteln",
+            "name": "Bodendr\u00fccken mit Kurzhanteln",
             "modality": "resistance",
             "equipmentRequired": [
               "dumbbells"
@@ -10230,13 +10244,13 @@
           },
           {
             "id": "6ac43b40b00bfdb2c7263f1b",
-            "name": "Liegestütz",
+            "name": "Liegest\u00fctz",
             "modality": "resistance",
             "equipmentRequired": []
           },
           {
             "id": "6ac43b40b00bfdb2c7264087",
-            "name": "Kurzhantel-Reißen",
+            "name": "Kurzhantel-Rei\u00dfen",
             "modality": "resistance",
             "equipmentRequired": [
               "dumbbells"

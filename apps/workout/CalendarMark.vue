@@ -10,7 +10,7 @@ const { kind, label = '' } = defineProps<{ kind: CalendarMarkKind, label?: strin
 <template>
   <span
     class="inline-flex size-3 shrink-0 items-center justify-center"
-    :class="{ 'text-olive': kind === 'completed', 'text-terracotta': kind === 'in_progress', 'text-ink': kind === 'planned', 'text-muted': kind === 'missed' || kind === 'ended' }"
+    :class="{ 'text-olive': kind === 'completed', 'text-terracotta': kind === 'in_progress', 'text-ink': kind === 'planned', 'text-muted': kind === 'missed' || kind === 'ended' || kind === 'withheld' }"
     :data-mark="kind"
     :role="label ? 'img' : undefined"
     :aria-label="label || undefined"
@@ -56,7 +56,7 @@ const { kind, label = '' } = defineProps<{ kind: CalendarMarkKind, label?: strin
         stroke-linecap="round"
       />
       <line
-        v-if="kind === 'ended'"
+        v-if="kind === 'ended' || kind === 'withheld'"
         x1="3.75"
         y1="6"
         x2="8.25"

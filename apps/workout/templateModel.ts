@@ -10,7 +10,7 @@ import { activitySchema, exerciseSchema, presentationSchema, setSchema, tracking
 import { executionGroupsSchema } from './executionGroups.ts'
 
 // Templates prescribe training; session actuals/completion are never required here.
-export const plannedSetSchema = setSchema.omit({ completed: true, weight: true, reps: true, duration: true, distance: true })
+export const plannedSetSchema = setSchema.omit({ completed: true, weight: true, reps: true, duration: true, distance: true, avgPace: true, speed: true, elevationGain: true, elevationLoss: true, rpe: true })
 export const plannedActivitySchema = activitySchema.omit({ completed: true, durationActual: true })
 export const plannedExerciseSchema = exerciseSchema.extend({ sets: z.array(plannedSetSchema), activities: z.array(plannedActivitySchema).optional() })
 export const templateViewSchema = z.object({
