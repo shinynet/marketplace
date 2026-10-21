@@ -484,6 +484,14 @@ it('renders a minimal withheld imported session without identity details or acti
   const html = await render(view)
   expect(html).toContain(messages.en.withheld)
   expect(html).not.toContain('data-tool="open_workout"')
-  expect(calendarViewSchema.safeParse(wrap({ ...response, agenda: { date: fixture.date, items: [{ ...withheld, name: 'Private imported title' }] } })).success).toBe(false)
+  for (const field of [{ name: 'Private imported title' }, { time: '09:00' }, { scheduleId: 'b'.repeat(24) }]) {
+    const leaking = wrap({ ...response, agenda: { date: fixture.date, items: [{ ...withheld, ...field }] } })
+    expect(calendarViewSchema.safeParse(leaking).success).toBe(false)
+    expect(validate(leaking)).toBe(false)
+  }
+  // Open wire projections accept future non-consumed fields; the card strips them.
+  const extended = wrap({ ...response, agenda: { date: fixture.date, items: [{ ...withheld, futureField: 'ignored' }] } })
+  expect(validate(extended)).toBe(true)
+  expect(calendarViewSchema.parse(extended).record.agenda!.items).toEqual([withheld])
   expect(dayMarks(calendarViewSchema.parse(view).record.days[0])).toEqual(['withheld'])
 })

@@ -47,7 +47,7 @@ export const calendarViewSchema = z.object({
     days: z.array(z.object({ date: day, status: calendarDayStatus.nullable(),
       sessionCount: count, completedSessionCount: count, inProgressSessionCount: count, plannedSessionCount: count, missedSessionCount: count, endedSessionCount: count, withheldSessionCount: count.optional(),
       summary: z.object({ title: z.string(), status, programName: z.string().optional(), programs: z.array(calendarDayProgram).min(1).optional() }).optional() })),
-    agenda: z.object({ date: day, items: z.array(z.union([z.object({ id: z.string(), date: day, status: z.literal('withheld'), displayStatus: z.literal('withheld'), name: z.never().optional(), time: z.never().optional(), scheduleId: z.never().optional() }).strict(), z.object({ id: z.string(), name: z.string(), status, displayStatus: calendarSessionDisplayStatus.exclude(['withheld']), time: z.string(), scheduleId: id.optional() })])) }).nullable(),
+    agenda: z.object({ date: day, items: z.array(z.union([z.object({ id: z.string(), date: day, status: z.literal('withheld'), displayStatus: z.literal('withheld'), name: z.never().optional(), time: z.never().optional(), scheduleId: z.never().optional() }), z.object({ id: z.string(), name: z.string(), status, displayStatus: calendarSessionDisplayStatus.exclude(['withheld']), time: z.string(), scheduleId: id.optional() })])) }).nullable(),
     goalDays: z.array(calendarGoalDay).optional()
   }), related: z.object({}), presentation
 })

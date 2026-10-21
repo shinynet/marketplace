@@ -192,8 +192,7 @@
                           "date",
                           "status",
                           "displayStatus"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
