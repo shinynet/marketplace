@@ -1,4 +1,4 @@
-# 0.1.42 verified promotion candidate (EF-2298)
+# 0.1.42 completed promotion (EF-2298)
 
 This release removes imported-source exclusions from the client skill, calendar
 and progress cards. Imported and linked imported results use ordinary training
@@ -29,11 +29,19 @@ Both catalogs are versionless local-path entries and remain byte-identical;
 plugin manifests already say 0.1.42. Tagged source, manifest, asset bytes,
 minimum producer, tool inventory, schemas and cards remain unchanged.
 
-Promotion awaits exact-head review and a merge that preserves the tagged source.
-The metadata-only commit and merge use `[skip ci]` to avoid another full
-build/test run of unchanged artifacts. The existing `promote-release.yml`
-manual dispatch is then run on main: it verifies every immutable asset before
-clearing the prerelease flag. No promotion success is claimed yet.
+[PR #49](https://github.com/shinynet/marketplace/pull/49) received independent
+Sonnet 5.5 high approval at `bc92b974ef586a35acd5ec0788150a8ab3cb8c0b` and
+merged as `5dabbdd356b7aa7dd06373dc6cc957288f91e268`, preserving the tagged source.
+The metadata commit and merge used `[skip ci]` to avoid repeating unchanged
+artifact checks. The existing manual [promotion run 40522230777](https://github.com/shinynet/marketplace/actions/runs/40522230777)
+succeeded on 2026-10-27. It verified every asset before clearing prerelease and
+proved unchanged identities afterwards. Fresh latest-release readback identifies
+immutable release `425132114`, **v0.1.42**, prerelease false and 27 assets.
+A fresh manifest download retains the exact hash above.
+
+The separate customer website mirror still advertises 0.1.39. Its narrow
+coordinated pin is being evaluated under EF-2298's consumer exception; held
+marketing work and launch enablement are outside this release.
 
 Visual qualification used synthetic fixtures through the real Vue components
 and built CSS in English and German, light and dark, at 375 and 900 px. Calendar

@@ -6,11 +6,11 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
-## Imported workouts as ordinary training (0.1.42, EF-2298, promotion candidate)
+## Imported workouts as ordinary training (0.1.42, EF-2298, promoted)
 
 The consumer projection and skill treat imported workouts and linked results as ordinary training. Progress has no source-only `coverage` field or exclusion warning. Calendar sessions keep ordinary lifecycle states, names, times and actions. Existing per-client health sharing, narrative redaction, units and missing-measurement rules remain unchanged.
 
-Immutable tag v0.1.42 retains approved source `0e62fbf7f543c7296e4712633ebcf0d96bebcd1f`, with manifest SHA-256 `1d4e207eb4b3423784c1715470065c793a936f2d274c6621565a2045506f0cfa`. The app pins this artifact together with its server response change. Compatible v0.8.0 serves source `b2b39e45be9f815d7b55063c627544f93b7bd21e` at READY deployment `dpl_8ktyZpENbKh8tcDTAiDZebXWC1Ex`, retaining minimum producer `47b0b29bc71ce9dbfab6213bd677e027ad54b490`. Four public downloads match the pinned bytes. Promotion metadata is prepared; publication is not yet claimed. See [the current promotion record](staged-release.md). The prior 0.1.41 contract below is historical.
+Immutable tag v0.1.42 retains approved source `0e62fbf7f543c7296e4712633ebcf0d96bebcd1f`, with manifest SHA-256 `1d4e207eb4b3423784c1715470065c793a936f2d274c6621565a2045506f0cfa`. The app pins this artifact together with its server response change. Compatible v0.8.0 serves source `b2b39e45be9f815d7b55063c627544f93b7bd21e` at READY deployment `dpl_8ktyZpENbKh8tcDTAiDZebXWC1Ex`, retaining minimum producer `47b0b29bc71ce9dbfab6213bd677e027ad54b490`. Four public downloads match the pinned bytes. Promotion run [40522230777](https://github.com/shinynet/marketplace/actions/runs/40522230777) succeeded after independently approved PR #49 merged as `5dabbdd356b7aa7dd06373dc6cc957288f91e268`. GitHub latest is immutable release `425132114`, prerelease false, with all 27 asset identities unchanged. See [the current promotion record](staged-release.md). The prior 0.1.41 contract below is historical.
 
 ## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, promoted)
 
