@@ -1,5 +1,7 @@
 # Exercise units source handoff (EF-2118)
 
+> Historical 0.1.41 handoff. Version 0.1.42 supersedes its imported-source withholding and manual-only coverage rules; imports now follow ordinary training access. Measurement and unit rules still apply. See [the current release record](staged-release.md).
+
 This source change consumes the EF-2116 exercise-unit foundation through the
 EF-2118 Coach/MCP projection. Version 0.1.41 is published and promoted; see [staged-release.md](staged-release.md).
 
