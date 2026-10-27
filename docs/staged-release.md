@@ -39,9 +39,18 @@ proved unchanged identities afterwards. Fresh latest-release readback identifies
 immutable release `425132114`, **v0.1.42**, prerelease false and 27 assets.
 A fresh manifest download retains the exact hash above.
 
-The separate customer website mirror still advertises 0.1.39. Its narrow
-coordinated pin is being evaluated under EF-2298's consumer exception; held
-marketing work and launch enablement are outside this release.
+The narrow coordinated website pin was independently accepted under EF-2298's
+consumer exception. [Website PR #60](https://github.com/shinynet/efitware-www/pull/60)
+received Sonnet 5.5 high exact-head approval and merged as
+`87c4f52c17fc1457f0ca23b32f2defd13cfebf58`. READY deployment
+`dpl_6MDuxnuFJPCKoMns6CLKE6FiFN1J` serves that source at www.efitware.com.
+The publisher, focused local transport test and real preview HTTP/2 clone passed.
+Final public checks passed two fresh HTTP/2 clones and the retained 0.1.39
+fast-forward upgrade, each with clean strict fsck, only HEAD/master advertised,
+exact plugin/skill identities and private-path 404s. The website records
+[the transport receipt](https://github.com/shinynet/efitware-www/blob/master/docs/evidence/ef2298-public-transport.json). This distribution
+step does not block EF-448 or EF-2100 functionality; held marketing work and
+launch enablement are outside this release.
 
 Visual qualification used synthetic fixtures through the real Vue components
 and built CSS in English and German, light and dark, at 375 and 900 px. Calendar
