@@ -1,3 +1,32 @@
+# 0.1.42 prepared staged release (EF-2298)
+
+This release removes imported-source exclusions from the client skill, calendar
+and progress cards. Imported and linked imported results use ordinary training
+names, lifecycle states, actions and progress calculations. The existing
+per-client health-sharing boundary remains unchanged.
+
+Both plugin manifests prepare 0.1.42. The minimum application producer is
+`47b0b29bc71ce9dbfab6213bd677e027ad54b490` (EF-448). The application must pin
+the new immutable manifest in the same change that removes the old coverage
+field and withheld-calendar contract. Version 0.1.41 is incompatible with that
+new progress response.
+
+No tag, artifact, application pin, compatible production deployment or catalog
+promotion is claimed by this preparation record. The source PR must receive
+independent approval before tagging. Staging publishes a prerelease only;
+`main`, catalogs and `channels.json` stay on 0.1.41 until the compatible app is
+READY. Promotion must preserve the tagged source and every immutable asset.
+
+Visual qualification used synthetic fixtures through the real Vue components
+and built CSS in English and German, light and dark, at 375 and 900 px. Calendar
+names/actions/statuses and observed/empty cardio views had no source exclusions
+or horizontal overflow. This was component rendering, not an authenticated MCP
+host, bridge, or Desktop check. Protected-health redaction remains in place.
+
+The prior completed release record follows as history.
+
+---
+
 # 0.1.41 completed promotion
 
 Version 0.1.41 contains the exercise-unit, manual activity-progress and minimal

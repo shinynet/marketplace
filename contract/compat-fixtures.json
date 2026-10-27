@@ -1434,7 +1434,6 @@
           "zone2Minutes": 95,
           "rangeStart": "2026-08-17",
           "weekStart": "monday",
-          "coverage": "manual-only",
           "activities": []
         },
         "modalitySplit": [
@@ -10293,7 +10292,6 @@
     "observed": {
       "rangeStart": "2026-10-05",
       "weekStart": "monday",
-      "coverage": "manual-only",
       "restingHr": null,
       "restingHrSeries": [],
       "zone2Minutes": 0,
@@ -10605,7 +10603,6 @@
     "empty": {
       "rangeStart": "2026-10-05",
       "weekStart": "monday",
-      "coverage": "manual-only",
       "restingHr": null,
       "restingHrSeries": [],
       "zone2Minutes": 0,

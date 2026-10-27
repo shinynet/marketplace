@@ -297,13 +297,12 @@ describe('activity-specific cardio progress (EF-2106 frozen assistant contract)'
     expect(timeOnly).not.toHaveProperty('longestDistance')
   })
 
-  it.each(['en', 'de'] as const)('renders optional metrics literally, range and coverage in %s', async (locale) => {
+  it.each(['en', 'de'] as const)('renders optional metrics literally and the range in %s', async (locale) => {
     const cardio = fixtures.cardioActivityCases.observed
     for (const activity of cardio.activities) {
       const view = progressViewSchema.parse(viewOf({ ...cardio, activities: [activity] }))
       const output = await render(ProgressMeasurements, { progress: view }, locale)
       expect(output).toContain(messages[locale].progressUi.cardioActivities[activity.activity as keyof typeof messages.en.progressUi.cardioActivities])
-      expect(output).toContain(messages[locale].progressUi.cardioCoverage)
       expect(output).toContain(messages[locale].progressUi.currentWeek)
       if (activity.activity === 'run') {
         expect(output).not.toContain(messages[locale].progressUi.cardioDuration)
@@ -332,12 +331,12 @@ describe('activity-specific cardio progress (EF-2106 frozen assistant contract)'
     expect(output).not.toContain(messages.en.progressUi.cardioDuration)
   })
 
-  it('refuses the retired pooled shape, non-manual coverage, canonical distances and missing zone-2', () => {
+  it('refuses retired pooled and coverage shapes, canonical distances and missing zone-2', () => {
     const cardio = fixtures.cardioActivityCases.observed
     const missingZone2 = Object.fromEntries(Object.entries(cardio).filter(([key]) => key !== 'zone2Minutes'))
     for (const invalid of [
       { ...cardio, bestEfforts: [] },
-      { ...cardio, coverage: 'all' },
+      { ...cardio, coverage: 'manual-only' },
       { ...cardio, activities: [{ activity: 'run', weekly: [{ weekStart: '2026-10-05', distance: 5000 }] }] },
       { ...cardio, activities: [{ activity: 'run', weekly: [{ weekStart: '2026-10-05', distance: { value: 5000, unit: 'm' } }] }] },
       missingZone2

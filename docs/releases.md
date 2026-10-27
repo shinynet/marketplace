@@ -6,6 +6,12 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
+## Imported workouts as ordinary training (0.1.42, EF-2298, prepared for staging)
+
+The consumer projection and skill now treat imported workouts and linked imported exercise results as ordinary training. Progress has no source-only `coverage` field or exclusion warning. Calendar sessions use their normal lifecycle and presentation states, names, times and actions; the withheld source-only calendar arm and count are retired. Existing per-client health sharing, narrative redaction, units and missing-measurement rules remain unchanged.
+
+This source change requires a new immutable staged release before EF-448 changes the application response and pin together. The old 0.1.41 progress schema strictly requires the retired field, so the app must never combine the new server response with that old card. Both plugin manifests prepare 0.1.42. The minimum producer is EF-448 capability commit `47b0b29bc71ce9dbfab6213bd677e027ad54b490`, which implements the ordinary-training server response before the artifact pin. The application must retain that commit in its delivery ancestry. No new release, promotion, application pin or deployed behavior is claimed by this source-preparation entry; the 0.1.41 receipt below remains historical evidence for that release.
+
 ## Exercise units and activity progress (0.1.41, EF-2118 / EF-2106, promoted)
 
 Both plugin manifests identify 0.1.41. The card and shipped skill use explicit

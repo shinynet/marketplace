@@ -148,9 +148,6 @@ const bodyIn = (points: ReadonlyArray<{ value: Measurement }>, fallback: string)
       :format="bodyIn(progress.record.cardio.restingHrSeries, 'bpm')"
     />
     <p class="mt-4 text-sm text-muted">
-      {{ t('progressUi.cardioCoverage') }}
-    </p>
-    <p class="mt-2 text-sm text-muted">
       {{ t('progressUi.cardioRange', { from: formatDay(progress.record.cardio.rangeStart, locale), to: formatDay(progress.record.asOf, locale), weekday: t(`progressUi.weekDays.${progress.record.cardio.weekStart}`) }) }}
     </p>
     <p

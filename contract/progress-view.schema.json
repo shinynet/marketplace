@@ -562,10 +562,6 @@
                 "monday"
               ]
             },
-            "coverage": {
-              "type": "string",
-              "const": "manual-only"
-            },
             "activities": {
               "type": "array",
               "items": {
@@ -739,7 +735,6 @@
           "required": [
             "rangeStart",
             "weekStart",
-            "coverage",
             "activities",
             "restingHr",
             "restingHrSeries",
