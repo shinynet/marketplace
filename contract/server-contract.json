@@ -125,5 +125,5 @@
     "update_workout_activity",
     "update_workout_exercise"
   ],
-  "minimumAppCommit": "7b04b46aa88b8c71c1fb6359e3910ff35ca1fc1d"
+  "minimumAppCommit": "47b0b29bc71ce9dbfab6213bd677e027ad54b490"
 }

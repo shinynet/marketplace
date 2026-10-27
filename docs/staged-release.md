@@ -1,3 +1,50 @@
+# 0.1.42 verified promotion candidate (EF-2298)
+
+This release removes imported-source exclusions from the client skill, calendar
+and progress cards. Imported and linked imported results use ordinary training
+names, lifecycle states, actions and progress calculations. The existing
+per-client health-sharing boundary remains unchanged.
+
+The approved immutable source is `0e62fbf7f543c7296e4712633ebcf0d96bebcd1f`,
+retained by annotated tag [v0.1.42](https://github.com/shinynet/marketplace/releases/tag/v0.1.42).
+[Stage run 40465810951](https://github.com/shinynet/marketplace/actions/runs/40465810951)
+succeeded; its immutable prerelease has 27 assets. Manifest SHA-256 is
+`1d4e207eb4b3423784c1715470065c793a936f2d274c6621565a2045506f0cfa`.
+Both plugin manifests identify 0.1.42. The minimum producer remains
+`47b0b29bc71ce9dbfab6213bd677e027ad54b490` (EF-448).
+
+Compatible application [release v0.8.0](https://github.com/shinynet/efitware-app/releases/tag/v0.8.0)
+completed through [run 40519785665](https://github.com/shinynet/efitware-app/actions/runs/40519785665).
+Fresh authenticated Vercel project/alias/deployment reads agree on READY
+`dpl_8ktyZpENbKh8tcDTAiDZebXWC1Ex`, serving source
+`b2b39e45be9f815d7b55063c627544f93b7bd21e`, which retains the minimum producer.
+Uncached public reads on 2026-10-27 confirm version 0.8.0, source `b2b39e4`,
+health 200 and migrations current. All four application-hosted downloads match
+the immutable pin; [the receipt](evidence/0.1.42-production-downloads.json)
+records their hashes and byte counts. These are delivery-owner observations;
+independent reviewers may reuse them without claiming fresh deployment checks.
+
+This candidate updates only channel/promotion metadata and nonserved evidence.
+Both catalogs are versionless local-path entries and remain byte-identical;
+plugin manifests already say 0.1.42. Tagged source, manifest, asset bytes,
+minimum producer, tool inventory, schemas and cards remain unchanged.
+
+Promotion awaits exact-head review and a merge that preserves the tagged source.
+The metadata-only commit and merge use `[skip ci]` to avoid another full
+build/test run of unchanged artifacts. The existing `promote-release.yml`
+manual dispatch is then run on main: it verifies every immutable asset before
+clearing the prerelease flag. No promotion success is claimed yet.
+
+Visual qualification used synthetic fixtures through the real Vue components
+and built CSS in English and German, light and dark, at 375 and 900 px. Calendar
+names/actions/statuses and observed/empty cardio views had no source exclusions
+or horizontal overflow. This was component rendering, not an authenticated MCP
+host, bridge, or Desktop check. Protected-health redaction remains in place.
+
+The prior completed release record follows as history.
+
+---
+
 # 0.1.41 completed promotion
 
 Version 0.1.41 contains the exercise-unit, manual activity-progress and minimal

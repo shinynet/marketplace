@@ -31,7 +31,7 @@ export const progressViewSchema = z.object({
     balance: z.object({ muscles: z.array(z.object({ muscle: z.string(), sets: count })), movements: z.array(z.object({ movement: z.string(), share: n })) }),
     body: z.object({ weight: bodyWeightSchema.nullable(), goalWeight: bodyWeightSchema.nullable(), bodyFat: bodyFatSchema.nullable(), weightSeries: z.array(bodyWeightPointSchema), bodyFatSeries: z.array(bodyFatPointSchema), measurements: z.array(z.object({ key: circumferenceIdSchema, value: circumferenceSchema, series: z.array(circumferencePointSchema) })) }),
     cardio: z.object({
-      rangeStart: day, weekStart: z.enum(['sunday', 'monday']), coverage: z.literal('manual-only'),
+      rangeStart: day, weekStart: z.enum(['sunday', 'monday']),
       activities: z.array(z.object({
         activity: z.enum(['run', 'walk', 'hike', 'ride', 'row', 'ski_erg', 'swim', 'elliptical', 'stairs', 'jump_rope', 'other']),
         weekly: z.array(z.object({ weekStart: day, durationSeconds: n.nonnegative().optional(), distance: z.object({ value: n.nonnegative(), unit: z.enum(['km', 'mi']) }).optional(), inProgress: z.boolean().optional() })),

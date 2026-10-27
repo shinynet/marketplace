@@ -1,0 +1,38 @@
+{
+  "observedAt": "2026-10-27T14:29:28.440Z",
+  "deployment": {
+    "project": "efitware-app",
+    "deploymentId": "dpl_8ktyZpENbKh8tcDTAiDZebXWC1Ex",
+    "githubCommitSha": "b2b39e45be9f815d7b55063c627544f93b7bd21e"
+  },
+  "version": "0.8.0",
+  "health": {
+    "status": "ok",
+    "db": "reachable",
+    "search": "ready",
+    "migrations": "current",
+    "legal": "off"
+  },
+  "downloads": [
+    {
+      "file": "efitware-claude.zip",
+      "bytes": 45226,
+      "sha256": "471083ff9f209d5632d60384fced9e929cc7b479c5b25e82eb522085e55ee1db"
+    },
+    {
+      "file": "efitware-coach.zip",
+      "bytes": 42285,
+      "sha256": "6efdc9939d0eeb488976f0edf67b85ed3bc6206d70d6d8cb8bd9bc8dd984d042"
+    },
+    {
+      "file": "efitware-codex.zip",
+      "bytes": 68782,
+      "sha256": "b36221ef617b428047b6b07431ddc91210c35c3ac4c4da8756a5b8cabf526e4f"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 8950,
+      "sha256": "1d4e207eb4b3423784c1715470065c793a936f2d274c6621565a2045506f0cfa"
+    }
+  ]
+}

@@ -227,8 +227,8 @@
       "repository": "shinynet/efitware-app",
       "commit": "9c4cbcde2fb7281c3fe3ef5cd5d0f868983cfd47",
       "sourceSha256": "6b3b0c0e0edcda4774fdc54b8918d2bb23847a7bf31a5a74820c914dbad3182d",
-      "sha256": "f72cda8f1edd45062666463f40f0603efe2a5d014f473c767e1ef86d8ce0a18c",
-      "transformation": "Independently adapted plural stored-award presentation semantics to public account-unit measurement objects; consumer schemas and chart geometry remain marketplace owned. EF-2118 updates the marketplace-owned consumer projection to explicit exercise units and the frozen EF-2106 activity progress contract; the original stored-award source identity remains unchanged."
+      "sha256": "39374aaa06bc72301688de341de3b2e59da9938e72e23ffba8594c967203cbb9",
+      "transformation": "Independently adapted plural stored-award presentation semantics to public account-unit measurement objects; consumer schemas and chart geometry remain marketplace owned. EF-2118 updates the marketplace-owned consumer projection to explicit exercise units and the frozen EF-2106 activity progress contract; the original stored-award source identity remains unchanged. EF-2298 removes the source-only coverage field from the marketplace-owned consumer projection; the original stored-award source identity and presentation semantics remain unchanged."
     }
   ]
 }
