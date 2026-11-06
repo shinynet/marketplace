@@ -1,3 +1,28 @@
+# 0.1.43 prepared staged release (EF-2464)
+
+This release draws a thumbnail-size front and back muscle figure on the workout
+card, in the compact and detailed views, when `open_workout` carries the optional
+`muscleMap`. The figure is a picture with an accessible name, not a control. A
+result without the field renders as before. Tools, skill text and every other
+view are unchanged.
+
+Both plugin manifests prepare 0.1.43. The minimum application producer stays
+`47b0b29bc71ce9dbfab6213bd677e027ad54b490`, because the field is optional. App
+PR #1914, merge `06527f390583e1b972819fb98964f9659d637c58`, adds `muscleMap` and
+is already in application release v0.12.0, so the application can pin this
+release in an ordinary change.
+
+No tag, artifact, application pin, compatible production deployment or catalog
+promotion is claimed by this preparation record. The source PR must receive
+independent approval before tagging. Staging publishes a prerelease only;
+`main`, catalogs and `channels.json` stay on 0.1.42 until the application release
+carrying the pin is READY. Promotion must preserve the tagged source and every
+immutable asset.
+
+The prior completed release record follows as history.
+
+---
+
 # 0.1.42 completed promotion (EF-2298)
 
 This release removes imported-source exclusions from the client skill, calendar
