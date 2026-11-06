@@ -799,6 +799,50 @@
         "theme",
         "skin"
       ]
+    },
+    "muscleMap": {
+      "type": "object",
+      "properties": {
+        "regions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary"
+            ]
+          }
+        },
+        "muscles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "slug"
+            ]
+          }
+        },
+        "body": {
+          "type": "string",
+          "enum": [
+            "female",
+            "male"
+          ]
+        }
+      },
+      "required": [
+        "regions",
+        "muscles",
+        "body"
+      ]
     }
   },
   "required": [

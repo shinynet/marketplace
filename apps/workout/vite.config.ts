@@ -13,6 +13,9 @@ const fontLicenses = ['inter', 'newsreader', 'ibm-plex-sans', 'dm-sans', 'lora']
   .map(name => readFileSync(new URL(`./theme/fonts/${name}-OFL.txt`, import.meta.url), 'utf8'))
   .join('\n\n')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+// Minifying drops the art files' headers, and the MIT notice has to travel with the copy in the bundle.
+const figureLicense = readFileSync(new URL('./lib/muscleMapArt-LICENSE.txt', import.meta.url), 'utf8')
+  .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 theme.walkRules((rule) => {
   if (!/^(:root|html\.)/.test(rule.selector)) return
   const copy = rule.clone({ nodes: [] })
@@ -34,7 +37,7 @@ export default defineConfig({
   publicDir: false,
   plugins: [
     { name: 'efitware-theme', enforce: 'pre', transform: (code, id) => id.endsWith('/apps/workout/styles.css') ? code.replace('/* PRODUCT_THEME */', tokens.toString()) : undefined },
-    { name: 'efitware-font-licenses', transformIndexHtml: html => html.replace('</body>', `<template id="font-licenses">${fontLicenses}</template></body>`) },
+    { name: 'efitware-licenses', transformIndexHtml: html => html.replace('</body>', `<template id="font-licenses">${fontLicenses}</template><template id="figure-license">${figureLicense}</template></body>`) },
     vue(), tailwindcss(), viteSingleFile()
   ],
   define: { __VUE_OPTIONS_API__: false, __VUE_PROD_DEVTOOLS__: false },

@@ -1,8 +1,15 @@
 import { expect, it } from 'vitest'
+import { createSSRApp } from 'vue'
+import { renderToString } from 'vue/server-renderer'
+import { createI18n } from 'vue-i18n'
+import { Ajv } from 'ajv'
 import fixtures from './compat-fixtures.json'
 import { MIN_BARS, appUrl, compactSummary, completedVolume, nextSet, undoTarget } from '../apps/workout/compactSummary'
 import { parseTrainingView } from '../apps/workout/templateModel'
 import { messages } from '../apps/workout/messages'
+import CompactCard from '../apps/workout/CompactCard.vue'
+import WorkoutMuscleFigure from '../apps/workout/WorkoutMuscleFigure.vue'
+import viewContract from './workout-view.schema.json'
 
 /** Minimal `t`: resolves dotted keys in the real message tree so missing keys fail loudly. */
 const translator = (locale: 'en' | 'de') => {
@@ -41,6 +48,30 @@ it('summarises a workout with sets done, completed volume and the next set in wo
   expect(de.facts[1]!.value).toBe('360 kg')
   expect(nextSet(workout.workout.exercises as never)?.set.id).toBe('s3')
   expect(completedVolume(workout.workout.exercises as never)).toEqual({ value: 360, unit: 'kg' })
+})
+
+it('draws the muscle figure only when the result carries one, and an older result still renders', async () => {
+  const muscleMap = { regions: { chest: 'primary', triceps: 'secondary', future_region: 'primary' }, muscles: [{ slug: 'chest', role: 'primary', sets: 6 }, { slug: 'triceps', role: 'secondary', sets: 6 }, { slug: 'quads', role: 'secondary', sets: 3 }, { slug: 'glutes', role: 'secondary', sets: 3 }, { slug: 'future_muscle', role: 'secondary', sets: 3 }], body: 'male' }
+  const validate = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(viewContract)
+  expect(validate(workout)).toBe(true)
+  expect(validate({ ...workout, muscleMap })).toBe(true)
+  const render = (component: typeof CompactCard | typeof WorkoutMuscleFigure, props: Record<string, unknown>, locale: 'en' | 'de' = 'en') => renderToString(createSSRApp(component, props).use(createI18n({ legacy: false, locale, messages })))
+  const options = { locale: 'en', system: 'metric', ...translator('en') } as const
+  const older = compactSummary(parseTrainingView(workout), options)
+  expect(older.muscleMap).toBeUndefined()
+  expect(await render(CompactCard, { summary: older })).not.toContain('data-muscle-map')
+  const current = compactSummary(parseTrainingView({ ...workout, muscleMap }), options)
+  expect(current.facts).toHaveLength(3)
+  const card = await render(CompactCard, { summary: current })
+  expect(card).toContain('aria-label="Muscles worked: Chest, Triceps, Quads, and 1 more"')
+  expect(card).not.toContain('<button')
+  expect(card.match(/<svg[^>]*aria-hidden/g)).toHaveLength(2)
+  expect(await render(WorkoutMuscleFigure, { map: { ...muscleMap, muscles: muscleMap.muscles.slice(0, 2) } }, 'de')).toContain('aria-label="Trainierte Muskeln: Brust und Trizeps"')
+  const male = await render(WorkoutMuscleFigure, { map: muscleMap })
+  const female = await render(WorkoutMuscleFigure, { map: { ...muscleMap, body: 'female' } })
+  expect(male).not.toBe(female)
+  expect(male).toContain('fill-muscle-primary')
+  expect(male).toContain('fill-muscle-secondary')
 })
 
 it('picks the next set in section order, not global order, matching the expanded view', () => {

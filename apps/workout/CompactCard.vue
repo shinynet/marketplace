@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { CompactSummary } from './compactSummary'
 import WorkoutLibraryCover from './WorkoutLibraryCover.vue'
+import WorkoutMuscleFigure from './WorkoutMuscleFigure.vue'
 const { summary } = defineProps<{ summary: CompactSummary }>()
 const bars = computed(() => {
   const values = summary.bars?.values ?? []
@@ -32,6 +33,11 @@ const bars = computed(() => {
         v-if="summary.cover"
         :cover="summary.cover"
         class="w-24 shrink-0"
+      />
+      <workout-muscle-figure
+        v-if="summary.muscleMap"
+        :map="summary.muscleMap"
+        class="shrink-0"
       />
     </div>
     <dl class="grid grid-cols-3 gap-3 rounded bg-surface px-3.5 py-3">

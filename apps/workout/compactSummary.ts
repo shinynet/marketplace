@@ -1,6 +1,6 @@
 import type { TrainingView } from './templateModel'
 import type { ReceiptsView } from './outcomeModel'
-import type { ViewExercise, ViewSet } from './model'
+import type { MuscleMap, ViewExercise, ViewSet } from './model'
 import type { UnitSystem } from './lib/units'
 import { formatMeasure } from './presentation'
 import { accountBodyMetricUnit, accountLoadUnit, bodyMetricLabelKey, bodyMetricPageKey, formatBodyMetric, formatLoad, formatTotal, seriesUnit, sumLoads, type Total } from './measurement'
@@ -26,6 +26,8 @@ export interface CompactSummary {
   bars?: CompactBars
   /** A Library item's cover thumbnail, beside the title (app EF-1609). */
   cover?: LibraryCover
+  /** A workout's muscle figure, beside the title; it replaces no fact. */
+  muscleMap?: MuscleMap
   /** Path on app.efitware.com opened by the header link (absolute URLs pass through). */
   path: string
 }
@@ -87,7 +89,7 @@ export const compactSummary = (view: TrainingView, options: Options): CompactSum
   const count = (value: number) => number(value, locale, 0)
   switch (view.view) {
     case 'workout': {
-      const { workout, exercises } = view.record
+      const { workout, exercises, muscleMap } = view.record
       const sets = workout.exercises.flatMap(exercise => exercise.sets)
       const done = sets.filter(set => set.completed).length
       const volume = completedVolume(workout.exercises)
@@ -97,6 +99,7 @@ export const compactSummary = (view: TrainingView, options: Options): CompactSum
         eyebrow: dot(t('compact.workout'), shortDay(workout.date, locale)), title: workout.title,
         facts: [fact(t('compact.setsDone'), t('compact.ofTotal', { done: count(done), total: count(sets.length) })), volume ? fact(t('compact.volume'), formatTotal(volume, locale)) : fact(t('compact.exercises'), count(workout.exercises.length)), fact(t('compact.status'), t(workout.status))],
         ...(next ? { detail: fact(t('compact.nextSet'), dot(name(next.exercise), setTarget(next.set, next.exercise.modality, options))) } : {}),
+        ...(muscleMap ? { muscleMap } : {}),
         path: `/workouts/${workout.date}/${workout.id}`
       }
     }
