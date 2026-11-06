@@ -27,6 +27,7 @@ import { workoutSections } from './lib/sections'
 import { interleavedExerciseSequence } from './lib/sequenceUtils'
 import WorkoutActivityCard from './WorkoutActivityCard.vue'
 import CompactCard from './CompactCard.vue'
+import WorkoutMuscleFigure from './WorkoutMuscleFigure.vue'
 import CompactActions from './CompactActions.vue'
 import { appUrl, compactSummary } from './compactSummary'
 import ExecutionGroupBlock from './ExecutionGroupBlock.vue'
@@ -356,16 +357,25 @@ onUnmounted(connection.close)
       />
       <template v-if="workout">
         <header class="mb-6">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-gold-ink">
-            {{ t(workout.status) }}
-          </p>
-          <h1 class="font-serif text-3xl leading-tight sm:text-4xl">
-            {{ workout.title }}
-          </h1>
-          <time
-            :datetime="workout.date"
-            class="mt-2 block text-sm text-muted"
-          >{{ dateLabel }}</time>
+          <div class="flex items-start gap-3">
+            <div class="min-w-0 flex-1">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-gold-ink">
+                {{ t(workout.status) }}
+              </p>
+              <h1 class="font-serif text-3xl leading-tight sm:text-4xl">
+                {{ workout.title }}
+              </h1>
+              <time
+                :datetime="workout.date"
+                class="mt-2 block text-sm text-muted"
+              >{{ dateLabel }}</time>
+            </div>
+            <workout-muscle-figure
+              v-if="view?.muscleMap"
+              :map="view.muscleMap"
+              class="shrink-0"
+            />
+          </div>
           <p
             v-if="workout.description"
             class="mt-4 whitespace-pre-wrap text-sm leading-relaxed"

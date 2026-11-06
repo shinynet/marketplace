@@ -229,6 +229,22 @@
       "sourceSha256": "6b3b0c0e0edcda4774fdc54b8918d2bb23847a7bf31a5a74820c914dbad3182d",
       "sha256": "39374aaa06bc72301688de341de3b2e59da9938e72e23ffba8594c967203cbb9",
       "transformation": "Independently adapted plural stored-award presentation semantics to public account-unit measurement objects; consumer schemas and chart geometry remain marketplace owned. EF-2118 updates the marketplace-owned consumer projection to explicit exercise units and the frozen EF-2106 activity progress contract; the original stored-award source identity remains unchanged. EF-2298 removes the source-only coverage field from the marketplace-owned consumer projection; the original stored-award source identity and presentation semantics remain unchanged."
+    },
+    {
+      "path": "apps/workout/lib/muscleMapArt.female.ts",
+      "source": "shared/constants/muscleMapArt.female.ts",
+      "repository": "shinynet/efitware-app",
+      "commit": "88dca5a4cc1c328f253347e0c68707bd26a7d832",
+      "sourceSha256": "edec3f444e8998a47e3f19dc97e2886d3cc13e488ff5b57c6b7669d1a0c9c141",
+      "sha256": "edec3f444e8998a47e3f19dc97e2886d3cc13e488ff5b57c6b7669d1a0c9c141"
+    },
+    {
+      "path": "apps/workout/lib/muscleMapArt.male.ts",
+      "source": "shared/constants/muscleMapArt.male.ts",
+      "repository": "shinynet/efitware-app",
+      "commit": "88dca5a4cc1c328f253347e0c68707bd26a7d832",
+      "sourceSha256": "bb13f30b16fec4da97fa893fb31a35cb2be0ea163caec10ce8683fafb421287e",
+      "sha256": "bb13f30b16fec4da97fa893fb31a35cb2be0ea163caec10ce8683fafb421287e"
     }
   ]
 }

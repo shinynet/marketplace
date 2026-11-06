@@ -21,7 +21,9 @@ export const compactMessages = {
     connection: 'Connection', lastSync: 'Last sync', syncRuns: 'Sync runs',
     changes: 'Changes', changesTitle: '{value} recorded changes', undoable: 'Undoable', page: 'Page', latestChange: 'Latest change', undoLatest: 'Undo latest',
     date: 'Date', commentary: 'Commentary', decisions: 'Coach decisions', openWorkout: 'Open workout',
-    highlight: 'Highlight', copyCaption: 'Copy caption'
+    highlight: 'Highlight', copyCaption: 'Copy caption',
+    musclesWorked: 'Muscles worked: {names}', musclesMore: '{count} more',
+    muscle: { chest: 'Chest', shoulders: 'Shoulders', neck: 'Neck', lats: 'Lats', upper_back: 'Upper back', lower_back: 'Lower back', traps: 'Traps', spine: 'Spine', biceps: 'Biceps', triceps: 'Triceps', forearms: 'Forearms', core: 'Core', obliques: 'Obliques', quads: 'Quads', hamstrings: 'Hamstrings', glutes: 'Glutes', calves: 'Calves', adductors: 'Adductors', hip_flexors: 'Hip flexors', full_body: 'Full body', abs: 'Abs', brachialis: 'Brachialis', front_delts: 'Front delts', side_delts: 'Side delts', rear_delts: 'Rear delts', rotator_cuff: 'Rotator cuff', serratus: 'Serratus', soleus: 'Soleus', tibialis: 'Tibialis' }
   },
   de: {
     open: 'In eFitware öffnen', showMore: 'Mehr anzeigen', showLess: 'Weniger anzeigen', reload: 'Neu laden', justNow: 'gerade eben', readOnly: 'Nur ansehen',
@@ -44,6 +46,8 @@ export const compactMessages = {
     connection: 'Verbindung', lastSync: 'Letzter Sync', syncRuns: 'Synchronisierungen',
     changes: 'Änderungen', changesTitle: '{value} erfasste Änderungen', undoable: 'Rückgängig möglich', page: 'Seite', latestChange: 'Letzte Änderung', undoLatest: 'Letzte rückgängig machen',
     date: 'Datum', commentary: 'Kommentar', decisions: 'Coach-Entscheidungen', openWorkout: 'Training öffnen',
-    highlight: 'Highlight', copyCaption: 'Begleittext kopieren'
+    highlight: 'Highlight', copyCaption: 'Begleittext kopieren',
+    musclesWorked: 'Trainierte Muskeln: {names}', musclesMore: '{count} weitere',
+    muscle: { chest: 'Brust', shoulders: 'Schultern', neck: 'Nacken', lats: 'Latissimus', upper_back: 'Oberer Rücken', lower_back: 'Unterer Rücken', traps: 'Trapezmuskel', spine: 'Wirbelsäule', biceps: 'Bizeps', triceps: 'Trizeps', forearms: 'Unterarme', core: 'Rumpf', obliques: 'Schräge Bauchmuskeln', quads: 'Quadrizeps', hamstrings: 'Beinbeuger', glutes: 'Gesäß', calves: 'Waden', adductors: 'Adduktoren', hip_flexors: 'Hüftbeuger', full_body: 'Ganzkörper', abs: 'Bauchmuskeln', brachialis: 'Oberarmmuskel', front_delts: 'Vordere Schulter', side_delts: 'Seitliche Schulter', rear_delts: 'Hintere Schulter', rotator_cuff: 'Rotatorenmanschette', serratus: 'Sägemuskel', soleus: 'Schollenmuskel', tibialis: 'Schienbeinmuskel' }
   }
 }

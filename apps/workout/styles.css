@@ -2,6 +2,13 @@
 @source './*.vue';
 /* PRODUCT_THEME */
 
+/* The muscle figure's three solid steps, mixed as the app's main.css mixes them, so every skin inherits them. */
+@theme static {
+  --color-muscle-idle: var(--color-surface-dark);
+  --color-muscle-primary: var(--color-terracotta);
+  --color-muscle-secondary: color-mix(in oklab, var(--color-terracotta) 35%, var(--color-surface-dark));
+}
+
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('./theme/fonts/inter-latin-400-700-normal.woff2') format('woff2'); }
 @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('./theme/fonts/newsreader-latin-400-700-normal.woff2') format('woff2'); }
 

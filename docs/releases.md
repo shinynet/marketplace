@@ -6,6 +6,14 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
+## Workout muscle figure (EF-2464, source prepared, unreleased)
+
+The workout card draws a thumbnail-size front and back figure beside the title, in the compact and detailed views, when `open_workout` carries the optional `muscleMap`. It is a picture with an accessible name, not a control: there is no modal, and the larger diagram stays in the application. The compact card keeps its three facts. A result without `muscleMap` renders as before.
+
+`apps/workout/lib/muscleMapArt.{female,male}.ts` are byte-identical copies recorded in `PROVENANCE.json`, and their MIT notice ships in the bundle as `<template id="figure-license">` because minifying drops the file headers. Muscle labels are a card copy of the application's taxonomy labels. Both figures add about 105 KB; the built card is 1,104,134 bytes against the 1,500,000-byte budget.
+
+Nothing here is published. A later release bumps both plugin manifests, follows the staged procedure and has the application pin it. The field is optional, so this card needs no higher `minimumAppCommit` to render, but the figure appears only against an application that sends `muscleMap`.
+
 ## Imported workouts as ordinary training (0.1.42, EF-2298, promoted)
 
 The consumer projection and skill treat imported workouts and linked results as ordinary training. Progress has no source-only `coverage` field or exclusion warning. Calendar sessions keep ordinary lifecycle states, names, times and actions. Existing per-client health sharing, narrative redaction, units and missing-measurement rules remain unchanged.

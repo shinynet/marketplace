@@ -49,8 +49,15 @@ export const presentationSchema = z.object({
     locale: z.string().nullable(), unitSystem: z.enum(['metric', 'imperial']).nullable(),
     theme: z.enum(['system', 'light', 'dark']).nullable(), skin: z.enum(['calm', 'cyanotype', 'camellia']).nullable()
 })
-export const viewSchema = z.object({ workout: workoutSchema, exercises: z.array(trackingSchema), presentation: presentationSchema })
+/** What the workout works (app EF-2464). Region and muscle names stay open: one the card cannot draw or name is left out. */
+export const muscleMapSchema = z.object({
+  regions: z.record(z.string(), z.enum(['primary', 'secondary'])),
+  muscles: z.array(z.object({ slug: z.string() })),
+  body: z.enum(['female', 'male'])
+})
+export const viewSchema = z.object({ workout: workoutSchema, exercises: z.array(trackingSchema), presentation: presentationSchema, muscleMap: muscleMapSchema.optional() })
 export type WorkoutView = z.infer<typeof viewSchema>
+export type MuscleMap = z.infer<typeof muscleMapSchema>
 export type ViewSet = z.infer<typeof setSchema>
 export type ViewExercise = z.infer<typeof exerciseSchema>
 export type ViewActivity = z.infer<typeof activitySchema>
