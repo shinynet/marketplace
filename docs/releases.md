@@ -6,13 +6,15 @@ The application owns its product DTOs, MCP tools, authentication, permissions an
 
 `pnpm build` bundles Vue, fonts, brand assets and theme tokens into `dist/card/workout.html`, then generates the open draft-07 input schema. The product validates its raw tool output against that schema using Ajv without stripping extra fields, applying defaults or coercing types. The product DTO remains authoritative.
 
-## Workout muscle figure (0.1.43, EF-2464, prepared for staging)
+## Workout muscle figure (0.1.43, EF-2464, promotion candidate)
 
 The workout card draws a thumbnail-size front and back figure beside the title, in the compact and detailed views, when `open_workout` carries the optional `muscleMap`. It is a picture with an accessible name, not a control: there is no modal, and the larger diagram stays in the application. The compact card keeps its three facts. A result without `muscleMap` renders as before.
 
 `apps/workout/lib/muscleMapArt.{female,male}.ts` are byte-identical copies recorded in `PROVENANCE.json`, and their MIT notice ships in the bundle as `<template id="figure-license">` because minifying drops the file headers. Muscle labels are a card copy of the application's taxonomy labels. Both figures add about 105 KB; the built card is 1,104,134 bytes against the 1,500,000-byte budget.
 
-Both plugin manifests prepare 0.1.43. No tool, skill or fixture changes, so `contract/server-contract.json` and its `minimumAppCommit` stay at `47b0b29bc71ce9dbfab6213bd677e027ad54b490`: `muscleMap` is optional, and the card renders as before without it. The figure appears only against an application that sends the field, which app PR #1914 (merge `06527f390583e1b972819fb98964f9659d637c58`) added and application release v0.12.0 already serves. No tag, artifact, application pin or catalog promotion is claimed here; `main`, the catalogs and `channels.json` stay on 0.1.42 until the application release that pins this version is READY in production.
+No tool, skill or fixture changes, so `contract/server-contract.json` and its `minimumAppCommit` stay at `47b0b29bc71ce9dbfab6213bd677e027ad54b490`: `muscleMap` is optional, and the card renders as before without it. The figure appears only against an application that sends the field, which app PR #1914 (merge `06527f390583e1b972819fb98964f9659d637c58`) added.
+
+Immutable tag v0.1.43 retains approved source `876bab9c6b23944ca7f749bcb769b96cdb121052`, with manifest SHA-256 `55af3e1f094f9bc727cdc6ffabd47d7067d01b3e9ea797ceb3517a607a601ea7`. App PR #1944 merged the pin as `7481dde85650adddd419887906fc9de0df5e6de9`. Compatible v0.13.0 serves source `65797c0d007a36f33f9d35d39b5106ff59747121` at READY deployment `dpl_252VQKwLnhz6cVMeHeY1wdUReuX3`, retaining the pin, the minimum producer and the `muscleMap` producer. All four public downloads match the pinned bytes. The reviewed promotion receipt advances the channel; merge preserves the tagged source, then the publication workflow verifies every asset identity. See [the current promotion record](staged-release.md). The website mirror follows its own approved deployment. No external Desktop activation is claimed.
 
 ## Imported workouts as ordinary training (0.1.42, EF-2298, promoted)
 

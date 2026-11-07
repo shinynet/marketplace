@@ -1,4 +1,4 @@
-# 0.1.43 prepared staged release (EF-2464)
+# 0.1.43 promotion candidate (EF-2464)
 
 This release draws a thumbnail-size front and back muscle figure on the workout
 card, in the compact and detailed views, when `open_workout` carries the optional
@@ -6,18 +6,39 @@ card, in the compact and detailed views, when `open_workout` carries the optiona
 result without the field renders as before. Tools, skill text and every other
 view are unchanged.
 
-Both plugin manifests prepare 0.1.43. The minimum application producer stays
-`47b0b29bc71ce9dbfab6213bd677e027ad54b490`, because the field is optional. App
-PR #1914, merge `06527f390583e1b972819fb98964f9659d637c58`, adds `muscleMap` and
-is already in application release v0.12.0, so the application can pin this
-release in an ordinary change.
+The approved immutable source is `876bab9c6b23944ca7f749bcb769b96cdb121052`,
+retained by annotated tag [v0.1.43](https://github.com/shinynet/marketplace/releases/tag/v0.1.43).
+[Stage run 42278269961](https://github.com/shinynet/marketplace/actions/runs/42278269961)
+succeeded; immutable prerelease `436897855` has 27 assets. Manifest SHA-256 is
+`55af3e1f094f9bc727cdc6ffabd47d7067d01b3e9ea797ceb3517a607a601ea7`. Both plugin
+manifests identify 0.1.43. The minimum producer stays
+`47b0b29bc71ce9dbfab6213bd677e027ad54b490`, because the field is optional.
 
-No tag, artifact, application pin, compatible production deployment or catalog
-promotion is claimed by this preparation record. The source PR must receive
-independent approval before tagging. Staging publishes a prerelease only;
-`main`, catalogs and `channels.json` stay on 0.1.42 until the application release
-carrying the pin is READY. Promotion must preserve the tagged source and every
-immutable asset.
+Compatible application [release v0.13.0](https://github.com/shinynet/efitware-app/releases/tag/v0.13.0)
+completed through [run 42379087203](https://github.com/shinynet/efitware-app/actions/runs/42379087203).
+It carries pin merge `7481dde85650adddd419887906fc9de0df5e6de9`, the minimum
+producer and `muscleMap` producer `06527f390583e1b972819fb98964f9659d637c58`.
+That run reports READY `dpl_252VQKwLnhz6cVMeHeY1wdUReuX3` for source
+`65797c0d007a36f33f9d35d39b5106ff59747121`, served at app.efitware.com. An
+authenticated Vercel read of the alias returns the same deployment, production
+and Ready. Uncached public reads on 2026-11-07 confirm version 0.13.0, source
+`65797c0`, health ok and migrations current. All four application-hosted
+downloads match the immutable pin and live GitHub asset digests;
+[the receipt](evidence/0.1.43-production-downloads.json) records their hashes
+and byte counts. These are delivery-owner observations; independent reviewers
+may reuse them without claiming fresh deployment checks.
+
+This candidate updates only channel/promotion metadata and nonserved evidence.
+Both catalogs are versionless local-path entries and remain byte-identical;
+plugin manifests already say 0.1.43. Tagged source, manifest, asset bytes,
+minimum producer, tool inventory, schemas and cards remain unchanged. Publication
+has not run: the release stays a prerelease until this metadata merges and the
+promotion workflow verifies every asset.
+
+Visual qualification rendered the built 0.1.43 card through the application's
+bridge test host in Chromium, at 390 px, with a real `open_workout` result from
+the application's test server. That is component rendering. Real Claude and Codex
+Desktop rendering is not claimed.
 
 The prior completed release record follows as history.
 
