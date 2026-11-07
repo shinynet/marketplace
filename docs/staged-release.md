@@ -1,4 +1,4 @@
-# 0.1.43 promotion candidate (EF-2464)
+# 0.1.43 completed promotion (EF-2464)
 
 This release draws a thumbnail-size front and back muscle figure on the workout
 card, in the compact and detailed views, when `open_workout` carries the optional
@@ -28,12 +28,24 @@ downloads match the immutable pin and live GitHub asset digests;
 and byte counts. These are delivery-owner observations; independent reviewers
 may reuse them without claiming fresh deployment checks.
 
-This candidate updates only channel/promotion metadata and nonserved evidence.
-Both catalogs are versionless local-path entries and remain byte-identical;
-plugin manifests already say 0.1.43. Tagged source, manifest, asset bytes,
-minimum producer, tool inventory, schemas and cards remain unchanged. Publication
-has not run: the release stays a prerelease until this metadata merges and the
-promotion workflow verifies every asset.
+The promotion commit updated only channel/promotion metadata and nonserved
+evidence. Both catalogs are versionless local-path entries and remain
+byte-identical; plugin manifests already said 0.1.43. Tagged source, manifest,
+asset bytes, minimum producer, tool inventory, schemas and cards are unchanged.
+
+[PR #51](https://github.com/shinynet/marketplace/pull/51) received independent
+Codex approval at `0fc5cb6033c5312c4b214aae7f33e3e1e0c48595` and merged as
+`8121e2b15baac9a69196056348d250924e4157d5`, preserving the tagged source. The
+metadata commit used `[skip ci]`; the merge did not, so the push ran
+[promotion run 42379989711](https://github.com/shinynet/marketplace/actions/runs/42379989711),
+which succeeded on 2026-11-07. It verified every asset before clearing prerelease
+and proved unchanged identities afterwards. Fresh latest-release readback
+identifies immutable release `436897855`, **v0.1.43**, prerelease false and 27
+assets, with every asset identity matching the read taken before promotion. A
+fresh manifest download retains the exact hash above.
+
+At this record the website mirror still serves 0.1.42. Its pin follows through
+its own reviewed change and production transport checks.
 
 Visual qualification rendered the built 0.1.43 card through the application's
 bridge test host in Chromium, at 390 px, with a real `open_workout` result from
