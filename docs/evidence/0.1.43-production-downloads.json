@@ -1,0 +1,48 @@
+{
+  "observedAt": "2026-11-07T14:04:21.038Z",
+  "deployment": {
+    "project": "efitware-app",
+    "deploymentId": "dpl_252VQKwLnhz6cVMeHeY1wdUReuX3",
+    "githubCommitSha": "65797c0d007a36f33f9d35d39b5106ff59747121"
+  },
+  "version": "0.13.0",
+  "health": {
+    "status": "ok",
+    "db": "reachable",
+    "search": "ready",
+    "migrations": "current",
+    "legal": "off"
+  },
+  "pin": {
+    "version": "0.1.43",
+    "tag": "v0.1.43",
+    "manifestSha256": "55af3e1f094f9bc727cdc6ffabd47d7067d01b3e9ea797ceb3517a607a601ea7",
+    "pinCommit": "7481dde85650adddd419887906fc9de0df5e6de9"
+  },
+  "downloads": [
+    {
+      "file": "efitware-claude.zip",
+      "bytes": 45226,
+      "sha256": "61292f1a8140f1b4125c513832d636e34724311235f17313693c7fa1bd4a2614",
+      "githubAssetId": 718266886
+    },
+    {
+      "file": "efitware-coach.zip",
+      "bytes": 42285,
+      "sha256": "6efdc9939d0eeb488976f0edf67b85ed3bc6206d70d6d8cb8bd9bc8dd984d042",
+      "githubAssetId": 718266882
+    },
+    {
+      "file": "efitware-codex.zip",
+      "bytes": 68782,
+      "sha256": "e98630133bd365d082babd5665517bfc43a180f48393f371972b1ef62aa5d8bd",
+      "githubAssetId": 718266887
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 8950,
+      "sha256": "55af3e1f094f9bc727cdc6ffabd47d7067d01b3e9ea797ceb3517a607a601ea7",
+      "githubAssetId": 718267052
+    }
+  ]
+}
