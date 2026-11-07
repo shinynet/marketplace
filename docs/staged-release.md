@@ -44,8 +44,16 @@ identifies immutable release `436897855`, **v0.1.43**, prerelease false and 27
 assets, with every asset identity matching the read taken before promotion. A
 fresh manifest download retains the exact hash above.
 
-At this record the website mirror still serves 0.1.42. Its pin follows through
-its own reviewed change and production transport checks.
+The narrow coordinated website pin was independently accepted.
+[Website PR #63](https://github.com/shinynet/efitware-www/pull/63) received Codex
+exact-head approval and merged as `6f689f92c11177d89afa977e454d3286a2712b7a`.
+READY deployment `dpl_5C1XgLG1f3zh6m53Q6J9nQuhsuMY` serves that source at www.efitware.com.
+The publisher and focused local transport test passed before merge. Final public
+checks passed two fresh HTTP/2 clones and a 0.1.42 fast-forward upgrade from a
+clone taken before the merge, each with clean strict fsck, only HEAD/master
+advertised, exact plugin/skill identities and private-path 404s. A clone through
+a Vercel preview was not run. The website's transport receipt is
+[`docs/evidence/ef2464-public-transport.json`](https://github.com/shinynet/efitware-www/blob/master/docs/evidence/ef2464-public-transport.json).
 
 Visual qualification rendered the built 0.1.43 card through the application's
 bridge test host in Chromium, at 390 px, with a real `open_workout` result from
