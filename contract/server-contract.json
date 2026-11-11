@@ -5,6 +5,7 @@
     "add_workout_exercise",
     "add_workout_set",
     "assign_goal_phase_program",
+    "change_program_days",
     "create_custom_equipment",
     "create_custom_exercise",
     "create_goal",
@@ -30,6 +31,7 @@
     "delete_workout_commentary",
     "delete_workout_exercise",
     "delete_workout_set",
+    "end_program_repeats",
     "get_account_status",
     "get_action_receipts",
     "get_active_session",
@@ -100,6 +102,7 @@
     "publish_goal_plan",
     "record_body_metric",
     "reorder_workout",
+    "repeat_program",
     "save_week_plan",
     "save_workout_library_workout",
     "search_exercise_library",
@@ -125,5 +128,5 @@
     "update_workout_activity",
     "update_workout_exercise"
   ],
-  "minimumAppCommit": "47b0b29bc71ce9dbfab6213bd677e027ad54b490"
+  "minimumAppCommit": "3ddc8ab37dec714decedea9b86cc192a68524867"
 }

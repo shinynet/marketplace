@@ -119,7 +119,7 @@ it('links the library, exercise and saved-workout cards to the application\'s ca
   const detail = parseTrainingView({ view: 'exercise', record: exercise, related: { customEquipment: [] }, presentation })
   expect(compactSummary(detail, options).path).toBe(`/exercises/${exercise.id}`)
   const template = fixtures.templateViews.find(fixture => fixture.valid)!.input as { record: { id: string } }
-  expect(compactSummary(parseTrainingView(template), options).path).toBe(`/saved-workouts/${template.record.id}`)
+  expect(compactSummary(parseTrainingView(template), options).path).toBe(`/library/yours/${template.record.id}`)
 })
 
 it('omits the bar chart below the minimum series length and keeps it bounded otherwise', () => {
@@ -184,9 +184,9 @@ it('translates every goal, plan, program and workout status in both locales', ()
       expect(summary.facts[2]!.value).not.toMatch(/_/)
     }
   }
-  const program = (status: string) => parseTrainingView({ view: 'program', record: { id: 'a'.repeat(24), name: 'Block', status, revision: `program:1:${'a'.repeat(64)}` }, related: { schedules: [], schedulesMeta: { total: 0, page: 1, limit: 10 }, attachedWorkouts: [], attachedWorkoutsMeta: { total: 0, page: 1, limit: 10 }, recentWorkouts: [], recentWorkoutsMeta: { total: 0, page: 1, limit: 10 }, workoutCount: 0, today: '2026-09-10', page: 1, limit: 10, collection: 'schedules' }, presentation })
+  const program = (status: string) => parseTrainingView({ view: 'program', record: { id: 'a'.repeat(24), name: 'Block', status, revision: `program:1:${'a'.repeat(64)}` }, related: { displayName: 'Block', oneTime: false, running: false, weekdays: [], section: status === 'active' ? 'active' : 'finished', schedules: [], schedulesMeta: { total: 0, page: 1, limit: 10 }, attachedWorkouts: [], attachedWorkoutsMeta: { total: 0, page: 1, limit: 10 }, recentWorkouts: [], recentWorkoutsMeta: { total: 0, page: 1, limit: 10 }, workoutCount: 0, today: '2026-09-10', page: 1, limit: 10, collection: 'schedules' }, presentation })
   expect(compactSummary(program('active'), { locale: 'de', system: 'metric', ...translator('de') }).eyebrow).toMatch(/Aktiv$/)
-  expect(compactSummary(program('archived'), { locale: 'en', system: 'metric', ...translator('en') }).eyebrow).toMatch(/Archived$/)
+  expect(compactSummary(program('archived'), { locale: 'en', system: 'metric', ...translator('en') }).eyebrow).toMatch(/Ended$/)
 })
 
 it('labels the exercise progression series as an estimate', () => {

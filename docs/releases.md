@@ -1,3 +1,14 @@
+## Unified planning candidate (0.1.44, EF-2566)
+
+This candidate requires application capability source `3ddc8ab37dec714decedea9b86cc192a68524867`. It is the reviewed implementation before the app pin, not a future merge or release identity. The eventual pinning build and serving app must contain it by ancestry. The candidate is prepared for independent review; no tag or prerelease exists yet. Main remains on published 0.1.43 until compatible production is READY and immutable promotion is verified.
+
+- The inventory has 127 tools. `repeat_program`, `change_program_days` and `end_program_repeats` are host actions on the program view, with revision guards, stable retry identity and receipt Undo. The skill explains conversion after a one-off versus Repeat at creation, account-today timing, skips, kept sessions and explicit-user-day precedence.
+- Program and schedule consumer projections use `authored`, `windows`, `currentRule`, `activeTiming` and `stopped`. Pause/Resume sends `update_schedule.timing`, not an enabled patch. The program card reads server `displayName` and `oneTime`; a one-off opens its session collection directly. End/Restore wording reflects the actual timing behavior, and ended repeats are not offered a Resume that cannot produce dates.
+- Library notes are advisory. Unknown inventory prepares as written; missing gear or limitations stay visible as notes. A catalog defect is the only unavailable reason. Personal notes carry no slot/exercise identity. Pair-equipment substitutions retain their distinct cause. Preparation and navigation preserve any `startDate`; they no longer speak of remaining weekly capacity. Saved-workout links use `/library/yours/<id>`.
+- The existing approved synthetic calendar fixture is synchronized verbatim with the application's `test/fixtures/mcp/get-calendar-missed-and-ended-days.json` at the capability source. September 9 credits Evening mobility as well as Winter strength. No private implementation or account data is included.
+
+Validation and exact artifact identities are recorded in the staged release entry after qualification. Staging an immutable prerelease precedes the app pin; stable promotion still follows compatible production READY. Tagged source must remain in main ancestry, so neither the candidate nor the app capability branch may be squashed away during integration.
+
 # Releases and compatibility
 
 The application owns its product DTOs, MCP tools, authentication, permissions and database. This repository owns the plugin, coaching instructions, embedded training views, and the card's consumer projection. No source import crosses that boundary.

@@ -2,7 +2,7 @@
 /** Program overview and explicitly paginated membership; navigation stays within the host card. */
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { formatDay, shiftDay, type ProgramView } from './planningModel'
+import { formatDay, shiftDay, programStateKey, type ProgramView } from './planningModel'
 import type { createWorkoutConnection } from './workoutConnection'
 const { program, disabled, navigate, update } = defineProps<{
   program: ProgramView, disabled: boolean,
@@ -10,7 +10,7 @@ const { program, disabled, navigate, update } = defineProps<{
   update: ReturnType<typeof createWorkoutConnection>['updatePlanning']
 }>()
 const { t, locale } = useI18n()
-const collection = computed(() => program.related.collection)
+const collection = computed(() => program.related.oneTime ? 'attachedWorkouts' : program.related.collection)
 const pageMeta = computed(() => program.related[`${collection.value}Meta`])
 const page = (number: number, tab = collection.value) => navigate({ name: 'open_program', arguments: { programId: program.record.id, today: program.related.today, page: number, limit: program.related.limit, collection: tab } }, true)
 const n = (value: number) => new Intl.NumberFormat(locale.value).format(value)
@@ -21,13 +21,13 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
   <article>
     <header class="mb-6">
       <p class="text-xs font-semibold uppercase tracking-widest text-gold-ink">
-        {{ t('trainingProgram') }}
+        {{ t(program.related.oneTime ? 'oneOffWorkout' : 'trainingProgram') }}
       </p>
       <h1 class="mt-2 font-serif text-3xl sm:text-4xl">
-        {{ program.record.name }}
+        {{ program.related.displayName || t(program.related.oneTime ? 'unnamedWorkout' : 'trainingProgram') }}
       </h1>
       <p class="mt-2 text-sm text-muted">
-        {{ t(program.record.status) }}
+        {{ t(programStateKey(program)) }}
       </p>
       <p
         v-if="program.record.description"
@@ -71,7 +71,7 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
       </button>
     </nav>
     <dl class="mb-6 grid grid-cols-2 gap-4 rounded bg-surface p-4">
-      <div>
+      <div v-if="!program.related.oneTime">
         <dt class="text-sm text-muted">
           {{ t('schedules') }}
         </dt><dd class="mt-1 font-serif text-3xl">
@@ -94,9 +94,10 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
         id="program-members-title"
         class="mb-3 font-serif text-2xl"
       >
-        {{ t('programMembers') }}
+        {{ t(program.related.oneTime ? 'workoutCount' : 'programMembers') }}
       </h2>
       <nav
+        v-if="!program.related.oneTime"
         :aria-label="t('programMembers')"
         class="mb-4 flex flex-wrap gap-2"
       >
@@ -130,7 +131,7 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
             {{ schedule.name }}
           </button>
           <p class="mt-2 text-sm text-muted">
-            {{ t(schedule.enabled ? 'scheduleEnabled' : 'schedulePaused') }}
+            {{ t(schedule.activeTiming ? 'scheduleEnabled' : schedule.stopped ? 'schedulePaused' : 'repeatFinished') }}
           </p>
           <p
             v-if="schedule.nextOccurrence"
@@ -193,9 +194,12 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
         </button>
       </nav>
     </section>
-    <aside class="mb-6 rounded bg-surface p-4">
+    <aside
+      v-if="!program.related.oneTime"
+      class="mb-6 rounded bg-surface p-4"
+    >
       <p class="mb-3 text-sm text-muted">
-        {{ t('archiveDoesNotPause') }}
+        {{ t('endProgramNote') }}
       </p>
       <button
         type="button"

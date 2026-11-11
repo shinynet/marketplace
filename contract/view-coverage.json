@@ -1173,6 +1173,33 @@
       "delivery": "implemented",
       "interaction": "host",
       "note": "The host AI previews the item, explains the fit and every swap, saves on request and opens the saved workout; the card has no save control."
+    },
+    "repeat_program": {
+      "role": "action",
+      "views": [
+        "program"
+      ],
+      "delivery": "implemented",
+      "interaction": "host",
+      "note": "Host AI supplies the reviewed intent, current program revision and stable idempotency key, then opens the saved program. Undo uses the returned receipt."
+    },
+    "change_program_days": {
+      "role": "action",
+      "views": [
+        "program"
+      ],
+      "delivery": "implemented",
+      "interaction": "host",
+      "note": "Host AI supplies the reviewed intent, current program revision and stable idempotency key, then opens the saved program. Undo uses the returned receipt."
+    },
+    "end_program_repeats": {
+      "role": "action",
+      "views": [
+        "program"
+      ],
+      "delivery": "implemented",
+      "interaction": "host",
+      "note": "Host AI supplies the reviewed intent, current program revision and stable idempotency key, then opens the saved program. Undo uses the returned receipt."
     }
   },
   "appOnlyExclusions": [

@@ -77,7 +77,7 @@
                   "minimum": -9007199254740991,
                   "maximum": 9007199254740991
                 },
-                "weekStart": {
+                "startDate": {
                   "type": "string"
                 },
                 "fit": {
@@ -204,18 +204,6 @@
                         "properties": {
                           "state": {
                             "type": "string",
-                            "const": "needs-space"
-                          }
-                        },
-                        "required": [
-                          "state"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "state": {
-                            "type": "string",
                             "const": "exact"
                           },
                           "variantIds": {
@@ -224,11 +212,102 @@
                               "type": "string",
                               "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
                             }
+                          },
+                          "notes": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "slotId": {
+                                      "type": "string",
+                                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                    },
+                                    "exerciseId": {
+                                      "type": "string",
+                                      "pattern": "^[a-f0-9]{24}$"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "equipment"
+                                    },
+                                    "missingEquipment": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "pair": {
+                                      "type": "boolean",
+                                      "const": true
+                                    }
+                                  },
+                                  "required": [
+                                    "slotId",
+                                    "kind",
+                                    "missingEquipment"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "slotId": {
+                                      "type": "string",
+                                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                    },
+                                    "exerciseId": {
+                                      "type": "string",
+                                      "pattern": "^[a-f0-9]{24}$"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "limitation"
+                                    }
+                                  },
+                                  "required": [
+                                    "slotId",
+                                    "kind"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "unknown-space"
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "personal"
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ]
+                                }
+                              ]
+                            }
                           }
                         },
                         "required": [
                           "state",
-                          "variantIds"
+                          "variantIds",
+                          "notes"
                         ]
                       },
                       {
@@ -243,6 +322,96 @@
                             "items": {
                               "type": "string",
                               "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                            }
+                          },
+                          "notes": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "slotId": {
+                                      "type": "string",
+                                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                    },
+                                    "exerciseId": {
+                                      "type": "string",
+                                      "pattern": "^[a-f0-9]{24}$"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "equipment"
+                                    },
+                                    "missingEquipment": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "pair": {
+                                      "type": "boolean",
+                                      "const": true
+                                    }
+                                  },
+                                  "required": [
+                                    "slotId",
+                                    "kind",
+                                    "missingEquipment"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "slotId": {
+                                      "type": "string",
+                                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                    },
+                                    "exerciseId": {
+                                      "type": "string",
+                                      "pattern": "^[a-f0-9]{24}$"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "limitation"
+                                    }
+                                  },
+                                  "required": [
+                                    "slotId",
+                                    "kind"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "unknown-space"
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "const": "personal"
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ]
+                                }
+                              ]
                             }
                           },
                           "swaps": {
@@ -266,6 +435,7 @@
                                   "type": "string",
                                   "enum": [
                                     "equipment",
+                                    "pair",
                                     "limitations-or-hidden",
                                     "personal"
                                   ]
@@ -288,6 +458,7 @@
                         "required": [
                           "state",
                           "variantIds",
+                          "notes",
                           "swaps"
                         ]
                       },
@@ -300,13 +471,7 @@
                           },
                           "reason": {
                             "type": "string",
-                            "enum": [
-                              "equipment",
-                              "limitations",
-                              "days",
-                              "catalog",
-                              "personal"
-                            ]
+                            "const": "catalog"
                           },
                           "slotIds": {
                             "type": "array",
@@ -336,17 +501,6 @@
                                 "slotId"
                               ]
                             }
-                          },
-                          "missingEquipment": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "requiredDays": {
-                            "type": "integer",
-                            "exclusiveMinimum": 0,
-                            "maximum": 9007199254740991
                           }
                         },
                         "required": [
@@ -361,21 +515,37 @@
                   "programWeek": {
                     "type": "object",
                     "properties": {
-                      "weekStart": {
+                      "startDate": {
                         "type": "string"
-                      },
-                      "capacity": {
-                        "type": "integer",
-                        "minimum": -9007199254740991,
-                        "maximum": 9007199254740991
                       },
                       "variantId": {
                         "type": "string"
+                      },
+                      "defaultDates": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "variantId": {
+                              "type": "string"
+                            },
+                            "dates": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "required": [
+                            "variantId",
+                            "dates"
+                          ]
+                        }
                       }
                     },
                     "required": [
-                      "weekStart",
-                      "capacity"
+                      "startDate",
+                      "defaultDates"
                     ]
                   },
                   "appPath": {
@@ -563,18 +733,6 @@
                   "properties": {
                     "state": {
                       "type": "string",
-                      "const": "needs-space"
-                    }
-                  },
-                  "required": [
-                    "state"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "state": {
-                      "type": "string",
                       "const": "exact"
                     },
                     "variantIds": {
@@ -583,11 +741,102 @@
                         "type": "string",
                         "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
                       }
+                    },
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "slotId": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                              },
+                              "exerciseId": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{24}$"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "type": "string",
+                                "const": "equipment"
+                              },
+                              "missingEquipment": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "pair": {
+                                "type": "boolean",
+                                "const": true
+                              }
+                            },
+                            "required": [
+                              "slotId",
+                              "kind",
+                              "missingEquipment"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "slotId": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                              },
+                              "exerciseId": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{24}$"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "type": "string",
+                                "const": "limitation"
+                              }
+                            },
+                            "required": [
+                              "slotId",
+                              "kind"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "unknown-space"
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "personal"
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          }
+                        ]
+                      }
                     }
                   },
                   "required": [
                     "state",
-                    "variantIds"
+                    "variantIds",
+                    "notes"
                   ]
                 },
                 {
@@ -602,6 +851,96 @@
                       "items": {
                         "type": "string",
                         "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      }
+                    },
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "slotId": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                              },
+                              "exerciseId": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{24}$"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "type": "string",
+                                "const": "equipment"
+                              },
+                              "missingEquipment": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "pair": {
+                                "type": "boolean",
+                                "const": true
+                              }
+                            },
+                            "required": [
+                              "slotId",
+                              "kind",
+                              "missingEquipment"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "slotId": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                              },
+                              "exerciseId": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{24}$"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "type": "string",
+                                "const": "limitation"
+                              }
+                            },
+                            "required": [
+                              "slotId",
+                              "kind"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "unknown-space"
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "personal"
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          }
+                        ]
                       }
                     },
                     "swaps": {
@@ -625,6 +964,7 @@
                             "type": "string",
                             "enum": [
                               "equipment",
+                              "pair",
                               "limitations-or-hidden",
                               "personal"
                             ]
@@ -647,6 +987,7 @@
                   "required": [
                     "state",
                     "variantIds",
+                    "notes",
                     "swaps"
                   ]
                 },
@@ -659,13 +1000,7 @@
                     },
                     "reason": {
                       "type": "string",
-                      "enum": [
-                        "equipment",
-                        "limitations",
-                        "days",
-                        "catalog",
-                        "personal"
-                      ]
+                      "const": "catalog"
                     },
                     "slotIds": {
                       "type": "array",
@@ -695,17 +1030,6 @@
                           "slotId"
                         ]
                       }
-                    },
-                    "missingEquipment": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "requiredDays": {
-                      "type": "integer",
-                      "exclusiveMinimum": 0,
-                      "maximum": 9007199254740991
                     }
                   },
                   "required": [
@@ -720,21 +1044,37 @@
             "programWeek": {
               "type": "object",
               "properties": {
-                "weekStart": {
+                "startDate": {
                   "type": "string"
-                },
-                "capacity": {
-                  "type": "integer",
-                  "minimum": -9007199254740991,
-                  "maximum": 9007199254740991
                 },
                 "variantId": {
                   "type": "string"
+                },
+                "defaultDates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "variantId": {
+                        "type": "string"
+                      },
+                      "dates": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "variantId",
+                      "dates"
+                    ]
+                  }
                 }
               },
               "required": [
-                "weekStart",
-                "capacity"
+                "startDate",
+                "defaultDates"
               ]
             },
             "appPath": {

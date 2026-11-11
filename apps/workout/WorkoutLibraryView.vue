@@ -52,8 +52,7 @@ const open = (item: LibraryItem) => {
 const badgeClass = (fit: LibraryFit) => ({
   'exact': 'border-olive',
   'adaptable': 'border-gold-ink',
-  'unavailable': 'border-surface-dark text-muted',
-  'needs-space': 'border-terracotta'
+  'unavailable': 'border-surface-dark text-muted'
 })[fit.state]
 /**
  * A Program variant with blocks (app EF-1603) shows each block: "Weeks 1–4 ·
@@ -87,11 +86,12 @@ const sessionsOf = (item: LibraryItemRecord) => item.content.format === 'workout
       blocks: variant.blocks?.length ? blockViews(item.id, variant.id, variant.blocks) : undefined
     }))
 const swappedSlots = computed(() => new Set(record.value.mode === 'item' && record.value.fit.state === 'adaptable' ? record.value.fit.swaps.map(swap => swap.slotId) : []))
-const facts = (item: { format: string, sessionMinutes: { min: number, max: number }, supportedDays: number[], defaultWeeks?: number }, withFormat = true) => [
-  ...(withFormat ? [vocabularyLabel(translator.value, 'format', item.format)] : []),
-  minutesLabel(translator.value, item.sessionMinutes),
-  ...(item.defaultWeeks ? [t('workoutLibraryUi.weeks', { n: number(item.defaultWeeks) }, item.defaultWeeks)] : [])
-]
+const facts = (item: { format: string, sessionMinutes: { min: number, max: number }, supportedDays: number[], defaultWeeks?: number }) => item.format === 'workout'
+  ? [t('workoutLibraryUi.shapeWorkout', { minutes: minutesLabel(translator.value, item.sessionMinutes) })]
+  : [
+      t('workoutLibraryUi.shapeProgram', { days: new Intl.ListFormat(locale.value, { type: 'disjunction' }).format(item.supportedDays.map(number)) }),
+      ...(item.defaultWeeks ? [t('workoutLibraryUi.weeks', { n: number(item.defaultWeeks) }, item.defaultWeeks)] : [])
+    ]
 </script>
 
 <template>
@@ -225,7 +225,7 @@ const facts = (item: { format: string, sessionMinutes: { min: number, max: numbe
           {{ record.title }}
         </h1>
         <p class="mt-1 text-sm text-muted">
-          {{ facts(record, false).join(' · ') }}
+          {{ facts(record).join(' · ') }}
         </p>
         <p
           v-if="tagLine(translator, record.tags)"
@@ -254,14 +254,7 @@ const facts = (item: { format: string, sessionMinutes: { min: number, max: numbe
           :class="badgeClass(record.fit)"
         >{{ fitLabel(translator, record.fit) }}</span>
       </div>
-      <p
-        v-if="record.fit.state === 'needs-space'"
-        class="mt-2 text-sm"
-      >
-        {{ t('workoutLibraryUi.needsSpace', { space }) }}
-      </p>
       <ul
-        v-else
         class="mt-2 space-y-1 text-sm"
       >
         <li
