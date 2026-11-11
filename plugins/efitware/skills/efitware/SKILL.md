@@ -51,20 +51,20 @@ The Library holds workouts and programs written in advance by eFitware. When the
 
 1. Use the space they're training in. Pass its id from `get_training_spaces` as `trainingSpaceId`, and never invent one.
 2. Call `search_workout_library` with what you know: the goal as `purpose`, the body area as `focus`, `style`, their level as `experience`, and the minutes they have as `maxMinutes`. Offer one or two items and say why each one fits.
-3. Before you offer to save, call `preview_workout_library_item`. Say how the item fits their space. If it is adaptable, name each exercise that changes, what replaces it and the equipment the space is missing. Never call an adapted item an exact fit, and never leave a swap out.
+3. Before saving, call `preview_workout_library_item`. Name each swapped exercise, its replacement and why it changes. Relay every `fit.notes` entry from search/detail and every `notes` entry from the preview: missing gear, an unconfirmed inventory or an exercise kept as written with a limitation note. Notes are advisory: they never add a confirmation step or block an explicit choice. Never call a substituted item exact, and never leave a swap or note out.
 4. Save only when the user asks. Call `save_workout_library_workout` with the preview's `previewHash` and a new `idempotencyKey`, then show the saved workout with `open_template`.
-5. If an item is unavailable, give its reason (missing equipment, too few training days that week, or exercises their limitations rule out) and suggest another item or offer to design one.
-6. If the space needs setup, say that no equipment is recorded for it yet and offer to record it. Don't assume what they have.
+5. Only a missing catalog exercise makes an item unavailable. Explain that content defect and offer another item. Missing equipment, limitations, busy days and profile weekdays never make an item unavailable.
+6. If equipment is unconfirmed, prepare the item as written, with no equipment replacements, and relay the unknown-space note. Offer to set up the space, but do not require setup before preparation or saving and do not infer its inventory from its name.
 7. A Library item keeps its sets, reps and rest as written. To change it, save it first and edit the saved workout with `update_template`.
 8. You can read and preview a Library program, but you can't save one here. Send the user to it in eFitware at `/library/<id>`.
 
 `open_library` and `search_exercise_library` are the exercise catalog, not the workout Library. Use `open_workout_library` to show Library results or one item.
 
-A fit's `reason` or swap `cause` reads `personal` when health and body data isn't shared with this assistant. Say the item doesn't fit their account settings, and don't guess at the limitation behind it.
+When health and body sharing is withheld, a limitation note is only `{ kind: 'personal' }`, with no slot identifier, exercise id or name. Relay it as a generic personal note: the workout is still prepared as written. Never infer which exercise or limitation it describes. A swap may separately carry `cause: 'personal'`; its normal replacement identity remains available, but do not guess the protected cause. A personal note never means the item is unavailable.
 
 ## What this surface can and cannot do
 
-124 tools: 67 reads, 57 writes.
+127 tools: 67 reads, 60 writes.
 
 | Read | Returns |
 | --- | --- |
@@ -460,7 +460,7 @@ Malformed JSON is HTTP 400 / JSON-RPC -32700; unsupported content types and prot
 | `Invalid set for this exercise: …` | The `set` object failed its modality schema (unknown key, wrong-modality field, out-of-range value). | Re-read the instance's `modality` and fix the shape. Do not substitute a different value to get it through. |
 | `Input validation error: Invalid arguments for tool …` | The arguments failed the tool's own input schema before the handler ran. Emitted by the MCP layer, so it arrives wrapped in that layer's own `MCP error` prefix. | Fix the argument shape against the schema. |
 | `Not found` | The id does not exist **or** does not belong to this user — the two are deliberately indistinguishable. | Re-read to get a real id. A retry with the same id will never succeed. |
-| `This schedule is paused` | Materializing a workout from a schedule the user disabled. | Tell the user. Do not create a loose workout instead. |
+| `The schedule has no occurrence on this date` | The requested date has no active occurrence in the saved timing, including a stopped or expired stretch. | Read the current timing and explain it. Do not bypass it with a separate workout unless the user asks for one. |
 | `The schedule has no occurrence on this date` | The `date` is not a day this recurrence produces. | Re-read `get_schedules`; pick a real occurrence. |
 | `The recurrence rule is outside the supported grammar` / `endDate must be on or after startDate` / `endDate is capped at one year after startDate` | The recurrence or its bounds break the subset above. | Fix the rule or ask the user for a horizon. |
 | `Recording health or body data requires your explicit consent.` … | The account has not accepted eFitware's health-data consent. | There is no way around it from here. Tell the user to grant it in the app; do not retry. |

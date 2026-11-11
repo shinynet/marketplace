@@ -106,7 +106,6 @@ describe('workout Library card', () => {
     expect(text).not.toContain('limitations')
     expect(text).toContain('A personal note applies. Prepared as written.')
   })
-
 })
 
 describe('prescription summaries', () => {

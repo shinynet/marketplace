@@ -114,7 +114,7 @@ export const compactSummary = (view: TrainingView, options: Options): CompactSum
       const { record, related } = view
       return {
         eyebrow: dot(t(related.oneTime ? 'oneOffWorkout' : 'trainingProgram'), t(programStateKey(view))), title: related.displayName || t(related.oneTime ? 'unnamedWorkout' : 'trainingProgram'),
-        facts: [fact(t('workoutCount'), count(related.workoutCount)), fact(t('schedules'), count(related.schedulesMeta.total)), related.supportsGoal ? fact(t('compact.goal'), related.supportsGoal.name) : fact(t('compact.span'), related.span ? `${monthDay(related.span.startDate, locale)} – ${monthDay(related.span.endDate, locale)}` : t('compact.none'))],
+        facts: [fact(t('workoutCount'), count(related.workoutCount)), ...(!related.oneTime ? [fact(t('schedules'), count(related.schedulesMeta.total))] : []), related.supportsGoal ? fact(t('compact.goal'), related.supportsGoal.name) : fact(t('compact.span'), related.span ? related.span.startDate === related.span.endDate ? monthDay(related.span.startDate, locale) : `${monthDay(related.span.startDate, locale)} – ${monthDay(related.span.endDate, locale)}` : t('compact.none'))],
         path: `/programs/${record.id}`
       }
     }

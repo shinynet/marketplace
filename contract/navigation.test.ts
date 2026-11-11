@@ -196,7 +196,7 @@ it('opens a Program in the browsed week and keeps that week through refresh and 
 
 it('refreshes a Library item the host opened in the week its Program fit names', async () => {
   const item = structuredClone(fixtures.workoutLibrary.itemProgramNoted) as unknown as { record: Record<string, unknown> }
-  item.record.programWeek = { startDate: '2026-11-05', capacity: 3, defaultDates: [] }
+  item.record.programWeek = { startDate: '2026-11-05', defaultDates: [] }
   const connection = createWorkoutConnection()
   await connection.start()
   bridge.ontoolresult?.({ structuredContent: item })

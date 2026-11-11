@@ -40,8 +40,10 @@ const openWorkout = (id: string) => navigate({ name: 'open_workout', arguments: 
         class="mt-3 text-sm"
       >
         <time :datetime="program.related.span.startDate">{{ formatDay(program.related.span.startDate, locale) }}</time>
-        {{ t('through') }}
-        <time :datetime="program.related.span.endDate">{{ formatDay(program.related.span.endDate, locale) }}</time>
+        <template v-if="program.related.span.endDate !== program.related.span.startDate">
+          {{ t('through') }}
+          <time :datetime="program.related.span.endDate">{{ formatDay(program.related.span.endDate, locale) }}</time>
+        </template>
       </p>
       <p
         v-if="program.related.supportsGoal"

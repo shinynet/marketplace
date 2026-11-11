@@ -89,7 +89,7 @@ const swappedSlots = computed(() => new Set(record.value.mode === 'item' && reco
 const facts = (item: { format: string, sessionMinutes: { min: number, max: number }, supportedDays: number[], defaultWeeks?: number }) => item.format === 'workout'
   ? [t('workoutLibraryUi.shapeWorkout', { minutes: minutesLabel(translator.value, item.sessionMinutes) })]
   : [
-      t('workoutLibraryUi.shapeProgram', { days: new Intl.ListFormat(locale.value, { type: 'disjunction' }).format(item.supportedDays.map(number)) }),
+      t('workoutLibraryUi.shapeProgram', { days: new Intl.ListFormat(locale.value, { type: 'disjunction' }).format(item.supportedDays.map(number)) }, item.supportedDays.length === 1 ? item.supportedDays[0]! : 2),
       ...(item.defaultWeeks ? [t('workoutLibraryUi.weeks', { n: number(item.defaultWeeks) }, item.defaultWeeks)] : [])
     ]
 </script>

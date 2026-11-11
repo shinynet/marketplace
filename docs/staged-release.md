@@ -12,7 +12,7 @@ candidate plugin manifests identify 0.1.44. See the current candidate section in
 Focused qualification: app consumer projections, pause/readback navigation,
 compact links, Library notes, timed prescriptions, blocks/covers and the exact
 calendar fixture were checked locally. Typecheck and lint pass. Two consecutive
-card builds are byte-identical (1,106,043 bytes, below the 1,500,000-byte limit).
+card builds are byte-identical (1,106,322 bytes, below the 1,500,000-byte limit).
 Static SSR captures at 320 and 1440 pixels in both themes and English/German
 have no horizontal overflow. They use synthetic records and compiled card CSS;
 they do not prove an authenticated MCP host loaded the card. No new automated
