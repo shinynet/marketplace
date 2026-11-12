@@ -21,7 +21,7 @@ import type { WorkoutLibraryView } from '../apps/workout/workoutLibraryModel'
  * `itemCover` is Short Conditioning with its cover. Every older fixture is
  * the same payload without one.
  */
-type Name = 'browse' | 'browseCovers' | 'itemCover' | 'itemShortConditioning' | 'itemAdaptable' | 'itemProgramUnavailable'
+type Name = 'browse' | 'browseCovers' | 'itemCover' | 'itemShortConditioning' | 'itemAdaptable' | 'itemProgramNoted'
 const payloads = fixtures.workoutLibrary as unknown as Record<Name, WorkoutLibraryView>
 const validate = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(schema)
 
@@ -99,7 +99,7 @@ describe('workout Library cover art', () => {
   })
 
   it('renders no image element and no wrapper for a browse page or an item without covers', async () => {
-    for (const name of ['browse', 'itemShortConditioning', 'itemAdaptable', 'itemProgramUnavailable'] as const) {
+    for (const name of ['browse', 'itemShortConditioning', 'itemAdaptable', 'itemProgramNoted'] as const) {
       const root = await mount(payloads[name])
       expect(boxes(root), name).toHaveLength(0)
       expect(root.querySelector('img'), name).toBeNull()

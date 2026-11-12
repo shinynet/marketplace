@@ -1,3 +1,4 @@
+import { programStateKey } from './planningModel'
 import type { TrainingView } from './templateModel'
 import type { ReceiptsView } from './outcomeModel'
 import type { MuscleMap, ViewExercise, ViewSet } from './model'
@@ -107,21 +108,21 @@ export const compactSummary = (view: TrainingView, options: Options): CompactSum
       const { record } = view
       const sets = record.exercises.reduce((sum, exercise) => sum + exercise.sets.length, 0)
       const activities = (record.activities?.length ?? 0) + record.exercises.reduce((sum, exercise) => sum + (exercise.activities?.length ?? 0), 0)
-      return { eyebrow: t('reusableTemplate'), title: record.name, facts: [fact(t('compact.exercises'), count(record.exercises.length)), fact(t('compact.sets'), count(sets)), fact(t('compact.activities'), count(activities))], path: `/saved-workouts/${record.id}` }
+      return { eyebrow: t('reusableTemplate'), title: record.name, facts: [fact(t('compact.exercises'), count(record.exercises.length)), fact(t('compact.sets'), count(sets)), fact(t('compact.activities'), count(activities))], path: `/library/yours/${record.id}` }
     }
     case 'program': {
       const { record, related } = view
       return {
-        eyebrow: dot(t('trainingProgram'), t(record.status)), title: record.name,
-        facts: [fact(t('workoutCount'), count(related.workoutCount)), fact(t('schedules'), count(related.schedulesMeta.total)), related.supportsGoal ? fact(t('compact.goal'), related.supportsGoal.name) : fact(t('compact.span'), related.span ? `${monthDay(related.span.startDate, locale)} – ${monthDay(related.span.endDate, locale)}` : t('compact.none'))],
+        eyebrow: dot(t(related.oneTime ? 'oneOffWorkout' : 'trainingProgram'), t(programStateKey(view))), title: related.displayName || t(related.oneTime ? 'unnamedWorkout' : 'trainingProgram'),
+        facts: [fact(t('workoutCount'), count(related.workoutCount)), ...(!related.oneTime ? [fact(t('schedules'), count(related.schedulesMeta.total))] : []), related.supportsGoal ? fact(t('compact.goal'), related.supportsGoal.name) : fact(t('compact.span'), related.span ? related.span.startDate === related.span.endDate ? monthDay(related.span.startDate, locale) : `${monthDay(related.span.startDate, locale)} – ${monthDay(related.span.endDate, locale)}` : t('compact.none'))],
         path: `/programs/${record.id}`
       }
     }
     case 'schedule': {
       const { record } = view
       return {
-        eyebrow: dot(t('recurringSchedule'), t(record.enabled ? 'scheduleEnabled' : 'schedulePaused')), title: record.name,
-        facts: [fact(t('nextOccurrence'), record.nextOccurrence ? shortDay(record.nextOccurrence, locale) : t('noOccurrence')), fact(t('compact.recurrence'), summarizeRecurrence(record.recurrence, locale, t)), fact(t('compact.template'), record.templateName ?? t('compact.none'))],
+        eyebrow: dot(t('recurringSchedule'), t(record.activeTiming ? 'scheduleEnabled' : record.stopped ? 'schedulePaused' : 'repeatFinished')), title: record.name,
+        facts: [fact(t('nextOccurrence'), record.nextOccurrence ? shortDay(record.nextOccurrence, locale) : t('noOccurrence')), fact(t('compact.recurrence'), summarizeRecurrence(record.currentRule, locale, t)), fact(t('compact.template'), record.templateName ?? t('compact.none'))],
         path: `/schedules/${record.id}/edit`
       }
     }
@@ -228,7 +229,7 @@ export const compactSummary = (view: TrainingView, options: Options): CompactSum
           path: workoutLibraryPath(record)
         }
       }
-      const line = record.fit.state === 'needs-space' ? t('workoutLibraryUi.needsSpace', { space: spaceLabel(library, record.trainingSpace) }) : fitLines(library, record.fit)[0]
+      const line = fitLines(library, record.fit)[0]
       return {
         eyebrow: t('workoutLibraryUi.itemEyebrow', { format: vocabularyLabel(library, 'format', record.format) }), title: record.title,
         facts: [fact(t('workoutLibraryUi.space'), spaceLabel(library, record.trainingSpace)), fact(t('workoutLibraryUi.fit'), fitLabel(library, record.fit)), fact(t('workoutLibraryUi.length'), minutesLabel(library, record.sessionMinutes))],

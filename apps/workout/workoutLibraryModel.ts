@@ -20,20 +20,22 @@ export const librarySpaceSchema = z.object({
 })
 const slotExercise = { slotId: authoredId, exerciseId: objectId.optional(), name: z.string().optional() }
 /** `personal`: the reason is withheld health data (the assistant has no health-sharing permission). */
-export const swapCauseSchema = z.enum(['equipment', 'limitations-or-hidden', 'personal'])
-export const unavailableReasonSchema = z.enum(['equipment', 'limitations', 'days', 'catalog', 'personal'])
+export const swapCauseSchema = z.enum(['equipment', 'pair', 'limitations-or-hidden', 'personal'])
+export const unavailableReasonSchema = z.literal('catalog')
+const libraryNote = z.discriminatedUnion('kind', [
+  z.object({ ...slotExercise, kind: z.literal('equipment'), missingEquipment: z.array(z.string()), pair: z.literal(true).optional() }),
+  z.object({ ...slotExercise, kind: z.literal('limitation') }),
+  z.object({ kind: z.literal('unknown-space') }),
+  // Health-sharing redaction deliberately carries no exercise or slot identity.
+  z.object({ kind: z.literal('personal') })
+])
 export const libraryFitSchema = z.discriminatedUnion('state', [
-  z.object({ state: z.literal('needs-space') }),
-  z.object({ state: z.literal('exact'), variantIds: z.array(authoredId) }),
+  z.object({ state: z.literal('exact'), variantIds: z.array(authoredId), notes: z.array(libraryNote) }),
   z.object({
-    state: z.literal('adaptable'), variantIds: z.array(authoredId),
+    state: z.literal('adaptable'), variantIds: z.array(authoredId), notes: z.array(libraryNote),
     swaps: z.array(z.object({ ...slotExercise, cause: swapCauseSchema, missingEquipment: z.array(z.string()) })).min(1)
   }),
-  z.object({
-    state: z.literal('unavailable'), reason: unavailableReasonSchema,
-    slotIds: z.array(authoredId), exercises: z.array(z.object(slotExercise)),
-    missingEquipment: z.array(z.string()).optional(), requiredDays: z.number().int().positive().optional()
-  })
+  z.object({ state: z.literal('unavailable'), reason: unavailableReasonSchema, slotIds: z.array(authoredId), exercises: z.array(z.object(slotExercise)) })
 ])
 /**
  * The item's cover art (app EF-1609): one 4:3 JPEG on the media origin
@@ -52,8 +54,8 @@ export const libraryItemSchema = z.object({
   sessionMinutes: z.object({ min: z.number().positive(), max: z.number().positive() }),
   supportedDays: z.array(z.number().int()), defaultWeeks: z.number().int().positive().optional(),
   fit: libraryFitSchema,
-  /** A Program's fit was evaluated against this week's remaining capacity (the requested `weekStart`, else the current week). */
-  programWeek: z.object({ weekStart: z.string(), capacity: z.number().int(), variantId: z.string().optional() }).optional(),
+  /** A Program's default dates, in the seven days from its requested start date. */
+  programWeek: z.object({ startDate: z.string(), variantId: z.string().optional(), defaultDates: z.array(z.object({ variantId: z.string(), dates: z.array(z.string()) })) }).optional(),
   appPath: z.string().regex(/^\/library\/[a-z0-9-]+$/),
   cover: libraryCoverSchema.optional()
 })
@@ -105,7 +107,7 @@ export const libraryItemDetailSchema = libraryItemSchema.extend({
 export const libraryQuerySchema = z.object({
   q: z.string().optional(), format: z.enum(['workout', 'program']).optional(),
   purpose: z.string().optional(), focus: z.string().optional(), style: z.string().optional(), experience: z.string().optional(),
-  maxMinutes: z.number().int().optional(), daysPerWeek: z.number().int().optional(), weekStart: z.string().optional(),
+  maxMinutes: z.number().int().optional(), daysPerWeek: z.number().int().optional(), startDate: z.string().optional(),
   fit: z.enum(['fits', 'exact', 'all']), page: z.number().int().positive(), limit: z.number().int().positive()
 })
 export const workoutLibraryViewSchema = z.object({
@@ -128,8 +130,7 @@ export type LibraryCover = z.infer<typeof libraryCoverSchema>
 
 /**
  * Where the card's header link opens the application: `/library` (with the
- * browsed space when it is not the default) or the item's page. Neither app
- * page has a week parameter, so a browsed or evaluated `weekStart` stays out.
+ * browsed space when it is not the default) or the item's page. The authored-item app link does not apply a preparation start date, so `startDate` stays out.
  */
 export const workoutLibraryPath = (record: WorkoutLibraryView['record']): string => {
   const params = new URLSearchParams()
@@ -146,27 +147,27 @@ export const workoutLibraryPath = (record: WorkoutLibraryView['record']): string
 
 /**
  * The navigation arguments that reopen this card, with `patch` applied. An
- * item keeps the week its Program fit was evaluated for, so a refresh or a
- * return reads the same capacity.
+ * item keeps the requested Program start, so refresh and Back evaluate the
+ * same dates.
  */
 export const workoutLibraryArguments = (record: WorkoutLibraryView['record'], patch: Record<string, unknown> = {}): Record<string, unknown> => {
   const space = record.trainingSpace.isDefault ? {} : { trainingSpaceId: record.trainingSpace.id }
-  // the application refuses a week for a Workout, so only a Program keeps one
-  if (record.mode === 'item') return { itemId: record.id, ...space, ...(record.format === 'program' && record.programWeek ? { weekStart: record.programWeek.weekStart } : {}), ...patch }
+  // only a Program accepts a preparation start date
+  if (record.mode === 'item') return { itemId: record.id, ...space, ...(record.format === 'program' && record.programWeek ? { startDate: record.programWeek.startDate } : {}), ...patch }
   const { fit, page, limit, ...facets } = record.query
   return { ...facets, fit, page, limit, ...space, ...patch }
 }
 
 /**
  * Opening one result: the item reads in the space the results were evaluated
- * for and, for a Program, the same week (the browsed `weekStart`, else the
- * week its fit names), so its fit does not change on the way in. A Workout
- * never takes a week: the application refuses one.
+ * for and, for a Program, the same start (the browsed `startDate`, else its
+ * default-date window), so preparation does not change on the way in. A
+ * Workout never takes a Program start.
  */
 export const workoutLibraryItemArguments = (record: LibraryBrowseRecord, item: LibraryItem): Record<string, unknown> => {
-  // the application refuses a week for a Workout, so only a Program carries one
-  const weekStart = item.format === 'program' ? record.query.weekStart ?? item.programWeek?.weekStart : undefined
-  return { itemId: item.id, ...(record.trainingSpace.isDefault ? {} : { trainingSpaceId: record.trainingSpace.id }), ...(weekStart ? { weekStart } : {}) }
+  // only a Program carries a preparation start date
+  const startDate = item.format === 'program' ? record.query.startDate ?? item.programWeek?.startDate : undefined
+  return { itemId: item.id, ...(record.trainingSpace.isDefault ? {} : { trainingSpaceId: record.trainingSpace.id }), ...(startDate ? { startDate } : {}) }
 }
 
 export type PlannedSet = z.infer<typeof plannedSet>

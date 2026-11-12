@@ -12,7 +12,7 @@ const { schedule, disabled, navigate, update, create } = defineProps<{
   create: ReturnType<typeof createWorkoutConnection>['createOccurrence']
 }>()
 const { t, locale } = useI18n()
-const recurrence = computed(() => summarizeRecurrence(schedule.record.recurrence, locale.value, t))
+const recurrence = computed(() => summarizeRecurrence(schedule.record.currentRule, locale.value, t))
 </script>
 <template>
   <article>
@@ -27,7 +27,7 @@ const recurrence = computed(() => summarizeRecurrence(schedule.record.recurrence
         {{ recurrence }}
       </p>
       <p class="mt-2 text-sm text-muted">
-        {{ t(schedule.record.enabled ? 'scheduleEnabled' : 'schedulePaused') }}
+        {{ t(schedule.record.activeTiming ? 'scheduleEnabled' : schedule.record.stopped ? 'schedulePaused' : 'repeatFinished') }}
       </p>
     </header>
     <dl class="mb-6 space-y-3 rounded bg-surface p-4">
@@ -35,14 +35,14 @@ const recurrence = computed(() => summarizeRecurrence(schedule.record.recurrence
         <dt class="text-sm text-muted">
           {{ t('starts') }}
         </dt><dd class="mt-1">
-          <time :datetime="schedule.record.startDate">{{ formatDay(schedule.record.startDate, locale) }}</time>
+          <time :datetime="schedule.record.authored.startDate">{{ formatDay(schedule.record.authored.startDate, locale) }}</time>
         </dd>
       </div>
       <div>
         <dt class="text-sm text-muted">
           {{ t('ends') }}
         </dt><dd class="mt-1">
-          <time :datetime="schedule.record.endDate">{{ formatDay(schedule.record.endDate, locale) }}</time>
+          <time :datetime="schedule.record.authored.endDate">{{ formatDay(schedule.record.authored.endDate, locale) }}</time>
         </dd>
       </div>
       <div>
@@ -92,21 +92,22 @@ const recurrence = computed(() => summarizeRecurrence(schedule.record.recurrence
         {{ t('scheduleActionNote') }}
       </p>
       <button
+        v-if="schedule.record.activeTiming || schedule.record.stopped"
         type="button"
         class="secondary mt-3"
         :disabled="disabled"
-        @click="update({ enabled: !schedule.record.enabled })"
+        @click="update({ timing: { op: schedule.record.activeTiming ? 'stop' : 'resume' } })"
       >
-        {{ t(schedule.record.enabled ? 'pauseSchedule' : 'resumeSchedule') }}
+        {{ t(schedule.record.activeTiming ? 'pauseSchedule' : 'resumeSchedule') }}
       </button>
       <p
-        v-if="schedule.record.enabled && schedule.record.nextOccurrence"
+        v-if="schedule.record.activeTiming && schedule.record.nextOccurrence"
         class="mt-5 text-sm text-muted"
       >
         {{ t('createOccurrenceNote') }}
       </p>
       <button
-        v-if="schedule.record.enabled && schedule.record.nextOccurrence"
+        v-if="schedule.record.activeTiming && schedule.record.nextOccurrence"
         type="button"
         class="primary mt-3"
         :disabled="disabled"

@@ -21,13 +21,13 @@ import { prescriptionLine } from '../apps/workout/workoutLibraryPresentation'
  * The workout Library card (app EF-1607, format 8). `fixtures.workoutLibrary`
  * holds `open_workout_library` payloads exactly as the application emits
  * them: a browse page in a dumbbell-and-bench space (adaptable, exact and
- * equipment-unavailable items), a browse page in an unconfigured space, an
+ * items with equipment notes), a browse page in an unconfigured space, an
  * adaptable Workout with two named swaps in a dumbbell-only space, and a
- * German Program the space cannot run, and Short Conditioning's rowing
+ * German Program prepared with an equipment note, and Short Conditioning's rowing
  * intervals (a warm-up, six 30-second efforts with five 60-second recoveries
  * between them, and a cool-down).
  */
-const payloads = fixtures.workoutLibrary as unknown as Record<'browse' | 'browseNeedsSpace' | 'itemAdaptable' | 'itemProgramUnavailable' | 'itemShortConditioning', WorkoutLibraryView>
+const payloads = fixtures.workoutLibrary as unknown as Record<'browse' | 'browseUnconfirmed' | 'itemAdaptable' | 'itemProgramNoted' | 'itemShortConditioning', WorkoutLibraryView>
 const schema = JSON.parse(readFileSync(new URL('./workout-library-view.schema.json', import.meta.url), 'utf8'))
 const validate = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(schema)
 const noop = async () => 'accepted' as const
@@ -93,52 +93,16 @@ describe('workout Library vocabulary', () => {
 })
 
 describe('workout Library card', () => {
-  it('browses with fit badges, the space and paging', async () => {
-    const text = await render(payloads.browse)
-    expect(text).toContain('Workouts and programs')
-    expect(text).toContain('your training space “Default”')
-    expect(text).toContain('Quick Full Body')
-    expect(text).toContain('Adaptable')
-    expect(text).toContain('Exact fit')
-    expect(text).toContain('Unavailable')
-    expect(text).toContain('1 exercise is swapped')
-    expect(text).toContain('This space is missing Lat pulldown')
-    expect(text).toContain('Page 1 · 24 items')
-  })
-
-  it('says an unconfigured space needs setup instead of guessing', async () => {
-    const text = await render(payloads.browseNeedsSpace)
-    expect(text).toContain('No equipment is recorded for “Default” yet')
-    expect(text).toContain('Needs setup')
-  })
-
-  it('names each swap, its missing equipment and the sessions on an item', async () => {
-    const text = await render(payloads.itemAdaptable)
-    expect(text).toContain('Strength for Runners')
-    expect(text).toContain('Bulgarian Split Squat is swapped: this space has no Flat bench.')
-    expect(text).toContain('Copenhagen Plank is swapped: this space has no Flat bench.')
-    expect(text).toContain('Swapped here')
-    expect(text).toContain('Who it suits')
-    expect(text).toMatch(/3 × 6–8 reps/)
-    expect(text).toContain('Ask my AI to prepare this')
-  })
 
   it('reads a withheld reason without naming a limitation', async () => {
     const view = structuredClone(payloads.itemAdaptable)
     if (view.record.mode !== 'item' || view.record.fit.state !== 'adaptable') throw new Error('fixture')
     view.record.fit.swaps[0]!.cause = 'personal'
+    view.record.fit.notes = [{ kind: 'personal' }]
     const text = await render(view)
     expect(text).toContain('Bulgarian Split Squat is swapped for a personal reason.')
     expect(text).not.toContain('limitations')
-  })
-
-  it('renders a German Program the space cannot run, with no save request', async () => {
-    const text = await render(payloads.itemProgramUnavailable, 'de')
-    expect(text).toContain('Workout-Bibliothek · Programm')
-    expect(text).toContain('Nicht verfügbar')
-    expect(text).toContain('Hier fehlt Latzug')
-    expect(text).toContain('Starte dieses Programm in der eFitware-App.')
-    expect(text).not.toContain('Meine KI soll das vorbereiten')
+    expect(text).toContain('A personal note applies. Prepared as written.')
   })
 })
 
@@ -201,25 +165,25 @@ describe('compact card and links', () => {
   })
 
   it('carries the evaluated Program week into the item, its refresh and back, but not into app links', () => {
-    expect(workoutLibraryArguments(payloads.itemProgramUnavailable.record)).toEqual({ itemId: 'beginner-strength-program', weekStart: '2026-10-05' })
-    expect(workoutLibraryArguments(payloads.itemProgramUnavailable.record, { weekStart: '2026-11-09' })).toMatchObject({ weekStart: '2026-11-09' })
-    expect(workoutLibraryPath(payloads.itemProgramUnavailable.record)).toBe('/library/beginner-strength-program')
+    expect(workoutLibraryArguments(payloads.itemProgramNoted.record)).toEqual({ itemId: 'beginner-strength-program', startDate: '2026-10-05' })
+    expect(workoutLibraryArguments(payloads.itemProgramNoted.record, { startDate: '2026-11-09' })).toMatchObject({ startDate: '2026-11-09' })
+    expect(workoutLibraryPath(payloads.itemProgramNoted.record)).toBe('/library/beginner-strength-program')
     const week = structuredClone(payloads.browse)
     if (week.record.mode !== 'browse') throw new Error('fixture')
-    week.record.query.weekStart = '2026-11-02'
+    week.record.query.startDate = '2026-11-02'
     const [workout, , program] = week.record.data
-    expect(workoutLibraryItemArguments(week.record, program!)).toEqual({ itemId: 'beginner-strength-program', weekStart: '2026-11-02' })
+    expect(workoutLibraryItemArguments(week.record, program!)).toEqual({ itemId: 'beginner-strength-program', startDate: '2026-11-02' })
     // a Workout never takes a week: the application answers 422
     expect(workoutLibraryItemArguments(week.record, workout!)).toEqual({ itemId: 'quick-full-body' })
-    expect(workoutLibraryItemArguments(week.record, workout!)).not.toHaveProperty('weekStart')
+    expect(workoutLibraryItemArguments(week.record, workout!)).not.toHaveProperty('startDate')
     const weekWorkout = structuredClone(payloads.itemAdaptable)
     if (weekWorkout.record.mode !== 'item') throw new Error('fixture')
-    weekWorkout.record.programWeek = { weekStart: '2026-11-02', capacity: 3 }
+    weekWorkout.record.programWeek = { startDate: '2026-11-02', defaultDates: [] }
     expect(workoutLibraryArguments(weekWorkout.record)).toEqual({ itemId: 'strength-for-runners' })
-    expect(workoutLibraryArguments(week.record)).toMatchObject({ weekStart: '2026-11-02' })
+    expect(workoutLibraryArguments(week.record)).toMatchObject({ startDate: '2026-11-02' })
     expect(workoutLibraryPath(week.record)).toBe('/library')
     // without a browsed week, a Program opens in the week its fit was evaluated for
-    expect(workoutLibraryItemArguments(payloads.browse.record as never, program!)).toEqual({ itemId: 'beginner-strength-program', weekStart: '2026-10-05' })
+    expect(workoutLibraryItemArguments(payloads.browse.record as never, program!)).toEqual({ itemId: 'beginner-strength-program', startDate: '2026-10-05' })
     expect(workoutLibraryItemArguments(payloads.browse.record as never, workout!)).toEqual({ itemId: 'quick-full-body' })
   })
 

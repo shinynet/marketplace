@@ -628,7 +628,7 @@
     "dayRoles": {
       "2026-09-07": "trained by hand: an untapped occurrence satisfied by an unplanned completed workout, counted once",
       "2026-09-08": "missed: a past untapped occurrence",
-      "2026-09-09": "mixed past day: a completed scheduled workout and a second schedule's untapped occurrence",
+      "2026-09-09": "mixed past day: a completed scheduled workout and a second schedule's untapped occurrence, each schedule in its own program",
       "2026-09-10": "skipped only",
       "2026-09-11": "abandoned only",
       "2026-09-12": "planned: today's untapped occurrence",
@@ -690,12 +690,17 @@
             "status": "completed",
             "durationSeconds": 3300,
             "programId": "6a0000000000000000000001",
-            "programSessionCount": 1,
+            "programSessionCount": 2,
             "programName": "Winter strength",
             "programs": [
               {
                 "programId": "6a0000000000000000000001",
                 "programName": "Winter strength",
+                "sessionCount": 1
+              },
+              {
+                "programId": "6a0000000000000000000005",
+                "programName": "Evening mobility",
                 "sessionCount": 1
               }
             ]
@@ -2709,7 +2714,8 @@
                     "adjustable_bench"
                   ]
                 }
-              ]
+              ],
+              "notes": []
             },
             "appPath": "/library/quick-full-body"
           },
@@ -2741,7 +2747,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/beginner-fundamentals"
           },
@@ -2776,24 +2783,21 @@
             "defaultWeeks": 8,
             "defaultVariantId": "two-days",
             "fit": {
-              "state": "unavailable",
-              "reason": "equipment",
-              "slotIds": [
-                "lat-pulldown"
-              ],
-              "exercises": [
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
                 {
-                  "slotId": "lat-pulldown"
+                  "slotId": "lat-pulldown",
+                  "kind": "equipment",
+                  "missingEquipment": [
+                    "lat_pulldown"
+                  ]
                 }
-              ],
-              "missingEquipment": [
-                "lat_pulldown"
               ]
             },
             "programWeek": {
-              "weekStart": "2026-10-05",
-              "capacity": 6,
-              "defaultDates": []
+              "defaultDates": [],
+              "startDate": "2026-10-05"
             },
             "appPath": "/library/beginner-strength-program"
           },
@@ -2825,7 +2829,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/ten-minute-core"
           },
@@ -2862,24 +2867,21 @@
             "defaultWeeks": 8,
             "defaultVariantId": "two-days",
             "fit": {
-              "state": "unavailable",
-              "reason": "equipment",
-              "slotIds": [
-                "lat-pulldown"
-              ],
-              "exercises": [
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
                 {
-                  "slotId": "lat-pulldown"
+                  "slotId": "lat-pulldown",
+                  "kind": "equipment",
+                  "missingEquipment": [
+                    "lat_pulldown"
+                  ]
                 }
-              ],
-              "missingEquipment": [
-                "lat_pulldown"
               ]
             },
             "programWeek": {
-              "weekStart": "2026-10-05",
-              "capacity": 6,
-              "defaultDates": []
+              "defaultDates": [],
+              "startDate": "2026-10-05"
             },
             "appPath": "/library/build-muscle-program"
           },
@@ -2911,7 +2913,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/ten-minute-arms"
           }
@@ -2984,7 +2987,8 @@
                     "adjustable_bench"
                   ]
                 }
-              ]
+              ],
+              "notes": []
             },
             "appPath": "/library/quick-full-body",
             "cover": {
@@ -3024,7 +3028,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/beginner-fundamentals",
             "cover": {
@@ -3067,24 +3072,21 @@
             "defaultWeeks": 8,
             "defaultVariantId": "two-days",
             "fit": {
-              "state": "unavailable",
-              "reason": "equipment",
-              "slotIds": [
-                "lat-pulldown"
-              ],
-              "exercises": [
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
                 {
-                  "slotId": "lat-pulldown"
+                  "slotId": "lat-pulldown",
+                  "kind": "equipment",
+                  "missingEquipment": [
+                    "lat_pulldown"
+                  ]
                 }
-              ],
-              "missingEquipment": [
-                "lat_pulldown"
               ]
             },
             "programWeek": {
-              "weekStart": "2026-10-05",
-              "capacity": 6,
-              "defaultDates": []
+              "defaultDates": [],
+              "startDate": "2026-10-05"
             },
             "appPath": "/library/beginner-strength-program"
           },
@@ -3116,7 +3118,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/ten-minute-core",
             "cover": {
@@ -3161,24 +3164,21 @@
             "defaultWeeks": 8,
             "defaultVariantId": "two-days",
             "fit": {
-              "state": "unavailable",
-              "reason": "equipment",
-              "slotIds": [
-                "lat-pulldown"
-              ],
-              "exercises": [
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
                 {
-                  "slotId": "lat-pulldown"
+                  "slotId": "lat-pulldown",
+                  "kind": "equipment",
+                  "missingEquipment": [
+                    "lat_pulldown"
+                  ]
                 }
-              ],
-              "missingEquipment": [
-                "lat_pulldown"
               ]
             },
             "programWeek": {
-              "weekStart": "2026-10-05",
-              "capacity": 6,
-              "defaultDates": []
+              "defaultDates": [],
+              "startDate": "2026-10-05"
             },
             "appPath": "/library/build-muscle-program"
           },
@@ -3210,7 +3210,8 @@
             "supportedDays": [],
             "fit": {
               "state": "exact",
-              "variantIds": []
+              "variantIds": [],
+              "notes": []
             },
             "appPath": "/library/ten-minute-arms",
             "cover": {
@@ -3238,7 +3239,7 @@
         "timeZone": "UTC"
       }
     },
-    "browseNeedsSpace": {
+    "browseUnconfirmed": {
       "view": "workout-library",
       "record": {
         "mode": "browse",
@@ -3281,7 +3282,13 @@
             },
             "supportedDays": [],
             "fit": {
-              "state": "needs-space"
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
+                {
+                  "kind": "unknown-space"
+                }
+              ]
             },
             "appPath": "/library/quick-full-body"
           },
@@ -3312,7 +3319,13 @@
             },
             "supportedDays": [],
             "fit": {
-              "state": "needs-space"
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
+                {
+                  "kind": "unknown-space"
+                }
+              ]
             },
             "appPath": "/library/beginner-fundamentals"
           },
@@ -3347,7 +3360,13 @@
             "defaultWeeks": 8,
             "defaultVariantId": "two-days",
             "fit": {
-              "state": "needs-space"
+              "state": "exact",
+              "variantIds": [],
+              "notes": [
+                {
+                  "kind": "unknown-space"
+                }
+              ]
             },
             "appPath": "/library/beginner-strength-program"
           }
@@ -3418,7 +3437,8 @@
                 "flat_bench"
               ]
             }
-          ]
+          ],
+          "notes": []
         },
         "appPath": "/library/strength-for-runners",
         "description": "Jump squats after an easy ramp-up set, then Bulgarian split squats, Romanian deadlifts, slow calf raises and Copenhagen planks for the inner thighs and sides of the trunk. Volume stays low so the session fits beside your running week.",
@@ -3748,7 +3768,7 @@
         "timeZone": "UTC"
       }
     },
-    "itemProgramUnavailable": {
+    "itemProgramNoted": {
       "view": "workout-library",
       "record": {
         "mode": "item",
@@ -3782,26 +3802,26 @@
         "defaultWeeks": 8,
         "defaultVariantId": "two-days",
         "fit": {
-          "state": "unavailable",
-          "reason": "equipment",
-          "slotIds": [
-            "lat-pulldown"
+          "state": "exact",
+          "variantIds": [
+            "two-days",
+            "three-days"
           ],
-          "exercises": [
+          "notes": [
             {
               "slotId": "lat-pulldown",
               "exerciseId": "6ac21d094c342c17f74c3ce8",
-              "name": "Latzug"
+              "name": "Latzug",
+              "kind": "equipment",
+              "missingEquipment": [
+                "lat_pulldown"
+              ]
             }
-          ],
-          "missingEquipment": [
-            "lat_pulldown"
           ]
         },
         "programWeek": {
-          "weekStart": "2026-10-05",
-          "capacity": 6,
-          "defaultDates": []
+          "defaultDates": [],
+          "startDate": "2026-10-05"
         },
         "appPath": "/library/beginner-strength-program",
         "description": "Kniebeuge, Bankdr\u00fccken, Kreuzheben und Schulterdr\u00fccken in S\u00e4tzen zu f\u00fcnf Wiederholungen, mit Aufw\u00e4rms\u00e4tzen, vollen Pausen sowie je einer R\u00fccken- und Rumpf\u00fcbung pro Tag. Die Woche wiederholt sich, und deine Gewichte werden aus dem geplant, was du tats\u00e4chlich protokollierst. W\u00e4hle zwei oder drei Tage pro Woche.",
@@ -5108,7 +5128,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/short-conditioning",
         "description": "A three-minute warm-up, six 30-second hard efforts with a minute of easy rowing between each, and a two-minute cool-down. Hard means a pace you could repeat six times, not an all-out sprint.",
@@ -5243,7 +5264,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/short-conditioning",
         "cover": {
@@ -5390,11 +5412,10 @@
           "state": "exact",
           "variantIds": [
             "two-days"
-          ]
+          ],
+          "notes": []
         },
         "programWeek": {
-          "weekStart": "2026-10-05",
-          "capacity": 4,
           "variantId": "two-days",
           "defaultDates": [
             {
@@ -5404,7 +5425,8 @@
                 "2026-10-08"
               ]
             }
-          ]
+          ],
+          "startDate": "2026-10-05"
         },
         "appPath": "/library/test-blocked-program",
         "description": "A test program for checking blocks and alternating weeks. Weeks 1 to 4 are Base and weeks 5 to 8 are Build. In each block, Week A and Week B alternate, and Build adds a set to each exercise.",
@@ -6749,11 +6771,10 @@
           "state": "exact",
           "variantIds": [
             "two-days"
-          ]
+          ],
+          "notes": []
         },
         "programWeek": {
-          "weekStart": "2026-10-05",
-          "capacity": 4,
           "variantId": "two-days",
           "defaultDates": [
             {
@@ -6763,7 +6784,8 @@
                 "2026-10-08"
               ]
             }
-          ]
+          ],
+          "startDate": "2026-10-05"
         },
         "appPath": "/library/test-alternating-program",
         "description": "Ein Testprogramm mit einem einzigen Block: Woche A und Woche B wechseln sich sechs Wochen lang ab.",
@@ -7556,7 +7578,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/morning-yoga",
         "description": "A minute of easy breathing in a cross-legged seat, child's pose and downward dog, a low lunge on each side, three slow rounds of sun salutation A, then warrior two and tree pose on each side. There is no countdown: hold each pose for about the time shown, and stay within a comfortable range.",
@@ -7954,7 +7977,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/dumbbell-amrap",
         "description": "As many rounds as you can in 15 minutes of dumbbell snatches, goblet squats, push-ups and rows.",
@@ -8253,7 +8277,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/bodyweight-emom",
         "description": "Every minute for 8 minutes, do 10 squats or 8 knee push-ups, alternating, and rest for what is left of the minute.",
@@ -8432,7 +8457,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/bodyweight-tabata",
         "description": "Two Tabatas, each eight rounds of 20 seconds hard and 10 seconds rest, alternating two moves.",
@@ -8673,7 +8699,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/dumbbell-strength-and-chipper",
         "description": "Romanian deadlifts and floor presses for strength, then one round for time with an 18-minute cap.",
@@ -9137,7 +9164,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/dumbbell-amrap",
         "description": "So viele Runden wie m\u00f6glich in 15 Minuten aus Kurzhantel-Rei\u00dfen, Goblet Squats, Liegest\u00fctzen und Rudern.",
@@ -9436,7 +9464,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/bodyweight-emom",
         "description": "Jede Minute 8 Minuten lang abwechselnd 10 Kniebeugen oder 8 Liegest\u00fctze auf den Knien, dann Pause f\u00fcr den Rest der Minute.",
@@ -9615,7 +9644,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/bodyweight-tabata",
         "description": "Zwei Tabatas mit je acht Runden aus 20 Sekunden hart und 10 Sekunden Pause, abwechselnd zwei \u00dcbungen.",
@@ -9856,7 +9886,8 @@
         "supportedDays": [],
         "fit": {
           "state": "exact",
-          "variantIds": []
+          "variantIds": [],
+          "notes": []
         },
         "appPath": "/library/dumbbell-strength-and-chipper",
         "description": "Rum\u00e4nisches Kreuzheben und Bodendr\u00fccken f\u00fcr die Kraft, dann eine Runde auf Zeit mit einem Limit von 18 Minuten.",
@@ -10607,6 +10638,229 @@
       "restingHrSeries": [],
       "zone2Minutes": 0,
       "activities": []
+    }
+  },
+  "unifiedPlanning": {
+    "programRepeat": {
+      "view": "program",
+      "record": {
+        "id": "aaaaaaaaaaaaaaaaaaaaaaaa",
+        "name": "Weekend strength",
+        "status": "active",
+        "revision": "program:1:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "related": {
+        "displayName": "Weekend strength",
+        "oneTime": false,
+        "running": false,
+        "weekdays": [
+          "SA"
+        ],
+        "section": "upcoming",
+        "schedules": [
+          {
+            "id": "bbbbbbbbbbbbbbbbbbbbbbbb",
+            "name": "Weekend strength",
+            "templateId": "cccccccccccccccccccccccc",
+            "authored": {
+              "recurrence": "FREQ=WEEKLY;BYDAY=SA",
+              "anchorDate": "2026-11-14",
+              "startDate": "2026-11-14",
+              "endDate": "2026-12-19"
+            },
+            "windows": [
+              {
+                "recurrence": "FREQ=WEEKLY;BYDAY=SA",
+                "anchorDate": "2026-11-14",
+                "validFrom": "2026-11-14",
+                "validUntil": "2026-12-19"
+              }
+            ],
+            "currentRule": "FREQ=WEEKLY;BYDAY=SA",
+            "activeTiming": true,
+            "stopped": false,
+            "nextOccurrence": "2026-11-14",
+            "programId": "aaaaaaaaaaaaaaaaaaaaaaaa",
+            "revision": "schedule:1:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ],
+        "schedulesMeta": {
+          "total": 1,
+          "page": 1,
+          "limit": 10
+        },
+        "attachedWorkouts": [],
+        "attachedWorkoutsMeta": {
+          "total": 0,
+          "page": 1,
+          "limit": 10
+        },
+        "recentWorkouts": [],
+        "recentWorkoutsMeta": {
+          "total": 0,
+          "page": 1,
+          "limit": 10
+        },
+        "workoutCount": 0,
+        "loggedWorkoutCount": 0,
+        "upcomingWorkoutCount": 0,
+        "span": {
+          "startDate": "2026-11-14",
+          "endDate": "2026-12-19"
+        },
+        "firstSessionDate": "2026-11-14",
+        "nextSessionDate": "2026-11-14",
+        "lastSessionDate": "2026-12-19",
+        "today": "2026-11-11",
+        "page": 1,
+        "limit": 10,
+        "collection": "schedules"
+      },
+      "presentation": {
+        "locale": "en",
+        "unitSystem": "metric",
+        "theme": "light",
+        "skin": null,
+        "timeZone": "America/Denver"
+      }
+    },
+    "programOnce": {
+      "view": "program",
+      "record": {
+        "id": "dddddddddddddddddddddddd",
+        "name": "10 Minute Arms",
+        "status": "active",
+        "revision": "program:1:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "related": {
+        "displayName": "10 Minute Arms",
+        "oneTime": true,
+        "running": false,
+        "weekdays": [
+          "TU"
+        ],
+        "section": "finished",
+        "schedules": [],
+        "schedulesMeta": {
+          "total": 0,
+          "page": 1,
+          "limit": 10
+        },
+        "attachedWorkouts": [
+          {
+            "id": "eeeeeeeeeeeeeeeeeeeeeeee",
+            "title": "10 Minute Arms",
+            "date": "2026-11-10",
+            "status": "completed"
+          }
+        ],
+        "attachedWorkoutsMeta": {
+          "total": 1,
+          "page": 1,
+          "limit": 10
+        },
+        "recentWorkouts": [
+          {
+            "id": "eeeeeeeeeeeeeeeeeeeeeeee",
+            "title": "10 Minute Arms",
+            "date": "2026-11-10",
+            "status": "completed"
+          }
+        ],
+        "recentWorkoutsMeta": {
+          "total": 1,
+          "page": 1,
+          "limit": 10
+        },
+        "workoutCount": 1,
+        "loggedWorkoutCount": 1,
+        "upcomingWorkoutCount": 0,
+        "span": {
+          "startDate": "2026-11-10",
+          "endDate": "2026-11-10"
+        },
+        "firstSessionDate": "2026-11-10",
+        "lastSessionDate": "2026-11-10",
+        "today": "2026-11-11",
+        "page": 1,
+        "limit": 10,
+        "collection": "schedules"
+      },
+      "presentation": {
+        "locale": "en",
+        "unitSystem": "metric",
+        "theme": "light",
+        "skin": null,
+        "timeZone": "America/Denver"
+      }
+    },
+    "scheduleActive": {
+      "view": "schedule",
+      "record": {
+        "id": "bbbbbbbbbbbbbbbbbbbbbbbb",
+        "name": "Weekend strength",
+        "templateId": "cccccccccccccccccccccccc",
+        "authored": {
+          "recurrence": "FREQ=WEEKLY;BYDAY=SA",
+          "anchorDate": "2026-11-14",
+          "startDate": "2026-11-14",
+          "endDate": "2026-12-19"
+        },
+        "windows": [
+          {
+            "recurrence": "FREQ=WEEKLY;BYDAY=SA",
+            "anchorDate": "2026-11-14",
+            "validFrom": "2026-11-14",
+            "validUntil": "2026-12-19"
+          }
+        ],
+        "currentRule": "FREQ=WEEKLY;BYDAY=SA",
+        "activeTiming": true,
+        "stopped": false,
+        "nextOccurrence": "2026-11-14",
+        "programId": "aaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "schedule:1:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "related": {
+        "today": "2026-11-11"
+      },
+      "presentation": {
+        "locale": "en",
+        "unitSystem": "metric",
+        "theme": "light",
+        "skin": null,
+        "timeZone": "America/Denver"
+      }
+    },
+    "scheduleStopped": {
+      "view": "schedule",
+      "record": {
+        "id": "bbbbbbbbbbbbbbbbbbbbbbbb",
+        "name": "Weekend strength",
+        "templateId": "cccccccccccccccccccccccc",
+        "authored": {
+          "recurrence": "FREQ=WEEKLY;BYDAY=SA",
+          "anchorDate": "2026-11-14",
+          "startDate": "2026-11-14",
+          "endDate": "2026-12-19"
+        },
+        "windows": [],
+        "currentRule": "FREQ=WEEKLY;BYDAY=SA",
+        "activeTiming": false,
+        "stopped": true,
+        "programId": "aaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "schedule:1:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      "related": {
+        "today": "2026-11-11"
+      },
+      "presentation": {
+        "locale": "en",
+        "unitSystem": "metric",
+        "theme": "light",
+        "skin": null,
+        "timeZone": "America/Denver"
+      }
     }
   }
 }

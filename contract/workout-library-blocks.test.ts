@@ -17,7 +17,7 @@ import type { WorkoutLibraryView } from '../apps/workout/workoutLibraryModel'
  * each alternating Week A and Week B), a German Program whose only block
  * alternates and so carries no label, and Morning Yoga.
  */
-const payloads = fixtures.workoutLibrary as unknown as Record<'itemBlockedProgram' | 'itemOneBlockProgram' | 'itemYoga' | 'itemProgramUnavailable' | 'browse', WorkoutLibraryView>
+const payloads = fixtures.workoutLibrary as unknown as Record<'itemBlockedProgram' | 'itemOneBlockProgram' | 'itemYoga' | 'itemProgramNoted' | 'browse', WorkoutLibraryView>
 const validate = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(schema)
 
 let mounted: App | undefined
@@ -55,7 +55,7 @@ const weekButtons = (section: Element) => [...section.querySelectorAll('[role="g
 
 describe('workout Library blocks schema', () => {
   it('admits a blocked Program, a one-block Program and a yoga Workout, and still admits a variant without blocks', () => {
-    for (const name of ['itemBlockedProgram', 'itemOneBlockProgram', 'itemYoga', 'itemProgramUnavailable'] as const)
+    for (const name of ['itemBlockedProgram', 'itemOneBlockProgram', 'itemYoga', 'itemProgramNoted'] as const)
       expect(validate(payloads[name]), `${name} ${JSON.stringify(validate.errors)}`).toBe(true)
     const extra = structuredClone(payloads.itemBlockedProgram) as unknown as { record: { content: { variants: Array<{ blocks: Array<Record<string, unknown>> }> } } }
     extra.record.content.variants[0]!.blocks[0]!.futureField = 'kept'
@@ -134,7 +134,7 @@ describe('workout Library blocks card', () => {
   })
 
   it('renders a Program without blocks as before: its sessions under the day count, no weeks and no switch', async () => {
-    const { root } = await mount(payloads.itemProgramUnavailable, 'de')
+    const { root } = await mount(payloads.itemProgramNoted, 'de')
     expect(root.querySelector('section[aria-labelledby^="library-block-"]')).toBeNull()
     expect(root.querySelector('[role="group"]')).toBeNull()
     expect([...root.querySelectorAll('h3')].map(text)).toEqual(['2 Tage pro Woche', '3 Tage pro Woche'])

@@ -7,12 +7,25 @@ const revision = (type: string) => z.string().regex(new RegExp(`^${type}:[12]:[a
 const meta = z.object({ total: z.number().int().nonnegative(), page: z.number().int().positive(), limit: z.number().int().positive() })
 const presentation = presentationSchema.extend({ timeZone: z.string() })
 const status = z.enum(['planned', 'in_progress', 'completed', 'skipped', 'abandoned'])
-const schedule = z.object({ id, name: z.string(), templateId: id, templateName: z.string().optional(), recurrence: z.string(), startDate: day, endDate: day, enabled: z.boolean(), programId: id.optional(), programName: z.string().optional(), nextOccurrence: day.optional() })
+// Consumer projection of the unified-planning timing contract (EF-2566).
+// Authored configuration survives stops; windows alone determine occurrence dates.
+const authored = z.object({ recurrence: z.string(), anchorDate: day, startDate: day, endDate: day })
+const timingWindow = z.object({ recurrence: z.string(), anchorDate: day, validFrom: day, validUntil: day })
+const schedule = z.object({
+  id, name: z.string(), templateId: id, templateName: z.string().optional(),
+  authored, windows: z.array(timingWindow), currentRule: z.string(), activeTiming: z.boolean(), stopped: z.boolean(),
+  programId: id.optional(), programName: z.string().optional(), nextOccurrence: day.optional()
+})
 const workout = z.object({ id, title: z.string(), date: day, status })
 export const programViewSchema = z.object({
   view: z.literal('program'),
   record: z.object({ id, name: z.string(), description: z.string().optional(), status: z.enum(['active', 'archived']), revision: revision('program') }),
   related: z.object({
+    displayName: z.string(), oneTime: z.boolean(), running: z.boolean(),
+    weekdays: z.array(z.enum(['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'])),
+    section: z.enum(['active', 'upcoming', 'finished']),
+    library: z.object({ itemId: z.string(), version: z.number().int(), variantId: z.string().optional() }).optional(),
+    firstSessionDate: day.optional(), nextSessionDate: day.optional(), lastSessionDate: day.optional(),
     schedules: z.array(schedule), schedulesMeta: meta, attachedWorkouts: z.array(workout), attachedWorkoutsMeta: meta,
     recentWorkouts: z.array(workout), recentWorkoutsMeta: meta, workoutCount: z.number().int().nonnegative(),
     span: z.object({ startDate: day, endDate: day }).optional(), supportsGoal: z.object({ id, name: z.string() }).optional(),
@@ -58,6 +71,10 @@ export type CalendarGoalDay = z.infer<typeof calendarGoalDay>
 export type ProgramView = z.infer<typeof programViewSchema>
 export type ScheduleView = z.infer<typeof scheduleViewSchema>
 export type CalendarView = z.infer<typeof calendarViewSchema>
+/** Show the server's section; active storage status alone does not mean training is still upcoming. */
+export const programStateKey = (program: ProgramView) => program.record.status === 'archived'
+  ? 'archived'
+  : program.related.section === 'upcoming' ? 'programUpcoming' : program.related.section === 'finished' ? 'repeatFinished' : 'active'
 export type PlanningView = ProgramView | ScheduleView | CalendarView
 export const planningViewSchema = z.discriminatedUnion('view', [programViewSchema, scheduleViewSchema, calendarViewSchema])
 

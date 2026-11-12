@@ -48,7 +48,7 @@ const modelContext = (view: TrainingView): Record<string, unknown> => {
   const base = { view: view.view, recordId: view.record.id, revision: view.record.revision }
   if (view.view === 'goal') return { ...base, status: view.record.status, checkInCount: view.related.checkInCount }
   if (view.view === 'goal-plan') return { ...base, status: view.record.status, activeVersionId: view.related.activeVersion.id, displayedVersionId: view.related.displayedVersion.id }
-  if (view.view === 'schedule') return { ...base, enabled: view.record.enabled }
+  if (view.view === 'schedule') return { ...base, activeTiming: view.record.activeTiming }
   if (view.view === 'program') return { ...base, status: view.record.status }
   return base
 }
@@ -221,11 +221,12 @@ export const createWorkoutConnection = () => {
     pending.value = { name: 'create_workout', arguments: { scheduleId, date, idempotencyKey: intentKey() } }
     return execute()
   }
-  const updatePlanning = (patch: { enabled: boolean } | { status: 'active' | 'archived' }) => {
+  const updatePlanning = (change: { timing: { op: 'stop' | 'resume' } } | { status: 'active' | 'archived' }) => {
     const current = route.value
     if (!canWrite.value || pending.value || !current || (current.view !== 'program' && current.view !== 'schedule')) return
+    if ((current.view === 'schedule') !== ('timing' in change)) return
     pending.value = { name: `update_${current.view}`, arguments: { [`${current.view}Id`]: current.record.id,
-      ...(current.view === 'schedule' ? { today: current.related.today } : {}), patch,
+      ...('timing' in change ? { today: current.related.today, timing: change.timing } : { patch: change }),
       expectedRevision: current.record.revision, idempotencyKey: intentKey() } }
     return execute()
   }

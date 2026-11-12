@@ -14,11 +14,17 @@ it('keeps calendar day ranges intact across DST and leap days', () => {
 it('matches the product recurrence interpretation for the shared fixtures', () => {
   for (const fixture of fixtures.recurrences) expect(parseRecurrence(fixture.rule)).toMatchObject(fixture.expected)
 })
-it('publishes open input projections for each planning view', () => {
+it('accepts canonical one-off and repeat reads, including a stopped repeat, through the published projections', () => {
   for (const schema of [programViewSchema, calendarViewSchema, scheduleViewSchema]) {
     const projection = z.toJSONSchema(schema, { io: 'input', target: 'draft-07' })
     expect(JSON.stringify(projection)).not.toContain('"additionalProperties":false')
     const validator = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(projection)
     expect(validator({ view: 'unrecognized' })).toBe(false)
   }
+  for (const fixture of Object.values(fixtures.unifiedPlanning)) {
+    const schema = fixture.view === 'program' ? programViewSchema : scheduleViewSchema
+    const validator = new Ajv({ removeAdditional: false, useDefaults: false, coerceTypes: false }).compile(z.toJSONSchema(schema, { io: 'input', target: 'draft-07' }))
+    expect(validator(fixture), JSON.stringify(validator.errors)).toBe(true)
+  }
+
 })
