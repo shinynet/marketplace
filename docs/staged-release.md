@@ -12,13 +12,25 @@ candidate plugin manifests identify 0.1.44. See the current candidate section in
 Focused qualification: app consumer projections, pause/readback navigation,
 compact links, Library notes, timed prescriptions, blocks/covers and the exact
 calendar fixture were checked locally. Typecheck and lint pass. Two consecutive
-card builds are byte-identical (1,106,322 bytes, below the 1,500,000-byte limit).
+card builds after the Argon review correction are byte-identical (1,106,122 bytes,
+below the 1,500,000-byte limit).
 Static SSR captures at 320 and 1440 pixels in both themes and English/German
 have no horizontal overflow. They use synthetic records and compiled card CSS;
 they do not prove an authenticated MCP host loaded the card. No new automated
 case was added: existing schema/navigation/consent guards were extended and
-four presentation-only assertions were removed. The final immutable manifest
-identity will be recorded after strict packaging at the reviewed commit. No evidence below for an older release is claimed for this candidate.
+four presentation-only assertions were removed. The Argon interim source review found an obsolete unconfigured-space banner
+calling a deleted translation key. The banner is removed: browse items retain
+their own equipment-unconfirmed notes and stay preparable as written. A temporary
+EN/DE render check failed before and passed after the correction; it was removed
+under the presentation-test policy. The retained Library file passed 14 tests;
+changed-file lint and typecheck passed. Eight fresh synthetic renders cover that
+browse state at 320/1440 pixels, both themes and EN/DE, with inline notes, no raw
+translation key or horizontal overflow. They are component evidence, not an
+authenticated host. The skill's occurrence example now describes active saved
+timing, without the retired disabled state. Earlier local candidate-r3/r3b
+manifests predate this correction and cannot qualify the new source.
+The final immutable manifest identity will be recorded after strict packaging
+at the reviewed commit. No evidence below for an older release is claimed for this candidate.
 
 # 0.1.43 completed promotion (EF-2464)
 

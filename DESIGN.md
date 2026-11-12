@@ -7,3 +7,5 @@ Inspect actual affected iframe states at narrow/wide sizes and both themes. Long
 
 
 Unified planning (0.1.44 candidate, EF-2566): program cards use server-owned display names and one-time facts. A one-off opens its dated workout collection without program-management controls. Repeating workouts display the authored rule and dates plus the actual timing state; Pause/Resume uses canonical timing operations. End stops future repeats and retains history. Library covers state session/day/week shape, notes stay inline and do not block preparation, and unconfirmed equipment stays preparable as written. This updates consumer presentation; it does not copy the application's page layouts into the iframe.
+
+Unconfirmed Library equipment appears as an inline note on each affected browse item, without a separate setup warning above the collection. The item remains preparable as written.

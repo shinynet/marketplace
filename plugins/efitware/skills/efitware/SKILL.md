@@ -402,7 +402,7 @@ Explicit user edits are different from recommendations: a user may instruct `log
 3. The response is the created workout, `status: "planned"`, with the library workout's planned tree deep-copied: fresh `we-…`/`s-…` ids, planned values kept, actuals and completion stripped. Those new set ids are what flow 1 logs into.
 4. The first `log_set` that records an actual value or a completion moves it from `planned` to `in_progress` on its own; one that only changes planned targets or notes leaves it planned. On finish, `update_workout { workoutId, patch: { status: "completed" } }`. `in_progress` and `completed` are the only two states this surface can set — a workout cannot be moved back to `planned`.
 
-To materialize a scheduled session instead: `get_schedules { today }`, then `create_workout { date, scheduleId, idempotencyKey }` where `date` is an actual occurrence of that schedule. A date that is not an occurrence is refused, and so is a schedule the user has disabled — both messages are in the refusal table at the end, which is the one place this document quotes them.
+To materialize a scheduled session instead: `get_schedules { today }`, then `create_workout { date, scheduleId, idempotencyKey }` where `date` is an active occurrence in that schedule's saved timing. A date with no active occurrence (including a stopped or expired stretch) is refused — the message is in the refusal table at the end, which is the one place this document quotes it.
 
 ### 3. Set up a weekly schedule
 

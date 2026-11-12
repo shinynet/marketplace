@@ -116,12 +116,6 @@ const facts = (item: { format: string, sessionMinutes: { min: number, max: numbe
       {{ t('workoutLibraryUi.browseIntro', { space }) }}
     </p>
     <p
-      v-if="record.trainingSpace.equipment === 'unconfigured'"
-      class="mt-4 rounded border border-terracotta p-3 text-sm"
-    >
-      {{ t('workoutLibraryUi.needsSpace', { space }) }}
-    </p>
-    <p
       v-if="!record.data.length"
       class="my-8 text-muted"
     >

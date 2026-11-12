@@ -94,8 +94,6 @@ describe('workout Library vocabulary', () => {
 
 describe('workout Library card', () => {
 
-
-
   it('reads a withheld reason without naming a limitation', async () => {
     const view = structuredClone(payloads.itemAdaptable)
     if (view.record.mode !== 'item' || view.record.fit.state !== 'adaptable') throw new Error('fixture')
