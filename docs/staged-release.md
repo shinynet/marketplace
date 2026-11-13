@@ -1,13 +1,10 @@
-# 0.1.44 unified planning candidate (EF-2566)
+# 0.1.44 unified planning promotion (EF-2566, prepared)
 
-Prepared for independent review. Not tagged, staged, promoted or published.
-The reviewed minimum app capability source is
-`3ddc8ab37dec714decedea9b86cc192a68524867` (app PR #1961).
-The app pin and its composed qualification follow immutable prerelease staging;
-compatible production READY is required before stable promotion.
-The source branch retains the published catalogs/channels at 0.1.43 while both
-candidate plugin manifests identify 0.1.44. See the current candidate section in
-[release contracts](releases.md) for the public contract changes.
+Reviewed source `12eb08a6854d1877faf7d55056b9ee30242fcd4d` is preserved by annotated tag [v0.1.44](https://github.com/shinynet/marketplace/releases/tag/v0.1.44) and main ancestry. Immutable prerelease `443620790` contains 27 assets; manifest SHA-256 is `d432aabea38c81734f17106a1e67412e65eb54ee74e3980e23e2713c21d9f0be`. Its minimum app capability is `3ddc8ab37dec714decedea9b86cc192a68524867`.
+
+Compatible [v0.14.0](https://github.com/shinynet/efitware-app/releases/tag/v0.14.0) is serving source `d23ed4c8d9759e4ac3ed0e4b9b740e8f885efa83` at READY deployment `dpl_FFptRdYAjnmESmN9sEmgWDrcXAD5`, including that minimum capability by ancestry. Fresh production-target and alias reads agreed; health reports reachable database, ready search and current migrations. All four public 0.1.44 downloads match the staged manifest and ZIP identities. The application release workflow [43374016060](https://github.com/shinynet/efitware-app/actions/runs/43374016060) completed successfully.
+
+This promotion changes only channel/receipt metadata and nonserved documentation. Both versionless catalogs and both 0.1.44 plugin manifests stay byte-identical. After independent approval and merge, the existing promotion workflow must verify every asset byte and identity before changing only the prerelease/latest metadata, then verify the identities remain unchanged. No rebuild or replacement of immutable assets is authorized. The website mirror follows verified stable promotion and its own reviewed publication; external MCP-host, Desktop and physical-device activation are not claimed.
 
 Focused qualification: app consumer projections, pause/readback navigation,
 compact links, Library notes, timed prescriptions, blocks/covers and the exact
@@ -29,8 +26,7 @@ translation key or horizontal overflow. They are component evidence, not an
 authenticated host. The skill's occurrence example now describes active saved
 timing, without the retired disabled state. Earlier local candidate-r3/r3b
 manifests predate this correction and cannot qualify the new source.
-The final immutable manifest identity will be recorded after strict packaging
-at the reviewed commit. No evidence below for an older release is claimed for this candidate.
+Strict r4/r4b release packages were byte-identical at the reviewed source before staging. Earlier local candidate-r3/r3b identities remain superseded. No evidence below for an older release is claimed for this candidate.
 
 # 0.1.43 completed promotion (EF-2464)
 
